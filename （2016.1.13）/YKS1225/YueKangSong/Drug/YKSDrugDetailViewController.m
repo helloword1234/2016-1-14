@@ -29,10 +29,10 @@
 @property(nonatomic,assign)NSInteger timer;
 @property (strong, nonatomic) NSArray *imageURLStrings;
 @property (weak, nonatomic) IBOutlet UIButton *shoppingCartButton;
-
+//小圆点
 @property (strong, nonatomic) UIPageControl *pageControl;
 @property (strong, nonatomic) UIScrollView *scrollView;
-
+//滚动试图
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 
 @property (assign, nonatomic) BOOL isCreat;
@@ -101,6 +101,7 @@
 - (void)nullDrugDisplay
 {
     self.addButton.enabled = YES;
+    //加入购物车
     self.shoppingButton.enabled = YES;
     self.NullImage.hidden = YES;
     [self.addButton setImage:[UIImage imageNamed:@"shoppingcart_icon_normal"] forState:UIControlStateNormal];
@@ -204,6 +205,7 @@
     
 }
 #pragma mark - custom
+//收藏按钮
 - (void)collectAction:(UIButton *)sender {
     if (![YKSUserModel isLogin]) {
         [YKSTools login:self];
@@ -211,6 +213,9 @@
     }
 
     if ([sender.imageView.image isEqual:[UIImage imageNamed:@"collect_selected"]]) {
+        [self showToastMessage:@"已取消收藏"];
+
+
         [GZBaseRequest deleteCollectByGid:_drugInfo[@"gid"]
                                  callback:^(id responseObject, NSError *error) {
                                      if (error) {
@@ -221,12 +226,14 @@
                                          
                                          [sender setImage:[UIImage imageNamed:@"collect_normal"]
                                                  forState:UIControlStateNormal];
+                                         
                                      } else {
                                          [self showToastMessage:responseObject[@"msg"]];
                                      }
         }];
     } else {
-        
+        [self showToastMessage:@"收藏成功"];
+
         [GZBaseRequest addCollectByGid:_drugInfo[@"gid"]
                               callback:^(id responseObject, NSError *error) {
                                   if (error) {
