@@ -243,6 +243,7 @@
             }
 
             [self setBtnTitleWithCurrentAddress];
+            
         }
         
         else {
@@ -368,9 +369,9 @@
              if (responseObject && [responseObject[@"status"] integerValue] == 0) {
                  NSDictionary *dic = responseObject[@"result"];
                  _myAddressInfo = dic;
-                //存储服务器
+                //把城市写入沙河
                  [UIViewController selectedCityArchiver:dic[@"addressComponent"]];
-                 
+                 //把当前定位信息传入沙河
                  [UIViewController setMyLocation:dic];
                  
              }
@@ -536,7 +537,7 @@
     
     __weak id bself = self;
     YKSSelectAddressView *selectAddressView = nil;
-    
+    //更换地址二级界面
     _myVC=[[YKSMyAddressViewcontroller alloc]init];
     
     _myVC.hidesBottomBarWhenPushed=YES;
@@ -555,14 +556,15 @@
        NSArray *ary = [latAndLng componentsSeparatedByString:@","];
        NSString *lat = ary[0];
        NSString *lng = ary[1];
-       
+       //把选择的经纬度发送给后台,根据经纬度返回药店信息
        [GZBaseRequest DrugStoreUploadLat:[lat floatValue]
                                      lng:[lng floatValue] callback:^(id responseObject, NSError *error) {
-                                         
+                                         //如果发送成功
                                          if (ServerSuccess(responseObject))
                                          {
                                              NSArray *array =responseObject[@"data"][@"shoplist"];
                                              NSDictionary *dic =[array objectAtIndex:0];
+                                             //药品ID
                                              _DrugID2=dic[@"id"];
                                              [[NSUserDefaults standardUserDefaults] setObject:_DrugID2 forKey:@"drugid2"];
                                          }
@@ -673,7 +675,7 @@
         return 76;
     }
 }
-
+//分区头的设计
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (section == 0||section==1) {
         UIView *aView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 20)];
@@ -692,7 +694,7 @@
     }
     return nil;
 }
-
+//分区头的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
    
         return 26.0f;
@@ -715,7 +717,7 @@
         return 1;
     }
 }
-
+//首页数据设置
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
@@ -751,7 +753,7 @@
         if (!cell) {
             cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"secondCell"];
         }
-        
+        //药品分类的灰色虚线
         UIView *view=[[UIView alloc]init];
         view.frame=CGRectMake(0, 56, SCREEN_WIDTH, 1);
         view.backgroundColor=[UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1.0];
@@ -850,8 +852,8 @@
     _descArray = nil;
     _nameArray = nil;
 }
-//首页数据
 
+//首页数据
 -(void)requestData{
 
 [GZBaseRequest drugCategoryListCallback:^(id responseObject, NSError *error) {
@@ -906,7 +908,7 @@
     
     [self.navigationController pushViewController:vc animated:YES];
 }
-
+//底部电话拨打
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 2) {
@@ -922,6 +924,7 @@
     return 0;
 }
 
+//底部更多选项
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     if (section==1) {
         UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 32)];
