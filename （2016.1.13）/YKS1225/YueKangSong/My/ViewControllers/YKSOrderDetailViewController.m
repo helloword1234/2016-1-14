@@ -63,8 +63,9 @@
                                       //  第三阶段“签收”
                                       NSString *info1 = descriptions[2];
                                       info1 = [NSString stringWithFormat:@"%@ \n任何意见都欢迎联系我们。",info1];
-                                      NSString * string12=[NSString stringWithFormat:@"%ld",0x000000019fa9bc10];
-                                      string12=info1;
+                                      //有时会返回16进制数据,转换一下  无用代码
+//                                      NSString * string12=[NSString stringWithFormat:@"%ld",0x000000019fa9bc10];
+//                                      string12=info1;
                                       descriptions[2] = info1;
                                       
                                       //   第二阶段“派送”
