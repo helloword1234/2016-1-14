@@ -376,35 +376,46 @@
                                     }];
     } else {
         
-        
-        [GZBaseRequest editAddressById:_addressInfo[@"id"]
-                           expressArea:areaCode
-                             community:_streetField.text
-                       communityLatLng:latLng
-                         detailAddress:detailAddress
-                              contacts:_nameField.text
-                             telePhone:_phoneField.text
-                              cityName:_City_Name.text
-                              callback:^(id responseObject, NSError *error) {
-                                  [self hideProgress];
-                                  if (error) {
-                                      [self showToastMessage:@"网络加载失败"];
-                                      return ;
-                                  }
-                                  if (ServerSuccess(responseObject)) {
-//                                      [self.navigationController showToastMessage:@"更新成功"];
-                                      [self.navigationController popViewControllerAnimated:YES];
-                                      
-                                      NSLog(@"更改收货地址成功 = %@", responseObject);
-                                  } else {
-                                      [self showToastMessage:responseObject[@"msg"]];
-                                  }
-                              }];
-        
-        
+        //判断用户是否修改收货地址，与传过来的地址匹配
+        if ([_nameField.text isEqualToString:_addressInfo[@"express_username"]] && [_phoneField.text isEqualToString:_addressInfo[@"express_mobilephone"]] && [_streetField.text isEqualToString:_addressInfo[@"community"]] && [_detailAddressField.text isEqualToString:_addressInfo[@"express_detail_address"]] && [_City_Name.text isEqualToString:_addressInfo[@"city_name"]]) {
+            //用户没有修改收货地址，直接返回到上一页
+            [self.navigationController popViewControllerAnimated:YES];
+        }else
+        {
+            //修改地址
+            [GZBaseRequest editAddressById:_addressInfo[@"id"]
+                               expressArea:areaCode
+                                 community:_streetField.text
+                           communityLatLng:latLng
+                             detailAddress:detailAddress
+                                  contacts:_nameField.text
+                                 telePhone:_phoneField.text
+                                  cityName:_City_Name.text
+                                  callback:^(id responseObject, NSError *error) {
+                                      [self hideProgress];
+                                      if (error) {
+                                          [self showToastMessage:@"网络加载失败"];
+                                          return ;
+                                      }
+                                      if (ServerSuccess(responseObject)) {
+                                          //                                      [self.navigationController showToastMessage:@"更新成功"];
+                                          //用户修改地址成功，弹出保存成功
+                                          [self showToastMessage:@"保存成功"];
+                                          //停留两秒以后，返回上一页
+                                          dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                              [self.navigationController popViewControllerAnimated:YES];
+                                          });
+                                          
+                                          NSLog(@"更改收货地址成功 = %@", responseObject);
+                                      } else {
+                                          //此处弹出“操作频繁”，一定时间段内用户只能修改一次地址
+                                          [self showToastMessage:responseObject[@"msg"]];
+                                      }
+                                  }];
+            
+        }
         
     }
-    
     if ([self.fflag isEqualToString:@"1"]) {
       
         
