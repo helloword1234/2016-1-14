@@ -17,6 +17,7 @@
 
 @property (strong, nonatomic) NSMutableArray *datas;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong,nonatomic) NSString *telePhoneNumber;//获取到派送员的电话
 
 
 @end
@@ -135,7 +136,10 @@
                                       // 第二个
                                       UIButton  *Btn2 = [[UIButton alloc] initWithFrame:CGRectMake(0, 90, labelView.bounds.size.width-5, labelView.bounds.size.height/3-15)];
                                       [Btn2 setBackgroundImage:[UIImage imageNamed:@"kuang@2x.png"] forState:UIControlStateNormal];
-                                      Btn2.userInteractionEnabled=NO;
+                                      //打开button的用户交互
+                                      Btn2.userInteractionEnabled=YES;
+                                      //添加button的点击事件
+                                      [Btn2 addTarget:self action:@selector(placeAction:) forControlEvents:(UIControlEventTouchUpInside)];
                                       
                                       // 第三个
                                       UIButton  *Btn3 = [[UIButton alloc] initWithFrame:CGRectMake(0, 175, labelView.bounds.size.width-5, labelView.bounds.size.height/3-15)];
@@ -156,9 +160,9 @@
                                       dJlabel1.font=[UIFont systemFontOfSize:16];
                                       
                                       
-                                      
                                       UILabel *dJlabel2=[[UILabel alloc]initWithFrame:CGRectMake(18, Btn1.bounds.size.height/2, Btn1.bounds.size.width-30, Btn1.bounds.size.height/2-5)];
-                                      NSString *dJinfo =[NSString stringWithFormat:@"单号：%@",responseObject[@"data"][@"courierPhone"]];
+                                      NSString *dJinfo =[NSString stringWithFormat:@"单号：%@",_orderInfo[@"express_orderid"]];
+                                      
                                       dJlabel2.text=dJinfo;
                                       dJlabel2.font=[UIFont systemFontOfSize:14];
                                       dJlabel2.textColor=[UIColor colorWithRed:134/255.0 green:135/255.0 blue:136/255.0 alpha:1];
@@ -187,6 +191,9 @@
                                       kDlabel2.text=kDinfo;
                                       kDlabel2.font=[UIFont systemFontOfSize:14];
                                       kDlabel2.textColor=[UIColor colorWithRed:134/255.0 green:135/255.0 blue:136/255.0 alpha:1];
+                                      
+                                      //给快递员电话属性赋值
+                                      _telePhoneNumber = responseObject[@"data"][@"courierPhone"];
                                       
                                       UILabel *kDlabel3 = [[UILabel alloc]initWithFrame:CGRectMake(Btn2.bounds.size.width-55, Btn2.bounds.size.height/2,50, 20)];
                                       NSString *string2 = times[1];
@@ -432,6 +439,12 @@
         return cell;
     }
     
+}
+
+//拨打电话
+-(void)placeAction:(UIButton *)button
+{
+    [YKSTools call:_telePhoneNumber inView:self.view];
 }
 
 /*
