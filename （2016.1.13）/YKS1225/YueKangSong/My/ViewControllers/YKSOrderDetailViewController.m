@@ -13,6 +13,7 @@
 #import "GZBaseRequest.h"
 #import "TimeLineViewControl.h"
 #import <UMSocial.h>
+#import "YKSOrderTime.h"
 @interface YKSOrderDetailViewController ()
 
 @property (strong, nonatomic) NSMutableArray *datas;
@@ -407,7 +408,11 @@
         if (indexPath.row > 0 && indexPath.row <= [_orderInfo[@"list"] count]) {
             return 90.0f;
         }
+    }else if (indexPath.section == 1){
+        return 55.0f;
+        
     }
+
     return 44.0f;
 }
 
@@ -448,8 +453,10 @@
             return cell;
         }
     } else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderTimeCell" forIndexPath:indexPath];
+        YKSOrderTime *cell=[tableView dequeueReusableCellWithIdentifier:@"orderTimeCell" forIndexPath:indexPath];
         cell.detailTextLabel.text = [YKSTools formatterTimeStamp:[_orderInfo[@"nextExpireTime"] integerValue]];
+        cell.detailLable.text=[YKSTools formatterTimeStamp:[_orderInfo[@"nextExpireTime"] integerValue]];
+        cell.timeLable.text=@"预计一小时之内到达";
         return cell;
     }
     

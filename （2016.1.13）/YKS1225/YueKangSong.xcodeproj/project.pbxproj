@@ -166,6 +166,7 @@
 		57C284A91BBB84640038AED9 /* YKSFMDBManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C284A81BBB84640038AED9 /* YKSFMDBManger.m */; };
 		81371BDE1B4A478500BFA4FD /* UIViewController+YKSArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 81371BDD1B4A478500BFA4FD /* UIViewController+YKSArchive.m */; };
 		9345C6731C3B72BA00BD2776 /* meiyou.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9345C6721C3B72BA00BD2776 /* meiyou.jpg */; };
+		9381875E1C4CD6AF00382BD9 /* YKSOrderTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 9381875D1C4CD6AF00382BD9 /* YKSOrderTime.m */; };
 		9AFE1E8F1C02C8E90052AA9D /* EachGroupDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AFE1E8A1C02C8E90052AA9D /* EachGroupDetail.m */; };
 		9AFE1E901C02C8E90052AA9D /* YKSDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AFE1E8C1C02C8E90052AA9D /* YKSDetails.m */; };
 		9AFE1E911C02C8E90052AA9D /* YKSFormInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AFE1E8E1C02C8E90052AA9D /* YKSFormInformation.m */; };
@@ -493,6 +494,8 @@
 		81371BDC1B4A478500BFA4FD /* UIViewController+YKSArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+YKSArchive.h"; sourceTree = "<group>"; };
 		81371BDD1B4A478500BFA4FD /* UIViewController+YKSArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+YKSArchive.m"; sourceTree = "<group>"; };
 		9345C6721C3B72BA00BD2776 /* meiyou.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = meiyou.jpg; sourceTree = "<group>"; };
+		9381875C1C4CD6AF00382BD9 /* YKSOrderTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKSOrderTime.h; sourceTree = "<group>"; };
+		9381875D1C4CD6AF00382BD9 /* YKSOrderTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKSOrderTime.m; sourceTree = "<group>"; };
 		9AFE1E891C02C8E90052AA9D /* EachGroupDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EachGroupDetail.h; sourceTree = "<group>"; };
 		9AFE1E8A1C02C8E90052AA9D /* EachGroupDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EachGroupDetail.m; sourceTree = "<group>"; };
 		9AFE1E8B1C02C8E90052AA9D /* YKSDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKSDetails.h; sourceTree = "<group>"; };
@@ -1005,6 +1008,8 @@
 				3E9C465B1B08399D009CAC1D /* YKSOrderViewController.m */,
 				3EF639451B1805AD00858F3E /* YKSOrderDetailViewController.h */,
 				3EF639461B1805AD00858F3E /* YKSOrderDetailViewController.m */,
+				9381875C1C4CD6AF00382BD9 /* YKSOrderTime.h */,
+				9381875D1C4CD6AF00382BD9 /* YKSOrderTime.m */,
 				3E9C46641B083D33009CAC1D /* YKSMyCollectVC.h */,
 				3E9C46651B083D33009CAC1D /* YKSMyCollectVC.m */,
 				3E9C46561B08399D009CAC1D /* YKSCouponViewController.h */,
@@ -1586,6 +1591,7 @@
 				57C284A91BBB84640038AED9 /* YKSFMDBManger.m in Sources */,
 				3EFB3CA61B158B3F00107809 /* YKSCloseButton.m in Sources */,
 				57B3EF471BBB82DE004F76F7 /* YKSRunningManViewController.m in Sources */,
+				9381875E1C4CD6AF00382BD9 /* YKSOrderTime.m in Sources */,
 				3E67566B1B1BEAF600CE946D /* YKSFeedbackViewController.m in Sources */,
 				575CB0721BA7B90F002578ED /* pinyin.c in Sources */,
 				3E2705D71B02DBCE00FC6010 /* GZHTTPClient.m in Sources */,
