@@ -126,6 +126,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //判断如果nameController的值等于couponVC，说明是我的页面push过来的
+    if ([self.nameController isEqualToString:@"couponVC"]) {
+        //取消tableView的点击事件
+        self.tableView.allowsSelection = NO;
+    }
+    
      [self headersegment];
 //    _segcontainView.frame = CGRectMake(0, 55, self.view.bounds.size.width, 45);
     //    _segcontainView.backgroundColor = [UIColor redColor];

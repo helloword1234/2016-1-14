@@ -14,6 +14,7 @@
 
 @property (nonatomic, assign) CGFloat totalPirce;
 @property (nonatomic, strong) void(^callback)(NSDictionary *couponInfo);
+@property(nonatomic,strong) NSString *nameController;//用来标示传过来的控制器
 
 //@property (nonatomic, copy) ReturnCouponBlock returnCouponBlock;
 //

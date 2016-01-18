@@ -10,6 +10,7 @@
 #import "YKSUserModel.h" 
 #import "YKSHomeTableViewController.h"
 #import "GZBaseRequest.h"
+#import "YKSCouponViewController.h"
 
 #import "YKSYQMTableViewController.h"
 @interface YKSMyViewController ()
@@ -168,7 +169,11 @@
                 break;
                 
             case 1: {
-                [self performSegueWithIdentifier:@"gotoCouponVC" sender:nil];
+                UIStoryboard *stroryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                YKSCouponViewController *couponVC = [stroryBoard instantiateViewControllerWithIdentifier:@"YKSCouponViewController"];
+                couponVC.nameController = @"couponVC";
+                [self.navigationController pushViewController:couponVC animated:YES];
+
             }
                 break;
             case 2: {
