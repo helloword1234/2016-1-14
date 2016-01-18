@@ -222,6 +222,14 @@
                                                                              
                                                                              [UIViewController setMyLocation:dic];
                                                                              
+                                                                             _streetDic=_dic;
+                                                                             
+                                                                             _streetField.text =  _dic[@"addressComponent"][@"street"];
+                                                                             _detailAddressField.text =@"";
+                                                                             
+                                                                             _City_Name.text=_dic[@"addressComponent"][@"city"];
+
+                                                                             
                                                                          }
                                                                      }
                                                                      failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -235,13 +243,6 @@
 - (IBAction)dingWei:(id)sender {
     
     [self startSingleLocationRequest];
-    _streetDic=_dic;
-    
-    _streetField.text =  _dic[@"addressComponent"][@"street"];
-    _detailAddressField.text =@"";
-    
-    _City_Name.text=_dic[@"addressComponent"][@"city"];
-    
     
 }
 
