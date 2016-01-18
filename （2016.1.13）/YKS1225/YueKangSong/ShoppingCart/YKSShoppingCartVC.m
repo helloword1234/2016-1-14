@@ -67,6 +67,7 @@
 #pragma mark - viewcontrollers
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
     self.tableView.tableFooterView = [UIView new];
     [YKSTools insertEmptyImage:@"shopping_cart_empty"
@@ -83,6 +84,7 @@
 //这里就请求到数据了
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
 //    NSString *str = @"0";
 //    NSNumber *num = [NSNumber numberWithBool:NO];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receive) name:nil object:num];
@@ -131,6 +133,7 @@
         [[NSUserDefaults standardUserDefaults] setObject:_drugStoreid2 forKey:@"drugid1"];
         [self requestData];
     }
+
 }
 
 /**
@@ -574,25 +577,14 @@
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         //当价格为0的时候，说明删除所有药品
         if (_totalPrice == 0) {
-            //最底层的view移除
-            [self.bottomView removeFromSuperview];
+            self.bottomView.hidden = YES;
+            self.tableView.hidden = YES;
+
         }
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 @end
 

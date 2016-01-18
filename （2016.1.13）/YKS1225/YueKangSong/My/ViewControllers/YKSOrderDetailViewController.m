@@ -60,7 +60,7 @@
                                       if (descriptions!=nil) {
                                           NSString *info2 = descriptions[0];
                                           
-                                          info2 = [NSString stringWithFormat:@"%@  \n单号：%@",info2,responseObject[@"data"][@"courierPhone"]];
+                                          info2 = [NSString stringWithFormat:@"%@  \n单号：%@",info2,_orderInfo[@"express_orderid"]];
                                           descriptions[0] = info2;
                                       }
                                       
