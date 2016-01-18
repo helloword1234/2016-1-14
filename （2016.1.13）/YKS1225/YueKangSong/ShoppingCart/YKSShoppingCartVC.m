@@ -572,6 +572,11 @@
         
         
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        //当价格为0的时候，说明删除所有药品
+        if (_totalPrice == 0) {
+            //最底层的view移除
+            [self.bottomView removeFromSuperview];
+        }
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }

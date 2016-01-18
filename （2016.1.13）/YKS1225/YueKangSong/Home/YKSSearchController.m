@@ -148,8 +148,11 @@
 }
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     
-    
-    
+    //当searchBar里的文字改变的时候，且不等于空的时候tableView滑到顶部
+    if (![searchText isEqualToString:@""]) {
+        //改变内容视图的size
+        [self.tableView setContentSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height)];
+    }
      
      if (IS_EMPTY_STRING([searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]])) {
 //        [_searchBar becomeFirstResponder];
