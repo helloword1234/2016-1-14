@@ -57,26 +57,32 @@
                                       
                                       
                                       // 第一阶段“接收订单，正在打包出库”
-                                      NSString *info2 = descriptions[0];
-                                      // info2 = [NSString stringWithFormat:@"%@  \n单号：%@",info2,responseObject[@"data"][@"courierPhone"]];
-                                      // descriptions[0] = info2;
+                                      if (descriptions!=nil) {
+                                          NSString *info2 = descriptions[0];
+                                          
+                                          info2 = [NSString stringWithFormat:@"%@  \n单号：%@",info2,responseObject[@"data"][@"courierPhone"]];
+                                          descriptions[0] = info2;
+                                      }
                                       
-                                      //  第三阶段“签收”
-                                      NSString *info1 = descriptions[2];
-                                      info1 = [NSString stringWithFormat:@"%@ \n任何意见都欢迎联系我们。",info1];
-                                      //有时会返回16进制数据,转换一下  无用代码
-//                                      NSString * string12=[NSString stringWithFormat:@"%ld",0x000000019fa9bc10];
-//                                      string12=info1;
-                                      descriptions[2] = info1;
-                                      
+
                                       //   第二阶段“派送”
                                       if (responseObject[@"data"][@"courierName"] && descriptions.count > 1) {
                                           NSString *info = descriptions[1];
                                           info = [NSString stringWithFormat:@"%@ \n快递员：%@ %@", info, responseObject[@"data"][@"courierName"], responseObject[@"data"][@"courierPhone"]];
-                                          //  descriptions[1] = info;
+                                           descriptions[1] = info;
                                           
                                       }
-                                      //
+
+                                      
+                                      //  第三阶段“签收”
+                                      if (descriptions.count >2) {
+                                          NSString *info1=descriptions[2];
+                                          info1= [NSString stringWithFormat:@"%@ \n任何意见都欢迎联系我们。",info1];
+                                          descriptions[2] = info1;
+                                      }
+
+                                      
+                                    //
                                       //          TimeLineViewControl *timeline = [[TimeLineViewControl alloc] initWithTimeArray:times
                                       //                                                                 andTimeDescriptionArray:descriptions
                                       //                                                                        andCurrentStatus:(int)times.count
@@ -155,18 +161,22 @@
                                       
                                       // Btn1
                                       
+                                      //正在出库lable
                                       UILabel *dJlabel1 = [[UILabel alloc]initWithFrame:CGRectMake(18, 5, Btn1.bounds.size.width-60, Btn1.bounds.size.height/2-5)];
-                                      dJlabel1.text=descriptions[0];
-                                      dJlabel1.font=[UIFont systemFontOfSize:16];
+                                      if (descriptions!=nil) {
+                                          dJlabel1.text=descriptions[0];
+                                      }else{
+                                          dJlabel1.text=@"暂无状态";
+                                      }
                                       
-                                      
+                                      //单号lable
                                       UILabel *dJlabel2=[[UILabel alloc]initWithFrame:CGRectMake(18, Btn1.bounds.size.height/2, Btn1.bounds.size.width-30, Btn1.bounds.size.height/2-5)];
                                       NSString *dJinfo =[NSString stringWithFormat:@"单号：%@",_orderInfo[@"express_orderid"]];
                                       
                                       dJlabel2.text=dJinfo;
                                       dJlabel2.font=[UIFont systemFontOfSize:14];
                                       dJlabel2.textColor=[UIColor colorWithRed:134/255.0 green:135/255.0 blue:136/255.0 alpha:1];
-                                      
+                                      //时间lable
                                       UILabel *dJlabel3 = [[UILabel alloc]initWithFrame:CGRectMake(Btn1.bounds.size.width-55,Btn1.bounds.size.height/2,50, 20)];
                                       NSString *string1 = times[0];
                                       dJlabel3.text=[string1 substringWithRange:NSMakeRange(11, 5)];
@@ -181,9 +191,12 @@
                                       //Btn2
                                       
                                       UILabel *kDlabel1 = [[UILabel alloc]initWithFrame:CGRectMake(18, 5, Btn2.bounds.size.width-60, Btn2.bounds.size.height/2-5)];
-                                      kDlabel1.text=descriptions[1];
+                                      if (descriptions.count>1) {
+                                          kDlabel1.text=descriptions[1];
+                                      }else{
+                                          kDlabel1.text=@"暂无状态";
+                                      }
                                       kDlabel1.font=[UIFont systemFontOfSize:16];
-                                      
                                       
                                       
                                       UILabel *kDlabel2=[[UILabel alloc]initWithFrame:CGRectMake(18, Btn2.bounds.size.height/2, Btn2.bounds.size.width-30, Btn2.bounds.size.height/2-5)];
@@ -212,9 +225,12 @@
                                       
                                       
                                       UILabel *qSlabel1 = [[UILabel alloc]initWithFrame:CGRectMake(18, 5, Btn3.bounds.size.width-60, Btn3.bounds.size.height/2-5)];
-                                      qSlabel1.text=descriptions[2];
+                                      if (descriptions.count>2) {
+                                          qSlabel1.text=descriptions[2];
+                                      }else{
+                                          qSlabel1.text=@"暂无状态";
+                                      }
                                       qSlabel1.font=[UIFont systemFontOfSize:16];
-                                      
                                       
                                       
                                       UILabel *qSlabel2=[[UILabel alloc]initWithFrame:CGRectMake(18, Btn3.bounds.size.height/2, Btn3.bounds.size.width-30, Btn3.bounds.size.height/2-5)];
@@ -241,8 +257,7 @@
                                           dJbtn.selected=YES;
                                           kDbtn.selected=NO;
                                           qSbtn.selected=NO;
-                                          [Btn2 setTitle:@"暂无信息" forState: UIControlStateNormal];
-                                          [Btn3 setTitle:@"暂无信息" forState: UIControlStateNormal];
+                                          
                                           
                                       }
                                       
@@ -251,8 +266,7 @@
                                           dJbtn.selected=YES;
                                           kDbtn.selected=YES;
                                           qSbtn.selected=NO;
-                                          [Btn3 setTitle:@"暂无信息" forState:UIControlStateNormal];
-                                      }
+                                                                                }
                                       
                                       else if (times.count == 3)
                                       {
