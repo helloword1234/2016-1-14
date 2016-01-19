@@ -463,7 +463,14 @@
             YKSShoppingBuyTotalInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"totalInfoCell" forIndexPath:indexPath];
             NSArray *gcounts = [drugs valueForKeyPath:@"gcount"];
             cell.countLabel.text = [[NSString alloc] initWithFormat:@"共%@件药品", [gcounts valueForKeyPath:@"@sum.integerValue"]];
-            cell.freightLabel.text = [[NSString alloc] initWithFormat:@"运费：%0.2f", [_orderInfo[@"serviceMoney"] floatValue]];
+            
+            if ([_orderInfo[@"serviceMoney"] floatValue] == 0.00) {
+                cell.freightLabel.text = [[NSString alloc] initWithFormat:@"运费：免运费"];
+            }else
+            {
+                cell.freightLabel.text = [[NSString alloc] initWithFormat:@"运费：%0.2f", [_orderInfo[@"serviceMoney"] floatValue]];
+            }
+
             cell.priceLabel.text = [[NSString alloc] initWithFormat:@"实付：%0.2f", [_orderInfo[@"finallyPrice"] floatValue]];
             return cell;
         }
