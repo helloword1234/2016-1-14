@@ -207,6 +207,7 @@ NSString * const kUserInfo = @"userInfo";
                                  objectForKey:@"kCurrentSelectAddress"];
     }
     return _currentSelectAddress;
+    
 }
 
 + (NSString *)userId {

@@ -234,13 +234,11 @@
                 [YKSUserModel shareInstance].lng = [lng floatValue];
 //            }
             //如果登陆了把当前位置(经纬度)传给服务器
-            if ([YKSUserModel isLogin]) {
                 [GZBaseRequest locationUploadLat:[lat floatValue]
                                              lng:[lng floatValue]
                                         callback:^(id responseObject, NSError *error) {
                                             
                                         }];
-            }
 
             [self setBtnTitleWithCurrentAddress];
             
@@ -302,7 +300,7 @@
 -(void)setAddressBtnTitle{
     
     NSDictionary *dic=[UIViewController selectedMyLocation];
-    NSString *str=dic[@"formatted_address"];
+    NSString *str=dic[@"pois"][0][@"name"];
     if (str) {
         [self.addressBtn setTitle:[NSString stringWithFormat:@"配送至:%@",str] forState:UIControlStateNormal];
     }
@@ -349,20 +347,14 @@
          [YKSUserModel shareInstance].lat = currentLocation.coordinate.latitude;
          [YKSUserModel shareInstance].lng = currentLocation.coordinate.longitude;
 //     }
-     //把当前位置(经纬度)传给服务器
-     if (![YKSUserModel isLogin]) {
-         [GZBaseRequest locationUploadLat:currentLocation.coordinate.latitude
-                                      lng:currentLocation.coordinate.longitude
-                                 callback:^(id responseObject, NSError *error) {
-                                     
-                                 }];
-     }
-
+     
      [[GZHTTPClient shareClient] GET:BaiduMapGeocoderApi
                           parameters:@{@"location": latLongString,
                                        @"coordtype": @"wgs84ll",
                                        @"ak": BaiduMapAK,
-                                       @"output": @"json"}
+                                       @"output": @"json",
+                                       @"pois":@(1)
+                                       }
       
                              success:^(NSURLSessionDataTask *task, id responseObject) {
               //返回的街道,区,省等数据
@@ -373,6 +365,15 @@
                  [UIViewController selectedCityArchiver:dic[@"addressComponent"]];
                  //把当前定位信息传入沙河
                  [UIViewController setMyLocation:dic];
+                 //把当前位置(经纬度)传给服务器
+                 if (![YKSUserModel isLogin]) {
+                     [GZBaseRequest locationUploadLat:[dic[@"result"][@"pois"][0][@"point"][@"y"] floatValue]
+                                                  lng:[dic[@"result"][@"pois"][0][@"point"][@"x"] floatValue]
+                                             callback:^(id responseObject, NSError *error) {
+                                                 
+                                             }];
+                 }
+
                  
              }
         
@@ -386,6 +387,8 @@
              NSLog(@"error = %@", error);
          }];
     }];
+    
+    
 }
 
 //判断是否有当前选中地址
@@ -442,6 +445,7 @@
              @"sendable":a
              };
 }
+//大概也许可能这特么是没用的
 - (void)gotoAddressVC:(NSDictionary *)addressInfo {
     _isShowAddressView = YES;
     if (![YKSUserModel isLogin]) {
