@@ -36,6 +36,7 @@
     
     
     [GZBaseRequest addressListCallback:^(id responseObject, NSError *error) {
+        
         if (ServerSuccess(responseObject)) {
             NSDictionary *dic = responseObject[@"data"];
             if ([dic isKindOfClass:[NSDictionary class]] && dic[@"addresslist"]) {
@@ -43,10 +44,10 @@
                 _datas = [dic[@"addresslist"] mutableCopy];
                 
                 [YKSUserModel shareInstance].addressLists = _datas;
-                
                 if (!_datas) {
                     _datas = [NSMutableArray array];
-                }
+                    return ;
+                                    }
                 
                 NSDictionary *dic=[[NSUserDefaults standardUserDefaults]objectForKey:@"homeTableViewCurrentAddress"];
                 
@@ -54,6 +55,10 @@
                 
                             [self.tableView reloadData];
             }
+        }else{
+        
+            return;
+        
         }
     }];
 
