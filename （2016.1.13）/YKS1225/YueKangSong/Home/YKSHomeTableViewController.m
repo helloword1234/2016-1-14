@@ -345,10 +345,10 @@
      //存储当前位置的经纬度
      [[NSUserDefaults standardUserDefaults] setObject:latLongString forKey:@"lat_lng"];
      //设置用户数据模型的经纬度赋值
-     if ([YKSUserModel shareInstance].lat == 0) {
+//     if ([YKSUserModel shareInstance].lat == 0) {
          [YKSUserModel shareInstance].lat = currentLocation.coordinate.latitude;
          [YKSUserModel shareInstance].lng = currentLocation.coordinate.longitude;
-     }
+//     }
      //把当前位置(经纬度)传给服务器
      if ([YKSUserModel isLogin]) {
          [GZBaseRequest locationUploadLat:currentLocation.coordinate.latitude
