@@ -229,10 +229,10 @@
         NSString *lng = ary[1];
         if ( ! ([dic isEqualToDictionary:@{}] || (dic == nil) || ( dic == NULL) )){
         //设置用户数据模型的经纬度赋值
-            if ([YKSUserModel shareInstance].lat == 0) {
+//            if ([YKSUserModel shareInstance].lat == 0) {
                 [YKSUserModel shareInstance].lat = [lat floatValue];
                 [YKSUserModel shareInstance].lng = [lng floatValue];
-            }
+//            }
             //如果登陆了把当前位置(经纬度)传给服务器
             if ([YKSUserModel isLogin]) {
                 [GZBaseRequest locationUploadLat:[lat floatValue]
@@ -350,7 +350,7 @@
          [YKSUserModel shareInstance].lng = currentLocation.coordinate.longitude;
 //     }
      //把当前位置(经纬度)传给服务器
-     if ([YKSUserModel isLogin]) {
+     if (![YKSUserModel isLogin]) {
          [GZBaseRequest locationUploadLat:currentLocation.coordinate.latitude
                                       lng:currentLocation.coordinate.longitude
                                  callback:^(id responseObject, NSError *error) {
