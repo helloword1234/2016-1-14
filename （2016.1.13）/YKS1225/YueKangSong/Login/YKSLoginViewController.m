@@ -120,8 +120,9 @@
     if (_time <= 0.0) {
         [timer invalidate];
         timer = nil;
-        [_codeButton setTitle:@"重新获取验"
+        [_codeButton setTitle:@"重新获取"
                      forState:UIControlStateNormal];
+        [_codeButton setBackgroundImage:[UIImage imageNamed:@"verifyCode_normal"] forState:(UIControlStateNormal)];
     }
     _time --;
 }
@@ -151,7 +152,7 @@
     }
     
     if ([sender.titleLabel.text isEqualToString:@"获取验证码"] ||
-        [sender.titleLabel.text isEqualToString:@"重新获取验"]) {
+        [sender.titleLabel.text isEqualToString:@"重新获取"]) {
         [sender setBackgroundImage:[UIImage imageNamed:@"verifyCode_selected"] forState:UIControlStateNormal];
         if (_timer) {
             [_timer invalidate];

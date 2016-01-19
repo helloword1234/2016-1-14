@@ -382,7 +382,7 @@
     } else if (indexPath.row == drugs.count + 1) {
         YKSShoppingBuyTotalInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"totalInfoCell" forIndexPath:indexPath];
         NSArray *gcounts = [drugs valueForKeyPath:@"gcount"];
-        cell.countLabel.text = [[NSString alloc] initWithFormat:@"共%@件商品", [gcounts valueForKeyPath:@"@sum.integerValue"]];
+        cell.countLabel.text = [[NSString alloc] initWithFormat:@"共%@件药品", [gcounts valueForKeyPath:@"@sum.integerValue"]];
         if ([dic[@"serviceMoney"] floatValue] == 0.00) {
             cell.freightLabel.text = [[NSString alloc] initWithFormat:@"运费：免运费"];
         }else

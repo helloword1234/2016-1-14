@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *originPriceLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *lineWidthLayout;
+@property (weak, nonatomic) IBOutlet UIButton *backImage;
 
 @end
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="9Jj-IU-uLG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="9Jj-IU-uLG">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -2661,6 +2661,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="115"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C3b-w8-qWZ">
+                                                    <rect key="frame" x="336" y="76" width="60" height="26"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="26" id="7ak-hZ-OGo"/>
+                                                        <constraint firstAttribute="width" constant="60" id="KgF-rV-RGA"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="18"/>
+                                                    <state key="normal" title="处方药" backgroundImage="red_button_bg">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nEJ-AS-ypc">
                                                     <rect key="frame" x="8" y="12" width="340" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -2716,15 +2727,18 @@
                                                 <constraint firstItem="bVd-SZ-P4x" firstAttribute="top" secondItem="nEJ-AS-ypc" secondAttribute="bottom" constant="2" id="cWR-rT-0Vd"/>
                                                 <constraint firstItem="NvM-Mh-sQ9" firstAttribute="centerY" secondItem="nEJ-AS-ypc" secondAttribute="centerY" constant="2.5" id="eub-Rf-4lQ"/>
                                                 <constraint firstAttribute="trailing" secondItem="aNp-7A-Nte" secondAttribute="trailing" constant="18" id="mWR-aW-nj8"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="C3b-w8-qWZ" secondAttribute="bottom" constant="5" id="mqH-kH-8mn"/>
                                                 <constraint firstItem="nEJ-AS-ypc" firstAttribute="leading" secondItem="TVR-IM-RIQ" secondAttribute="leading" constant="8" id="nDx-rR-p01"/>
                                                 <constraint firstItem="NvM-Mh-sQ9" firstAttribute="centerY" secondItem="aNp-7A-Nte" secondAttribute="centerY" constant="2" id="q4w-to-yY7"/>
                                                 <constraint firstItem="aNp-7A-Nte" firstAttribute="top" secondItem="TVR-IM-RIQ" secondAttribute="top" constant="12" id="qme-o5-loV"/>
                                                 <constraint firstItem="aNp-7A-Nte" firstAttribute="leading" secondItem="NvM-Mh-sQ9" secondAttribute="trailing" constant="18" id="rSO-cC-zuF"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="C3b-w8-qWZ" secondAttribute="trailing" constant="10" id="t1f-GP-tAU"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="bVd-SZ-P4x" secondAttribute="trailing" id="wGA-Fh-Vzo"/>
                                                 <constraint firstItem="0QR-V3-s5Q" firstAttribute="top" secondItem="nEJ-AS-ypc" secondAttribute="bottom" constant="47" id="xSm-4L-9iV"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="backImage" destination="C3b-w8-qWZ" id="Vbh-Sk-Ve4"/>
                                             <outlet property="collectButton" destination="aNp-7A-Nte" id="Mp5-Av-mIm"/>
                                             <outlet property="lineWidthLayout" destination="ttn-kq-Yub" id="qgw-82-tcL"/>
                                             <outlet property="nameLabel" destination="nEJ-AS-ypc" id="134-NK-k6i"/>

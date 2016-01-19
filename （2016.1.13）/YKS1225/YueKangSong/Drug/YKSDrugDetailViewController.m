@@ -603,7 +603,12 @@
 //        label.numberOfLines=0;
 //        label.backgroundColor=[UIColor redColor];
 //        [nameCell.contentView addSubview:label];
+        
+        
 //
+        //处方药标示的显隐性，
+        nameCell.backImage.hidden = ![_drugInfo[@"gtag"] boolValue];
+        nameCell.backImage.userInteractionEnabled = NO;
         
         NSString *priceString = [NSString stringWithFormat:@"￥%0.2f  ", [_drugInfo[@"gprice"] floatValue]];
         
