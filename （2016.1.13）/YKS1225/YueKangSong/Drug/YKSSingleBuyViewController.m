@@ -103,7 +103,10 @@ UIActionSheetDelegate,UIAlertViewDelegate>
     _confirmButton.layer.cornerRadius = 5.0f;
     
     if (_isPrescription) {
+        [_confirmButton.titleLabel setFont:[UIFont systemFontOfSize:12]];
         [_confirmButton setTitle:@"含处方药，请医师与我联系" forState:UIControlStateNormal];
+        _confirmButton.layer.masksToBounds = YES;
+        _confirmButton.layer.cornerRadius = 5.0f;
         [_confirmButton setBackgroundImage:nil forState:UIControlStateNormal];
     }
     _buyCount = 1;

@@ -173,6 +173,15 @@
             
             [[YKSUserModel shareInstance] deleteCurrentSelectAddress];
             
+            //清空购物车
+            [GZBaseRequest restartShoppingCartBygids:nil callback:^(id responseObject, NSError *error) {
+                
+                if (ServerSuccess(responseObject))
+                {
+                    
+                }
+            }];
+
             [YKSUserModel logout];
             YKSHomeTableViewController *homevc = [self.storyboard instantiateViewControllerWithIdentifier:@"YKSHomeTableViewController" ];
             [homevc.addressButton setTitle:@"我的位置" forState:UIControlStateNormal];

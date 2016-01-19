@@ -2662,9 +2662,9 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C3b-w8-qWZ">
-                                                    <rect key="frame" x="336" y="76" width="60" height="26"/>
+                                                    <rect key="frame" x="336" y="82" width="60" height="24"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="26" id="7ak-hZ-OGo"/>
+                                                        <constraint firstAttribute="height" constant="24" id="7ak-hZ-OGo"/>
                                                         <constraint firstAttribute="width" constant="60" id="KgF-rV-RGA"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="18"/>
@@ -2727,7 +2727,7 @@
                                                 <constraint firstItem="bVd-SZ-P4x" firstAttribute="top" secondItem="nEJ-AS-ypc" secondAttribute="bottom" constant="2" id="cWR-rT-0Vd"/>
                                                 <constraint firstItem="NvM-Mh-sQ9" firstAttribute="centerY" secondItem="nEJ-AS-ypc" secondAttribute="centerY" constant="2.5" id="eub-Rf-4lQ"/>
                                                 <constraint firstAttribute="trailing" secondItem="aNp-7A-Nte" secondAttribute="trailing" constant="18" id="mWR-aW-nj8"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="C3b-w8-qWZ" secondAttribute="bottom" constant="5" id="mqH-kH-8mn"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="C3b-w8-qWZ" secondAttribute="bottom" constant="1" id="mqH-kH-8mn"/>
                                                 <constraint firstItem="nEJ-AS-ypc" firstAttribute="leading" secondItem="TVR-IM-RIQ" secondAttribute="leading" constant="8" id="nDx-rR-p01"/>
                                                 <constraint firstItem="NvM-Mh-sQ9" firstAttribute="centerY" secondItem="aNp-7A-Nte" secondAttribute="centerY" constant="2" id="q4w-to-yY7"/>
                                                 <constraint firstItem="aNp-7A-Nte" firstAttribute="top" secondItem="TVR-IM-RIQ" secondAttribute="top" constant="12" id="qme-o5-loV"/>
@@ -5377,12 +5377,12 @@
         <image name="间接邀请.png" width="139" height="35"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ZBU-eq-TkH"/>
-        <segue reference="8Xj-f4-WUK"/>
-        <segue reference="7Og-FC-yn7"/>
-        <segue reference="ena-Hn-kQg"/>
-        <segue reference="3mk-1C-4Cj"/>
         <segue reference="jy8-um-db3"/>
         <segue reference="X8J-kY-NHO"/>
+        <segue reference="ZBU-eq-TkH"/>
+        <segue reference="8Xj-f4-WUK"/>
+        <segue reference="Wer-Ei-MDk"/>
+        <segue reference="9kK-ge-HN2"/>
+        <segue reference="3mk-1C-4Cj"/>
     </inferredMetricsTieBreakers>
 </document>
