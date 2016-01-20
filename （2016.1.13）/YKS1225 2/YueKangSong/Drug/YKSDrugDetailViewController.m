@@ -546,9 +546,9 @@
 
 -(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
-    _number++;
-    NSString *number = [NSString stringWithFormat:@"%d",_number];
-    _badgeView.badgeText=number;
+//    _number++;
+//    NSString *number = [NSString stringWithFormat:@"%d",_number];
+//    _badgeView.badgeText=number;
      [self showToastMessage:@"加入购物车成功"];
 }
 
