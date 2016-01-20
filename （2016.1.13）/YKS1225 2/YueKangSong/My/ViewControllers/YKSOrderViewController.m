@@ -39,7 +39,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+    [_datas removeAllObjects];
 //    self.index=1;
 //     _status = YKSOrderStatusPending;
         if (![YKSUserModel isLogin]) {
@@ -283,6 +283,7 @@
                                        } else {
                                      // [YKSTools insertEmptyImage:@"order_list_empty" text:@"您的订单是空的" view:self.tableView];
                                             [self showToastMessage:responseObject[@"msg"] time:0.5f];
+                                           [self.tableView reloadData];
                                        }
                                        
                                    }];
