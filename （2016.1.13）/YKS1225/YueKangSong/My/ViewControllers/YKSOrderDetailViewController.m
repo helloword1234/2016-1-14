@@ -199,17 +199,21 @@
                                       UILabel *kDlabel1 = [[UILabel alloc]initWithFrame:CGRectMake(18, 5, Btn2.bounds.size.width-60, Btn2.bounds.size.height/2-5)];
                                       if (descriptions.count>1) {
                                           kDlabel1.text=descriptions[1];
+                                          UILabel *kDlabel2=[[UILabel alloc]initWithFrame:CGRectMake(18, Btn2.bounds.size.height/2, Btn2.bounds.size.width-30, Btn2.bounds.size.height/2-5)];
+                                          NSString *kDinfo =[NSString stringWithFormat:@"快递员：%@ %@",responseObject[@"data"][@"courierName"],responseObject[@"data"][@"courierPhone"]];
+                                          kDlabel2.text=kDinfo;
+                                          kDlabel2.font=[UIFont systemFontOfSize:14];
+                                          kDlabel2.textColor=[UIColor colorWithRed:134/255.0 green:135/255.0 blue:136/255.0 alpha:1];
+                                          [Btn2 addSubview:kDlabel2];
+
                                       }else{
                                           kDlabel1.text=@"暂无状态";
+                                          UILabel *kDlabel12=[[UILabel alloc]initWithFrame:CGRectMake(18, Btn2.bounds.size.height/2, Btn2.bounds.size.width-30, Btn2.bounds.size.height/2-5)];
+                                          kDlabel12.text=@"";
                                       }
                                       kDlabel1.font=[UIFont systemFontOfSize:16];
                                       
                                       
-                                      UILabel *kDlabel2=[[UILabel alloc]initWithFrame:CGRectMake(18, Btn2.bounds.size.height/2, Btn2.bounds.size.width-30, Btn2.bounds.size.height/2-5)];
-                                      NSString *kDinfo =[NSString stringWithFormat:@"快递员：%@ %@",responseObject[@"data"][@"courierName"],responseObject[@"data"][@"courierPhone"]];
-                                      kDlabel2.text=kDinfo;
-                                      kDlabel2.font=[UIFont systemFontOfSize:14];
-                                      kDlabel2.textColor=[UIColor colorWithRed:134/255.0 green:135/255.0 blue:136/255.0 alpha:1];
                                       
                                       //给快递员电话属性赋值
                                       _telePhoneNumber = responseObject[@"data"][@"courierPhone"];
@@ -226,7 +230,7 @@
                                       
                                       
                                       [Btn2 addSubview:kDlabel1];
-                                      [Btn2 addSubview:kDlabel2];
+                                      
                                       [Btn2 addSubview:kDlabel3];
                                       
                                       
