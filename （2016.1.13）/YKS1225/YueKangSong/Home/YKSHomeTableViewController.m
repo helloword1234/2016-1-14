@@ -371,15 +371,33 @@
                  [UIViewController selectedCityArchiver:dic[@"addressComponent"]];
                  //把当前定位信息传入沙河
                  [UIViewController setMyLocation:dic];
+                 
+         [[GZHTTPClient shareClient]GET:BaiduMapPlaceApi
+             parameters:@{@"uid":responseObject[@"result"][@"pois"][0][@"uid"],
+                          @"uids":@[],
+                          @"output":@"json",
+                          @"scope":@(2),
+                          @"ak": BaiduMapAK
+ 
+                          }
+             success:^(NSURLSessionDataTask *task, id responseObject) {
+                 float lat=[responseObject[@"result"][@"location"][@"lat"] floatValue] ;
+                 float lng=[responseObject[@"result"][@"location"][@"lng"] floatValue];
                  //把当前位置(经纬度)传给服务器
                  if (![YKSUserModel isLogin]) {
-                     [GZBaseRequest locationUploadLat:[dic[@"result"][@"pois"][0][@"point"][@"y"] floatValue]
-                                                  lng:[dic[@"result"][@"pois"][0][@"point"][@"x"] floatValue]
+                     [GZBaseRequest locationUploadLat:lat
+                                                  lng:lng
                                              callback:^(id responseObject, NSError *error) {
                                                  
                                              }];
                  }
 
+             }
+             failure:^(NSURLSessionDataTask *task, NSError *error) {
+                 
+             }];
+                 
+                 
                  
              }
         
