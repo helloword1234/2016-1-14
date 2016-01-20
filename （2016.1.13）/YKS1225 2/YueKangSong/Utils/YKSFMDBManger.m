@@ -7,7 +7,6 @@
 //
 
 #import "YKSFMDBManger.h"
-#import "GZBaseRequest.h"
 
 static YKSFMDBManger *manager=nil;
 
@@ -19,9 +18,12 @@ static YKSFMDBManger *manager=nil;
     dispatch_once(&onceToken, ^{
         manager=[[YKSFMDBManger alloc]init];
     });
+    \
     return manager;
 
 }
+
+
 
 -(BOOL)update:(NSDictionary *)dict{
     
@@ -90,47 +92,8 @@ static YKSFMDBManger *manager=nil;
 
 
 
-//网络读取购物车药品的数量
--(void)readShoppingCarCount
-{
-    //网络读取购物车的商品
-    [GZBaseRequest shoppingcartListCallback:^(id responseObject, NSError *error) {
-        NSDictionary *dic = [responseObject objectForKey:@"data"];
-        NSArray *dataArray = [dic objectForKey:@"list"];
-        
-        CGFloat totalCount = 0;
-        //循环遍历购物车药品数组
-        for (NSDictionary *data in dataArray) {
-            //获取药品的数量
-            CGFloat dataCount = [[data objectForKey:@"gcount"] integerValue];
-            //累计相加，则是后台购物车药品的总数
-            totalCount = totalCount + dataCount;
-        }
-        NSString *total = [NSString stringWithFormat:@"%.0f",totalCount];
-        self.shoppingCarCount = total;
-        
-    }];
-
-}
 
 
-//将dataCount的值转为标示角标的值shoppingCarCount
--(void)addShopCount
-{
-    NSString *total = [NSString stringWithFormat:@"%.0f",_dataCount];
-    self.shoppingCarCount = total;
-
-}
-
-
-//发送通知
--(void)notiscation
-{
-    //通知传值
-    NSDictionary *dica = [[NSDictionary alloc] initWithObjectsAndKeys:_shoppingCarCount,@"count", nil];
-    NSNotification *notification = [NSNotification notificationWithName:@"tongzhi" object:nil userInfo:dica];
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
-}
 
 
 @end

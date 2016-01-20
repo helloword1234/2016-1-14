@@ -91,7 +91,7 @@
       //[YKSTools insertEmptyImage:@"order_list_empty" text:@"您的订单是空的" view:self.tableView];
    
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 20.0f)];
-    
+    //待处理
     _status = YKSOrderStatusPending;
     [self initControl];
     
@@ -132,6 +132,7 @@
 //    [self.OrderLabel removeFromSuperview];
     
     if (control.selectedSegmentIndex == 0) {
+        //待处理
         _status = YKSOrderStatusPending;
         if (_pendingDatas)
         {
@@ -150,6 +151,7 @@
     }
     
     else if (control.selectedSegmentIndex == 1) {
+        //配送中
         _status = YKSOrderStatusShipping;
         if (!_shippingDatas) {
             _datas = nil;
@@ -161,6 +163,7 @@
             _datas = _shippingDatas;
         }
     } else if (control.selectedSegmentIndex == 2) {
+        //已签收
         _status = YKSOrderStatusReceived;
         if (!_receivedDatas) {
             _datas = nil;
@@ -175,7 +178,7 @@
     {
         self.index = 3;
         
-        
+        //已取消
         _status = YKSOrderStatusCancel;
         if (!_cancelDatas)
         {

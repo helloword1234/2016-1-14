@@ -13,7 +13,6 @@
 #import "HealthKitUtils.h"
 #import "YKSHomeTableViewController.h"
 #import "YKSRunningManViewController.h"
-#import "YKSFMDBManger.h"
 
 @interface YKSMyInfoDetailVC () <UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *phoneField;
@@ -179,12 +178,7 @@
                 
                 if (ServerSuccess(responseObject))
                 {
-                    //清空购物车改变药品数量置为0
-                    [YKSFMDBManger shareManger].dataCount = 0;
-                    //转为角标形式
-                    [[YKSFMDBManger shareManger] addShopCount];
-                    //发送通知,改变角标
-                    [[YKSFMDBManger shareManger] notiscation];
+                    
                 }
             }];
 

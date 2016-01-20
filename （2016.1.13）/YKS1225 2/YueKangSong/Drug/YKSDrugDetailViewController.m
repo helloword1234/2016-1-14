@@ -22,7 +22,6 @@
 #import "YKSSelectAddressView.h"
 #import "YKSShoppingCartVC.h"
 #import "JSBadgeView.h"
-#import "YKSFMDBManger.h"
 
 @interface YKSDrugDetailViewController () <UITableViewDelegate, ImagePlayerViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -179,13 +178,6 @@
     _badgeView.badgePositionAdjustment = CGPointMake(-9,7);
     _badgeView.badgeBackgroundColor=[UIColor redColor];
     _badgeView.badgeOverlayColor=[UIColor redColor];
-    //产品详情右上角的购物车角标的默认为单利里面的值
-    if ([[YKSFMDBManger shareManger].shoppingCarCount isEqualToString:@"0"]) {
-        _badgeView.badgeText = nil;
-    }else
-    {
-        _badgeView.badgeText = [YKSFMDBManger shareManger].shoppingCarCount;
-    }
     [_badgeView setNeedsLayout];
     [self.shoppingCartButton addSubview:_badgeView];
 }
@@ -511,14 +503,6 @@
                                               return ;
                                           }
                                           if (ServerSuccess(responseObject)) {
-                                              //添加购物车成功购改变药品数量
-                                              [YKSFMDBManger shareManger].dataCount++;
-                                              //转为角标格式
-                                              [[YKSFMDBManger shareManger] addShopCount];
-                                              //发送通知，改变角标
-                                              [[YKSFMDBManger shareManger] notiscation];
-                                              
-                                              [self showToastMessage:@"加入购物车成功"];
                                              
                                               self.shoppingCartButton.selected = YES;
                                           } else {
@@ -562,14 +546,10 @@
 
 -(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
-    //加入购物车后，产品详情右上角的购物车角标的默认为单利里面的值
-    if ([[YKSFMDBManger shareManger].shoppingCarCount isEqualToString:@"0"]) {
-        _badgeView.badgeText = nil;
-    }else
-    {
-        _badgeView.badgeText = [YKSFMDBManger shareManger].shoppingCarCount;
-    }
-
+    _number++;
+    NSString *number = [NSString stringWithFormat:@"%d",_number];
+    _badgeView.badgeText=number;
+     [self showToastMessage:@"加入购物车成功"];
 }
 
 - (IBAction)shoppingCartAction:(id)sender {

@@ -22,7 +22,6 @@
 #import "YKSDrugDetailViewController.h"
 #import "YKSSelectAddressView.h"
 #import "YKSMyAddressViewcontroller.h"
-#import "YKSFMDBManger.h"
 
 @interface YKSRecommenViewController ()<YKSReleaseButtonCellDelegate,YKSOneBuyCellDelegate>
 
@@ -225,14 +224,6 @@
                                               return ;
                                           }
                                           if (ServerSuccess(responseObject)) {
-                                              
-                                              //添加购物车成功购改变药品数量
-                                              [YKSFMDBManger shareManger].dataCount += self.datasArray.count;
-                                              //转为角标形式
-                                              [[YKSFMDBManger shareManger] addShopCount];
-                                              //发送通知,改变角标
-                                              [[YKSFMDBManger shareManger] notiscation];
-                                              
                                               UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
                                               YKSShoppingCartVC *shopVC = [storyboard instantiateViewControllerWithIdentifier:@"YKSShoppingCartVC"];
                                               self.tabBarController.tabBar.hidden = YES;

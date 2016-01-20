@@ -34,7 +34,6 @@
 #import "YKSAdvertisementController.h"
 #import "YKSScrollView.h"
 #import "AFHTTPSessionManager.h"
-#import "YKSFMDBManger.h"
 @interface YKSHomeTableViewController () <ImagePlayerViewDelegate,UIAlertViewDelegate,YKSScrollViewDelegate>
 @property (strong, nonatomic) ImagePlayerView *imagePlayview;
 @property (assign, nonatomic) BOOL isShowAddressView;
@@ -67,11 +66,6 @@
 //页面即将加载
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    //发送通知
-    [[YKSFMDBManger shareManger] notiscation];
-    CGFloat count = [[YKSFMDBManger shareManger].shoppingCarCount floatValue];
-    [YKSFMDBManger shareManger].dataCount = count;
     
     [self viewWillAppearReload];
 }
@@ -517,12 +511,7 @@
                
                if (ServerSuccess(responseObject))
                {
-                   //清空购物车改变药品数量置为0
-                   [YKSFMDBManger shareManger].dataCount = 0;
-                   //转为角标形式
-                   [[YKSFMDBManger shareManger] addShopCount];
-                   //发送通知,改变角标
-                   [[YKSFMDBManger shareManger] notiscation];
+                   
                }
            }];
            _isShowAddressView = NO;
