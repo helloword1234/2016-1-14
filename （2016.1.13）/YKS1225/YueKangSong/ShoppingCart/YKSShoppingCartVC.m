@@ -120,13 +120,6 @@
         
         if (![_drugStoreid isEqualToString:_drugStoreid2])
         {
-            [GZBaseRequest restartShoppingCartBygids:nil callback:^(id responseObject, NSError *error) {
-                
-                if (ServerSuccess(responseObject))
-                {
-                    
-                }
-            }];
             
         }
         //  drugStoreid  =  drugStoreid2;
