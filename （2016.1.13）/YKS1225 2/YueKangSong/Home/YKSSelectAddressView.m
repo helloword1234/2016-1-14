@@ -49,7 +49,7 @@
                     return ;
                                     }
                 
-                NSDictionary *dic=[[NSUserDefaults standardUserDefaults]objectForKey:@"homeTableViewCurrentAddress"];
+//                NSDictionary *dic=[[NSUserDefaults standardUserDefaults]objectForKey:@"homeTableViewCurrentAddress"];
                 
                 [_datas insertObject:dic atIndex:0];
                 
