@@ -67,6 +67,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    NSDictionary *dic=[UIViewController selectedMyLocation];
+    NSString *str=[NSString stringWithFormat:@"配送至:%@",dic[@"pois"][0][@"name"]];
+    NSString *butonTitle = _addressBtn.titleLabel.text;
+    if ([str isEqualToString:butonTitle]) {
+        [UIViewController deleteFile];
+    }
+
     [self viewWillAppearReload];
 }
 
