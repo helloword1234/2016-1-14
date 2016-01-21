@@ -256,9 +256,9 @@ UIActionSheetDelegate,UIAlertViewDelegate>
         if (ServerSuccess(responseObject))
             
         {
-        HUD.labelText = @"";                                                                                       [HUD hide:YES afterDelay:0.5];
-            
+            [HUD hide:YES afterDelay:0.5];
             _paytypeArray =[NSMutableArray arrayWithArray:responseObject[@"data"]];
+            [self.tableView reloadData];
             
         }
         else
