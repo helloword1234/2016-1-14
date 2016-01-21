@@ -856,6 +856,16 @@
                 
                 return;
             } else {
+                
+                //清空购物车
+                [GZBaseRequest restartShoppingCartBygids:nil callback:^(id responseObject, NSError *error) {
+                    
+                    if (ServerSuccess(responseObject))
+                    {
+                        
+                    }
+                }];
+
                 [YKSUserModel shareInstance].currentSelectAddress = info;
                 //这里就是了,拿到地址,删除旧地址
                 

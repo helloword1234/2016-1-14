@@ -761,7 +761,15 @@
                 
                 return;
             } else {
-                
+                //清空购物车
+                [GZBaseRequest restartShoppingCartBygids:nil callback:^(id responseObject, NSError *error) {
+                    
+                    if (ServerSuccess(responseObject))
+                    {
+                        
+                    }
+                }];
+
                 
                 
                 [YKSUserModel shareInstance].currentSelectAddress = info;
