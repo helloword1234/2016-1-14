@@ -154,25 +154,18 @@
         UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
         //fbf9e0
         view.backgroundColor=[UIColor colorWithRed:(15*16+11)/255.0 green:(16*15+9)/255.0 blue:14*16/255.0 alpha:1.0];
-        
         UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
-        
         [btn setTitleColor:  [UIColor colorWithRed:(12*16+14)/255.0 green:(7*16+14)/255.0 blue:(16+13)/255.0 alpha:1.0] forState:UIControlStateNormal ];
         btn.frame=CGRectMake(SCREEN_WIDTH-30, 5, 20, 20);
-        
         [btn setTitle:@"x" forState:UIControlStateNormal];
-        
         [view addSubview:btn];
         
-        
         [btn addTarget:self action:@selector(hideHeaderView) forControlEvents:UIControlEventTouchUpInside];
-        
+
         //ce7e1d
-        
+        //选择地址lable
         UILabel *lable=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-30, 30)];
-        
         lable.textColor=[UIColor colorWithRed:(12*16+14)/255.0 green:(7*16+14)/255.0 blue:(16+13)/255.0 alpha:1.0];
-        
                          lable.textAlignment=NSTextAlignmentCenter;
         
         lable.font=[UIFont systemFontOfSize:12];
@@ -207,6 +200,7 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     
     
     

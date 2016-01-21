@@ -78,7 +78,7 @@
     
     
     _City_Name.font=[UIFont systemFontOfSize:14];
-    
+
     _phoneField.text=[YKSUserModel telePhone];
     _City_Name.text=[UIViewController selectedCityUnArchiver][@"city"];
     _streetField.placeholder = @"写字楼，小区，学校";
