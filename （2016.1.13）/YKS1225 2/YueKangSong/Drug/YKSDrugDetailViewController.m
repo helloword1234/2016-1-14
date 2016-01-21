@@ -367,7 +367,7 @@
     
     //显示判断登陆没有,请登陆
     if (![YKSUserModel isLogin]) {
-        [self showToastMessage:@"请登陆"];
+//        [self showToastMessage:@"请登陆"];
         [YKSTools login:self];
         return;
     }
