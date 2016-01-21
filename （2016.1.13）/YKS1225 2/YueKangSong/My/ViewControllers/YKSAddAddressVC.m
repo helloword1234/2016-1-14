@@ -116,7 +116,7 @@
         self.tableView.tableFooterView = nil;
         _nameField.text = @"";
         _phoneField.text = [YKSUserModel telePhone];
-        _streetField.text = dic[@"addressComponent"][@"street"];
+       _streetField.text = dic[@"pois"][0][@"name"];
         _City_Name.text=dic[@"addressComponent"][@"city"];
         
         self.streetDic=[UIViewController selectedMyLocation];
