@@ -169,6 +169,8 @@
 		933EC1691C50C59C00A1AC1A /* 没有网络-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 933EC1671C50C59C00A1AC1A /* 没有网络-2.jpg */; };
 		933EC16C1C50D99700A1AC1A /* 邀请页面1.png in Resources */ = {isa = PBXBuildFile; fileRef = 933EC16A1C50D99700A1AC1A /* 邀请页面1.png */; };
 		933EC16D1C50D99700A1AC1A /* 邀请页面2.png in Resources */ = {isa = PBXBuildFile; fileRef = 933EC16B1C50D99700A1AC1A /* 邀请页面2.png */; };
+		933EC16F1C50F14500A1AC1A /* 邀请页面2.png in Resources */ = {isa = PBXBuildFile; fileRef = 933EC16E1C50F14500A1AC1A /* 邀请页面2.png */; };
+		933EC1711C50F14E00A1AC1A /* 邀请页面1.png in Resources */ = {isa = PBXBuildFile; fileRef = 933EC1701C50F14E00A1AC1A /* 邀请页面1.png */; };
 		9345C6731C3B72BA00BD2776 /* meiyou.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9345C6721C3B72BA00BD2776 /* meiyou.jpg */; };
 		9381875E1C4CD6AF00382BD9 /* YKSOrderTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 9381875D1C4CD6AF00382BD9 /* YKSOrderTime.m */; };
 		9AFE1E8F1C02C8E90052AA9D /* EachGroupDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AFE1E8A1C02C8E90052AA9D /* EachGroupDetail.m */; };
@@ -501,6 +503,8 @@
 		933EC1671C50C59C00A1AC1A /* 没有网络-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "没有网络-2.jpg"; sourceTree = "<group>"; };
 		933EC16A1C50D99700A1AC1A /* 邀请页面1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "邀请页面1.png"; sourceTree = "<group>"; };
 		933EC16B1C50D99700A1AC1A /* 邀请页面2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "邀请页面2.png"; sourceTree = "<group>"; };
+		933EC16E1C50F14500A1AC1A /* 邀请页面2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "邀请页面2.png"; sourceTree = "<group>"; };
+		933EC1701C50F14E00A1AC1A /* 邀请页面1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "邀请页面1.png"; sourceTree = "<group>"; };
 		9345C6721C3B72BA00BD2776 /* meiyou.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = meiyou.jpg; sourceTree = "<group>"; };
 		9381875C1C4CD6AF00382BD9 /* YKSOrderTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKSOrderTime.h; sourceTree = "<group>"; };
 		9381875D1C4CD6AF00382BD9 /* YKSOrderTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKSOrderTime.m; sourceTree = "<group>"; };
@@ -1225,6 +1229,8 @@
 				F3AE17941B973AF4006AD800 /* BAUHS93.otf */,
 				F3AE17951B973AF4006AD800 /* BRLNSB.TTF */,
 				F3AE17961B973AF4006AD800 /* BRLNSDB.otf */,
+				933EC16E1C50F14500A1AC1A /* 邀请页面2.png */,
+				933EC1701C50F14E00A1AC1A /* 邀请页面1.png */,
 				F3AE17971B973AF4006AD800 /* 锐字云字库综艺体GBK (1).TTF */,
 			);
 			path = ziti;
@@ -1455,6 +1461,7 @@
 				F3AE179B1B973AF4006AD800 /* 锐字云字库综艺体GBK (1).TTF in Resources */,
 				F3BC78871B96B18300665702 /* 1234.png in Resources */,
 				F3D5DBF81B95E693007006EE /* lingqu.png in Resources */,
+				933EC16F1C50F14500A1AC1A /* 邀请页面2.png in Resources */,
 				F3D5DC161B95EA38007006EE /* 击败了.png in Resources */,
 				F3D5DC181B95EA38007006EE /* 的用户.png in Resources */,
 				F3D5DBF91B95E693007006EE /* liu.png in Resources */,
@@ -1538,6 +1545,7 @@
 				57B3EF531BBB832F004F76F7 /* 1yuan@2x.png in Resources */,
 				27CE46F51C05431100E65B3E /* cancel_code.png in Resources */,
 				576CFB201BD9FC7B008D7247 /* back1@2x.png in Resources */,
+				933EC1711C50F14E00A1AC1A /* 邀请页面1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

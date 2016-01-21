@@ -69,7 +69,7 @@
 //        [view addSubview:siv];
     
     
-    self.iv = [[UIImageView alloc ]initWithFrame:CGRectMake(10,rect.origin.y-400, 300,500)];
+    self.iv = [[UIImageView alloc ]initWithFrame:CGRectMake(10,rect.origin.y-400, 300,150)];
     self.iv.image = [UIImage imageNamed:@"邀请页面2.png"];
     [self.view addSubview:self.iv];
 
@@ -101,7 +101,7 @@
     
     
     self.iv = [[UIImageView alloc ]initWithFrame:CGRectMake(10,rect.origin.y-400 , 300, 150)];
-    self.iv.image = [UIImage imageNamed:@"12345"];
+    self.iv.image = [UIImage imageNamed:@"邀请页面1.png"];
     [self.view addSubview:self.iv];
 
     
