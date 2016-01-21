@@ -64,13 +64,13 @@
     view.alpha = 0.5;
     [self.view addSubview:view];
     [view addTarget:self action:@selector(yingchang:) forControlEvents:UIControlEventTouchUpInside];
-    //    UIImageView *siv = [[UIImageView alloc ]initWithFrame:CGRectMake(rect.origin.x+sender.bounds.size.width*0.5,rect.origin.y+20 , 30, 30)];
-    //    siv.image = [UIImage imageNamed:@"bottom三角"];
-    //    [view addSubview:siv];
+//        UIImageView *siv = [[UIImageView alloc ]initWithFrame:CGRectMake(rect.origin.x+sender.bounds.size.width*0.5,rect.origin.y+20 , 30, 30)];
+//        siv.image = [UIImage imageNamed:@"邀请页面2.png"];
+//        [view addSubview:siv];
     
     
-    self.iv = [[UIImageView alloc ]initWithFrame:CGRectMake(10,rect.origin.y-400, 300, 150)];
-    self.iv.image = [UIImage imageNamed:@"question11"];
+    self.iv = [[UIImageView alloc ]initWithFrame:CGRectMake(10,rect.origin.y-400, 300,500)];
+    self.iv.image = [UIImage imageNamed:@"邀请页面2.png"];
     [self.view addSubview:self.iv];
 
 }
@@ -95,9 +95,9 @@
     view.alpha = 0.5;
     [self.view addSubview:view];
     [view addTarget:self action:@selector(yingchang:) forControlEvents:UIControlEventTouchUpInside];
-    //    UIImageView *siv = [[UIImageView alloc ]initWithFrame:CGRectMake(rect.origin.x+sender.bounds.size.width*0.5,rect.origin.y+20 , 30, 30)];
-    //    siv.image = [UIImage imageNamed:@"bottom三角"];
-    //    [view addSubview:siv];
+//        UIImageView *siv = [[UIImageView alloc ]initWithFrame:CGRectMake(rect.origin.x+sender.bounds.size.width*0.5,rect.origin.y+20 , 30, 30)];
+//        siv.image = [UIImage imageNamed:@"邀请页面1.png"];
+//        [view addSubview:siv];
     
     
     self.iv = [[UIImageView alloc ]initWithFrame:CGRectMake(10,rect.origin.y-400 , 300, 150)];
