@@ -19,6 +19,7 @@
 #import "YKSAddressListViewController.h"
 #import "Pingpp.h"
 #import "YKSPaytypeCell.h"
+#import "MBProgressHUD.h"
 
 #define kWaiting          @"正在获取支付凭据,请稍后..."
 #define kNote             @"提示"
@@ -209,12 +210,19 @@ UIActionSheetDelegate,UIAlertViewDelegate>
 // 获得支付渠道
 -(void)getpay
 {
+    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:HUD];
+    HUD.labelText = @"正在获取";
+    HUD.mode = MBProgressHUDModeIndeterminate;
+    [HUD show:YES];
     
     [GZBaseRequest getpaytype:^(id responseObject, NSError *error) {
         
         if (ServerSuccess(responseObject))
         {
+            [HUD hide:YES afterDelay:0.5];
             _paytypeArray =[NSMutableArray arrayWithArray:responseObject[@"data"]];
+            [self.tableView reloadData];
             
         }
         else{

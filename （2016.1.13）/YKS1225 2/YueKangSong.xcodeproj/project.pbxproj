@@ -165,6 +165,8 @@
 		57C284A61BBB84490038AED9 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C284A11BBB84490038AED9 /* FMResultSet.m */; };
 		57C284A91BBB84640038AED9 /* YKSFMDBManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C284A81BBB84640038AED9 /* YKSFMDBManger.m */; };
 		81371BDE1B4A478500BFA4FD /* UIViewController+YKSArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 81371BDD1B4A478500BFA4FD /* UIViewController+YKSArchive.m */; };
+		933EC1681C50C59C00A1AC1A /* 没有网络-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 933EC1661C50C59C00A1AC1A /* 没有网络-1.jpg */; };
+		933EC1691C50C59C00A1AC1A /* 没有网络-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 933EC1671C50C59C00A1AC1A /* 没有网络-2.jpg */; };
 		9345C6731C3B72BA00BD2776 /* meiyou.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9345C6721C3B72BA00BD2776 /* meiyou.jpg */; };
 		9381875E1C4CD6AF00382BD9 /* YKSOrderTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 9381875D1C4CD6AF00382BD9 /* YKSOrderTime.m */; };
 		9AFE1E8F1C02C8E90052AA9D /* EachGroupDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AFE1E8A1C02C8E90052AA9D /* EachGroupDetail.m */; };
@@ -493,6 +495,8 @@
 		57C284A81BBB84640038AED9 /* YKSFMDBManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKSFMDBManger.m; sourceTree = "<group>"; };
 		81371BDC1B4A478500BFA4FD /* UIViewController+YKSArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+YKSArchive.h"; sourceTree = "<group>"; };
 		81371BDD1B4A478500BFA4FD /* UIViewController+YKSArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+YKSArchive.m"; sourceTree = "<group>"; };
+		933EC1661C50C59C00A1AC1A /* 没有网络-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "没有网络-1.jpg"; sourceTree = "<group>"; };
+		933EC1671C50C59C00A1AC1A /* 没有网络-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "没有网络-2.jpg"; sourceTree = "<group>"; };
 		9345C6721C3B72BA00BD2776 /* meiyou.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = meiyou.jpg; sourceTree = "<group>"; };
 		9381875C1C4CD6AF00382BD9 /* YKSOrderTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKSOrderTime.h; sourceTree = "<group>"; };
 		9381875D1C4CD6AF00382BD9 /* YKSOrderTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKSOrderTime.m; sourceTree = "<group>"; };
@@ -755,6 +759,8 @@
 				3E2705B51B02308F00FC6010 /* PrefixHeader.pch */,
 				3E2A10FC1B01F3BA00DE1E4C /* Images.xcassets */,
 				F36E90A81B97832E00688588 /* question11.png */,
+				933EC1661C50C59C00A1AC1A /* 没有网络-1.jpg */,
+				933EC1671C50C59C00A1AC1A /* 没有网络-2.jpg */,
 				575CB0691BA7B861002578ED /* 3rd */,
 				F37088101B9DA5F100CF0099 /* sharehavepresent */,
 				F34EB37B1B9ABB9700D0D47D /* Harpy */,
@@ -1410,6 +1416,7 @@
 				F3D5DBCF1B95E5D9007006EE /* flow2.png in Resources */,
 				F31001AD1B94694D00E1C822 /* 3.png in Resources */,
 				F3BC788A1B96B18300665702 /* top三角.png in Resources */,
+				933EC1681C50C59C00A1AC1A /* 没有网络-1.jpg in Resources */,
 				31EE6B051BF9812A00DFF279 /* pay_ok@2x.png in Resources */,
 				576CFB221BD9FC7F008D7247 /* back1@3x.png in Resources */,
 				3176554F1BEA1870003753DA /* dingdan@3x.png in Resources */,
@@ -1426,6 +1433,7 @@
 				F3D5DBF11B95E693007006EE /* 5.png in Resources */,
 				31E1D0F91BB3E5C7000CDA5E /* dollar.png in Resources */,
 				9345C6731C3B72BA00BD2776 /* meiyou.jpg in Resources */,
+				933EC1691C50C59C00A1AC1A /* 没有网络-2.jpg in Resources */,
 				57B3EF5C1BBB832F004F76F7 /* duihuangray@2x.png in Resources */,
 				F3D5DC021B95E693007006EE /* 分享有礼.png in Resources */,
 				317655571BEA19A4003753DA /* wxwall.png in Resources */,

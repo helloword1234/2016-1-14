@@ -126,16 +126,16 @@
     }
 }
 
-//-(void)running:(UIButton *)button
-//{
-//    _datas = nil;
-//    _imageURLStrings = nil;
-//    _drugDatas = nil;
-//    [_imageView removeFromSuperview];
-//    
-//    [self viewDidLoadReload];
-//    [self viewWillAppear:YES];
-//}
+-(void)running:(UIButton *)button
+{
+    _datas = nil;
+    _imageURLStrings = nil;
+    _drugDatas = nil;
+    [_imageView removeFromSuperview];
+    
+    [self viewDidLoadReload];
+    [self viewWillAppear:YES];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -148,44 +148,45 @@
 
 -(void)viewDidLoadReload
 {
-//    //判断网络
-//    AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
-//    [mgr startMonitoring];
-//    
-//    //设置网络状态改变后的处理
-//    [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-//        switch (status) {
-//            case AFNetworkReachabilityStatusUnknown:
-//            {
-//                break;
-//            }
-//            case AFNetworkReachabilityStatusNotReachable:
-//            {
-//                
-//                _imageView = [[UIImageView alloc] initWithFrame:self.tableView.bounds];
-//                _imageView.image = [UIImage imageNamed:@"animation.jpg"];
-//                //                self.tableView.userInteractionEnabled = NO;
-//                _imageView.userInteractionEnabled = YES;
-//                self.tableView.scrollEnabled = NO;
-//                
-//                
-//                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(running:)];
-//                [_imageView addGestureRecognizer:tap];
-//                
-//                [self.tableView addSubview:_imageView];
-//                break;
-//            }
-//            case AFNetworkReachabilityStatusReachableViaWWAN:
-//            {
-//                break;
-//            }
-//            case AFNetworkReachabilityStatusReachableViaWiFi:
-//            {
-//                break;
-//            }
-//        }
-//    }];
-//    
+    //判断网络
+    AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
+    [mgr startMonitoring];
+    
+    //设置网络状态改变后的处理
+    [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case AFNetworkReachabilityStatusUnknown:
+            {
+                break;
+            }
+            case AFNetworkReachabilityStatusNotReachable:
+            {
+                
+                _imageView = [[UIImageView alloc] initWithFrame:self.tableView.bounds];
+                _imageView.image = [UIImage imageNamed:@"没有网络-2.jpg"];
+                //                self.tableView.userInteractionEnabled = NO;
+                _imageView.userInteractionEnabled = YES;
+                self.tableView.scrollEnabled = NO;
+                
+                
+                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(running:)];
+                [_imageView addGestureRecognizer:tap];
+                
+                [self.tableView addSubview:_imageView];
+                break;
+            }
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+            {
+                
+                break;
+            }
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+            {
+                break;
+            }
+        }
+    }];
+    
     self.tableView.scrollEnabled = YES;
 
     self.navigationController.navigationBarHidden = NO;
