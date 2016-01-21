@@ -39,7 +39,14 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [_datas removeAllObjects];
+    
+    _datas = nil;
+    _pendingDatas = nil;
+    _shippingDatas = nil;
+    _receivedDatas = nil;
+    _cancelDatas = nil;
+    
+    _control.selectedSegmentIndex = 0;
 //    self.index=1;
 //     _status = YKSOrderStatusPending;
         if (![YKSUserModel isLogin]) {

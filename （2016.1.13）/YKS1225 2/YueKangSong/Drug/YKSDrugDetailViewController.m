@@ -539,9 +539,6 @@
     animGroup.duration = 0.8f;
     animGroup.delegate=self;//一定不要忘了设置代理
     [self.animationImage.layer  addAnimation:animGroup forKey:nil];
-    
-
-    
 }
 
 -(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
