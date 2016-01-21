@@ -28,6 +28,7 @@
 @end
 
 @implementation YKSYQMTableViewController
+//确定按钮
 - (IBAction)quedingsendyqm:(id)sender {
     [self.view endEditing:YES];
     
@@ -54,7 +55,7 @@
     
     [_sendyqmLabel resignFirstResponder];
 }
-
+//都一个问号
 - (IBAction)wen1:(UIButton *)sender {
     CGRect rect = [sender convertRect:sender.frame toView:self.view];
     self.tableView.scrollEnabled = NO;
@@ -107,6 +108,7 @@
     
     
 }
+//立即分享
 - (IBAction)share:(id)sender {
     NSString *shareText = @"88元悦康送买药优惠券在这里，你还在等什么?";
     [UMSocialData defaultData].extConfig.title = @"注册悦康送，分享优惠大礼包！";
@@ -124,6 +126,7 @@
 
   
 }
+//立即领取
 - (IBAction)lijilingqu:(id)sender {
     [GZBaseRequest lingquYQMAndcallBack:^(id responseObject, NSError *error) {
         if (ServerSuccess(responseObject)) {
