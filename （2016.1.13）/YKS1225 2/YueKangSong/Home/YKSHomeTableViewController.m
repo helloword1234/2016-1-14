@@ -438,12 +438,7 @@
                             forState:UIControlStateNormal];
     }
     
-    NSDictionary *dic=[UIViewController selectedMyLocation];
-    NSString *str=[NSString stringWithFormat:@"配送至:%@",dic[@"pois"][0][@"name"]];
-    NSString *button = [NSString stringWithFormat:@"配送至:%@",tempString];
-    if (![button isEqualToString:str]) {
         [UIViewController selectedAddressArchiver:info];
-    }
 
 
 }
