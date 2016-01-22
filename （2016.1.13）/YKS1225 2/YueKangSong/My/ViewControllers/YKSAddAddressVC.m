@@ -67,7 +67,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.fflag=@"0";
+
     
     NSDictionary *ddic=[YKSUserModel shareInstance].currentSelectAddress;
     
@@ -409,6 +409,9 @@
                                           //用户修改地址成功，弹出保存成功
                                           [self showToastMessage:@"保存成功"];
                                           
+                                          
+                                          if ([[YKSUserModel shareInstance].currentSelectAddress[@"community_lat_lng"] isEqualToString:_addressInfo[@"community_lat_lng"]]) {
+                                          
                                           //获取列表
                                           [GZBaseRequest addressListCallback:^(id responseObject, NSError *error) {
                                               if (error) {
@@ -424,14 +427,17 @@
                                                           [YKSUserModel shareInstance].lat = [[array firstObject] floatValue];
                                                           [YKSUserModel shareInstance].lng = [[array lastObject] floatValue];
                                                           
-                                                          //清空购物车
-                                                          [GZBaseRequest restartShoppingCartBygids:nil callback:^(id responseObject, NSError *error) {
-                                                              
-                                                              if (ServerSuccess(responseObject))
-                                                              {
+                        
+                                                              //清空购物车
+                                                              [GZBaseRequest restartShoppingCartBygids:nil callback:^(id responseObject, NSError *error) {
                                                                   
-                                                              }
-                                                          }];
+                                                                  if (ServerSuccess(responseObject))
+                                                                  {
+                                                                      
+                                                                  }
+                                                              }];
+
+                                            
                                                           
                                                           [YKSUserModel shareInstance].currentSelectAddress = _currentDic;
                                                           //这里就是了,拿到地址,删除旧地址
@@ -470,7 +476,7 @@
                                               }
                                           }];
                                           
-
+                                          }
                                           
                                           
                                           //停留两秒以后，返回上一页

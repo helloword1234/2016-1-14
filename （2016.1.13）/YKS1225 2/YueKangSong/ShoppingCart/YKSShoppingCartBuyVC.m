@@ -534,7 +534,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
     if (indexPath.section == 0) {
         YKSBuyAddressCell *addressCell = [tableView dequeueReusableCellWithIdentifier:@"BuyAddressCell" forIndexPath:indexPath];
         NSDictionary *dic = _addressInfos;
-        
+        addressCell.userInteractionEnabled = NO;
         
         if ([YKSUserModel shareInstance].currentSelectAddress) {
             
@@ -555,6 +555,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
     } else if (indexPath.section == 1) {
         if (indexPath.row < _drugs.count) {
             YKSShoppingBuyDrugCell *drugCell = [tableView dequeueReusableCellWithIdentifier:@"BuyDrugCell" forIndexPath:indexPath];
+            drugCell.userInteractionEnabled = NO;
             NSDictionary *drugInfo = _drugs[indexPath.row];
             [drugCell.logoImageView sd_setImageWithURL:[NSURL URLWithString:drugInfo[@"glogo"]] placeholderImage:[UIImage imageNamed:@"default160"]];
             drugCell.recipeFlagView.hidden = ![drugInfo[@"gtag"] boolValue];
@@ -565,6 +566,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
         }
         else {
             YKSShoppingBuyTotalInfoCell *totalInfoCell = [tableView dequeueReusableCellWithIdentifier:@"totalInfoCell" forIndexPath:indexPath];
+            totalInfoCell.userInteractionEnabled = NO;
             totalInfoCell.countLabel.text = [[NSString alloc] initWithFormat:@"共%@件药品", @(_totalCount)];
             totalInfoCell.freightLabel.text = _freightLabel.text;
             totalInfoCell.priceLabel.text = [[NSString alloc] initWithFormat:@"实付：%0.2f", _totalPrice];

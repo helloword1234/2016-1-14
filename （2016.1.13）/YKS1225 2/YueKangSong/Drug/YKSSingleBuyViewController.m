@@ -586,6 +586,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
     if (indexPath.section == 0)
     {
         YKSBuyAddressCell *addressCell = [tableView dequeueReusableCellWithIdentifier:@"BuyAddressCell" forIndexPath:indexPath];
+        addressCell.userInteractionEnabled = NO;
         
         if (currentAddr) {
             if ([currentAddr[@"sendable"] integerValue] == 1) {
