@@ -21,6 +21,7 @@
 
 @interface YKSAddAddressVC () <UITextFieldDelegate, UIGestureRecognizerDelegate,UIAlertViewDelegate>
 
+@property(strong,nonatomic) NSDictionary *currentDic;
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet UITextField *phoneField;
 
@@ -387,6 +388,7 @@
             [self.navigationController popViewControllerAnimated:YES];
         }else
         {
+            YKSSelectAddressView *selectAddressView = nil;
             //修改地址
             [GZBaseRequest editAddressById:_addressInfo[@"id"]
                                expressArea:areaCode
@@ -406,6 +408,71 @@
                                           //                                      [self.navigationController showToastMessage:@"更新成功"];
                                           //用户修改地址成功，弹出保存成功
                                           [self showToastMessage:@"保存成功"];
+                                          
+                                          //获取列表
+                                          [GZBaseRequest addressListCallback:^(id responseObject, NSError *error) {
+                                              if (error) {
+                                                  [self showToastMessage:@"网络加载失败"];
+                                                  return ;
+                                              }
+                                              if (ServerSuccess(responseObject)) {
+                                                  NSArray *dataArr = responseObject[@"data"][@"addresslist"];
+                                                  for (_currentDic in dataArr) {
+                                                      if ([_currentDic[@"id"] isEqualToString:_addressInfo[@"id"]]) {
+                                                          
+                                                          NSArray *array = [_currentDic[@"community_lat_lng"] componentsSeparatedByString:@","];
+                                                          [YKSUserModel shareInstance].lat = [[array firstObject] floatValue];
+                                                          [YKSUserModel shareInstance].lng = [[array lastObject] floatValue];
+                                                          
+                                                          //清空购物车
+                                                          [GZBaseRequest restartShoppingCartBygids:nil callback:^(id responseObject, NSError *error) {
+                                                              
+                                                              if (ServerSuccess(responseObject))
+                                                              {
+                                                                  
+                                                              }
+                                                          }];
+                                                          
+                                                          [YKSUserModel shareInstance].currentSelectAddress = _currentDic;
+                                                          //这里就是了,拿到地址,删除旧地址
+                                                          
+                                                          [UIViewController deleteFile];
+                                                          [UIViewController selectedAddressArchiver:_currentDic];
+                                                          
+                                                          
+                                                          //    [selectAddressView reloadData];
+                                                          selectAddressView.removeViewCallBack = ^{
+                                                              
+                                                          };
+                                                          [GZBaseRequest addressListCallback:^(id responseObject, NSError *error) {
+                                                              if (ServerSuccess(responseObject)) {
+                                                                  NSDictionary *dic = responseObject[@"data"];
+                                                                  if ([dic isKindOfClass:[NSDictionary class]] && dic[@"addresslist"]) {
+                                                                      selectAddressView.datas = [dic[@"addresslist"] mutableCopy];
+                                                                      [YKSUserModel shareInstance].addressLists = selectAddressView.datas;
+                                                                      if (!selectAddressView.datas) {
+                                                                          selectAddressView.datas = [NSMutableArray array];
+                                                                      }
+                                                                      [selectAddressView.datas insertObject:[self currentAddressInfo] atIndex:0];
+                                                                      [selectAddressView reloadData];
+                                                                  }
+                                                              }
+                                                          }];
+                                                          
+                                                          //产品详情选择地址之后回到首页
+                                                          self.tabBarController.selectedIndex=0;
+                                                          [self.navigationController popToRootViewControllerAnimated:YES];
+                                                          
+                                                      }
+                                                  }
+                                              } else {
+                                                  [self showToastMessage:responseObject[@"msg"]];
+                                              }
+                                          }];
+                                          
+
+                                          
+                                          
                                           //停留两秒以后，返回上一页
                                           dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                                               [self.navigationController popViewControllerAnimated:YES];
