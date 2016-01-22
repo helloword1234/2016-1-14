@@ -506,10 +506,10 @@
                [YKSUserModel shareInstance].lat = [[array firstObject] floatValue];
                [YKSUserModel shareInstance].lng = [[array lastObject] floatValue];
            }
-           if (![YKSUserModel shareInstance].currentSelectAddress) {
-               [YKSUserModel shareInstance].currentSelectAddress = info;
-
-           }
+//           if (![YKSUserModel shareInstance].currentSelectAddress) {
+//               [YKSUserModel shareInstance].currentSelectAddress = info;
+//
+//           }
            
        }
        if (isCreate) {

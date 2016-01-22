@@ -82,7 +82,8 @@
 
     _phoneField.text=[YKSUserModel telePhone];
     _City_Name.text=[UIViewController selectedCityUnArchiver][@"city"];
-    _streetField.placeholder = @"写字楼，小区，学校";
+    
+    _streetField.placeholder = ddic[@"poid"][0][@"name"];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                           action:@selector(gotoSearchAddress)];
     _streetField.enabled = NO;
@@ -132,10 +133,12 @@
         //_addressField.datas = datas;
         _areaInfo = areaInfo;
         if (_addressInfo) {
+            //里面的分区
             if (_addressInfo[@"district"]) {
                 //_addressField.text = _addressInfo[@"district"];
                 _nameField.text = @"";
             }
+            //数组里面遍历出来的县城
             [datas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 if (_addressInfo[@"county"] ) {
                     if ([obj[@"code"] integerValue] == [_addressInfo[@"county"] integerValue]) {
@@ -211,10 +214,10 @@
               [[GZHTTPClient shareClient] GET:BaiduMapGeocoderApi
                                           parameters:@{
                                                        @"location": latLongString,
-                                                      @"coordtype": @"wgs84ll",
-                                                    @"ak": BaiduMapAK,
-                                                        @"output": @"json",
-                                                        @"pois":@(1)
+                                                       @"coordtype": @"wgs84ll",
+                                                       @"ak": BaiduMapAK,
+                                                       @"output": @"json",
+                                                       @"pois":@(1)
                                                                                }
                                                
                                               
@@ -226,8 +229,8 @@
           [UIViewController selectedCityArchiver:dic[@"addressComponent"]];
            [UIViewController setMyLocation:dic];
                                                                              
-             _streetDic=_dic;
-                                                                             
+//             _streetDic=_dic;
+            
 //          _streetField.text =  _dic[@"addressComponent"][@"street"];
             _streetField.text =  _dic[@"pois"][0][@"name"];
             _detailAddressField.text =@"";
@@ -501,7 +504,7 @@
     
 
 }
-
+//管理收货地址删除按钮
 - (IBAction)deleteAction:(id)sender {
     
     
@@ -579,7 +582,10 @@
                                  parameters:@{@"region": @"北京",
                                               @"query": _lastSearchKey,
                                               @"ak": BaiduMapAK,
-                                              @"output": @"json"}
+                                              @"output": @"json"
+                                              
+                                              }
+             
                                     success:^(NSURLSessionDataTask *task, id responseObject) {
                                         if (responseObject && [responseObject[@"status"] integerValue] == 0) {
                                             _searchView.hidden = NO;
