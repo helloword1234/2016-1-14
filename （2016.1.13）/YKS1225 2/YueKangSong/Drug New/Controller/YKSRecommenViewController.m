@@ -75,7 +75,10 @@
     //设置记录变量初值
     self.indexArray = [NSMutableArray array];
 }
-
+//药品收藏不显示 每次界面都刷新 暂时修改
+-(void)viewDidAppear:(BOOL)animated{
+    [self requestSubSpecialList];
+}
 
 //一键加入购物车 代理方法
 - (void)addShopping:(UIButton *)addButton
