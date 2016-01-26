@@ -80,15 +80,19 @@
         [self.button addTarget:self action:@selector(addShoppingCart:) forControlEvents:UIControlEventTouchUpInside];
         self.button.frame = CGRectMake(SCREEN_WIDTH - 140, 5, 120, 30);
         [self addSubview:self.button];
-        [YKSTools showFreightPriceTextByTotalPrice:price
-                                          callback:^(NSAttributedString *totalPriceString,  NSString *freightPriceString) {
-                                              //self.priceLabel.attributedText = totalPriceString;
-                                              self.freightLabel.text = freightPriceString;
-                                          }];
-        self.freightLabel.frame = CGRectMake(20, self.sum.frame.size.height + self.sum.frame.origin.y + 5, 100, 15);
-        self.freightLabel.textColor = [UIColor lightGrayColor];
-        self.freightLabel.font = [UIFont systemFontOfSize:12];
-        [self addSubview:self.freightLabel];
+        
+        
+        
+        //不想让运费显示在这里了
+//        [YKSTools showFreightPriceTextByTotalPrice:price
+//                                          callback:^(NSAttributedString *totalPriceString,  NSString *freightPriceString) {
+//                                              //self.priceLabel.attributedText = totalPriceString;
+//                                              self.freightLabel.text = freightPriceString;
+//                                          }];
+//        self.freightLabel.frame = CGRectMake(20, self.sum.frame.size.height + self.sum.frame.origin.y + 5, 100, 15);
+//        self.freightLabel.textColor = [UIColor lightGrayColor];
+//        self.freightLabel.font = [UIFont systemFontOfSize:12];
+//        [self addSubview:self.freightLabel];
         
     }
     return self;
