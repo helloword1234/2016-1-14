@@ -431,6 +431,7 @@
                                                           [YKSUserModel shareInstance].lng = [[array lastObject] floatValue];
                                                           
                         
+                                                          if (![_currentDic[@"didinfo"][@"name"] isEqualToString:[YKSUserModel shareInstance].currentSelectAddress[@"didinfo"][@"name"]]) {
                                                               //清空购物车
                                                               [GZBaseRequest restartShoppingCartBygids:nil callback:^(id responseObject, NSError *error) {
                                                                   
@@ -439,6 +440,8 @@
                                                                       
                                                                   }
                                                               }];
+                                                              
+                                                          }
 
                                             
                                                           
