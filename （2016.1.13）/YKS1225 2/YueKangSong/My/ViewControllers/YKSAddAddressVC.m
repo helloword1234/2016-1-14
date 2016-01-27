@@ -77,13 +77,16 @@
         
     }
     
+    //获取到当前定位到的地址
+    NSDictionary *locationDic = [UIViewController selectedMyLocation];
     
     _City_Name.font=[UIFont systemFontOfSize:14];
 
     _phoneField.text=[YKSUserModel telePhone];
     _City_Name.text=[UIViewController selectedCityUnArchiver][@"city"];
     
-    _streetField.placeholder = ddic[@"poid"][0][@"name"];
+    //新建收货地址街道显示当前定位的地址
+    _streetField.text = locationDic[@"pois"][0][@"name"];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                           action:@selector(gotoSearchAddress)];
     _streetField.enabled = NO;

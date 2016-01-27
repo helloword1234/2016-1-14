@@ -568,11 +568,10 @@
         
         
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        //当价格为0的时候，说明删除所有药品
-        if (_totalPrice == 0) {
+        //网络获取购物车商品的数组的个数为0，说明删除所有药品
+        if (_datas.count == 0) {
             self.bottomView.hidden = YES;
             self.tableView.hidden = YES;
-
         }
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view

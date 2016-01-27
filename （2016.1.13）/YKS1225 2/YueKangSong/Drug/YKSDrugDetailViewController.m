@@ -188,11 +188,14 @@
     [_badgeView setNeedsLayout];
     [self.shoppingCartButton addSubview:_badgeView];
 }
-
+//滑动结束时机
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSInteger page = scrollView.contentOffset.x/SCREEN_WIDTH;
-    _pageControl.currentPage = page;
+    //判断是否是轮播图的scrollView，确保当tableView滑动的时候，不会改变pageController
+    if (scrollView.superview == self.tableView.tableHeaderView) {
+        NSInteger page = scrollView.contentOffset.x/SCREEN_WIDTH;
+        _pageControl.currentPage = page;
+    }
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
