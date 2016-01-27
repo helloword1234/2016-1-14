@@ -383,6 +383,8 @@
 {
     YKSReleaseButtonCell *releaseButtonView = [[YKSReleaseButtonCell alloc] initWithPrice:self.totalPrice andSection:@"方案一" andFrame:(CGRectMake(0, 0, self.view.bounds.size.width, 28.0f))];
     //给创建出来的每一个视图View中的按钮tag值赋值当行的分区
+    //方案一下方横线要求去掉
+    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     releaseButtonView.clickButton.tag = section;
     self.butCell.tag = section;
     //相等表示点击了
