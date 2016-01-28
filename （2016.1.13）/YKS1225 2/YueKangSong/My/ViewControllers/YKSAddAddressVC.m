@@ -644,7 +644,7 @@
         vc.callback = ^(NSDictionary *street){
             _streetDic = street;
             _streetField.text = _streetDic[@"name"];
-            _phoneField.text=[YKSUserModel telePhone];
+//            _phoneField.text=[YKSUserModel telePhone];
             _detailAddressField.text=@"";
         };
     }
@@ -666,7 +666,7 @@
             
         }];
         
-        self.phoneField.text=[YKSUserModel telePhone];
+//        self.phoneField.text=[YKSUserModel telePhone];
         
         
         [self.navigationController pushViewController:cityVC animated:YES];

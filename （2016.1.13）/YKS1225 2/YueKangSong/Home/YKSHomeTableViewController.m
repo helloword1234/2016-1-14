@@ -696,8 +696,26 @@
 }
 
 - (IBAction)addressAction:(id)sender {
-    //这里会显示地址,我们跟踪拿到选择的地址
-    [self showAddressView];
+    if (![YKSUserModel isLogin]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"未登录"
+                                                        message:@"请登录后查看地址"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"随便看看"
+                                              otherButtonTitles:@"登录", nil];
+        [alert show];
+        [alert callBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            if (buttonIndex == 0) {
+                self.tabBarController.selectedIndex = 0;
+            } else {
+                [YKSTools login:self];
+                return;
+            }
+        }];
+    }else
+    {
+        //这里会显示地址,我们跟踪拿到选择的地址
+        [self showAddressView];
+    }
     
 }
 
