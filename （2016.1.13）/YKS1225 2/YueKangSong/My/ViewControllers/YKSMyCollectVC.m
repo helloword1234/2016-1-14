@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomLayout;
 @property (weak, nonatomic) IBOutlet YKSTopLineView *bottomView;
 @property (weak, nonatomic) IBOutlet UIButton *allSelectedButton;
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 
 @end
 
@@ -29,6 +30,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //取消收藏的背景颜色和用户交互设置
+    self.cancelButton.backgroundColor = [UIColor grayColor];
+    self.cancelButton.userInteractionEnabled = NO;
+    
     self.tableView.tableFooterView = [UIView new];
     self.tableView.allowsMultipleSelectionDuringEditing = YES;
     [YKSTools insertEmptyImage:@"other_empty" text:@"你还未收藏过药品" view:self.view];
@@ -105,7 +110,7 @@
                                 if (ServerSuccess(responseObject)) {
                                     
                                     NSDictionary *dic = responseObject[@"data"];
-                                    if (dic.count == 0) {
+                                    if (dic.count == 1) {
                                         _datas = nil;
      　　　　　　　　　　　　　　　　　　　　  } else {
                                         if ([dic isKindOfClass:[NSDictionary class]] && dic[@"glist"]) {
@@ -150,18 +155,29 @@
         self.bottomView.hidden = NO;
         self.bottomLayout.constant = 50.0f;
         [self.tableView setEditing:YES animated:YES];
+        
+        //取消收藏的背景颜色和用户交互的设置，全选默认为no
+        self.cancelButton.backgroundColor = [UIColor grayColor];
+        self.cancelButton.userInteractionEnabled = NO;
+        self.allSelectedButton.selected = NO;
     }
 }
 
 - (IBAction)selectAllAction:(UIButton *)sender {
     sender.selected = !sender.selected;
     if (sender.selected) {
+        //取消收藏的背景颜色和用户交互的设置
+        self.cancelButton.backgroundColor = [UIColor redColor];
+        self.cancelButton.userInteractionEnabled = YES;
         for (int i = 0; i < self.datas.count; i++) {
             [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]
                                         animated:YES
                                   scrollPosition:UITableViewScrollPositionNone];
         }
     } else {
+        //取消收藏的背景颜色和用户交互的设置
+        self.cancelButton.backgroundColor = [UIColor grayColor];
+        self.cancelButton.userInteractionEnabled = NO;
         for (int i = 0; i < self.datas.count; i++) {
             [self.tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] animated:YES];
         }
@@ -213,6 +229,10 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView.editing) {
+        //取消收藏的背景颜色和用户交互的设置
+        self.cancelButton.backgroundColor = [UIColor redColor];
+        self.cancelButton.userInteractionEnabled = YES;
+        
         NSArray *array = [self.tableView indexPathsForSelectedRows];
         _allSelectedButton.selected = (array.count == _datas.count);
     } else {
@@ -229,6 +249,22 @@
     if (tableView.editing) {
         NSArray *array = [self.tableView indexPathsForSelectedRows];
         _allSelectedButton.selected = (array.count == _datas.count);
+        
+        //判断若有选中的收藏的商品
+        if (array.count != 0) {
+            //取消收藏的背景颜色和用户交互的设置
+            self.cancelButton.backgroundColor = [UIColor redColor];
+            self.cancelButton.userInteractionEnabled = YES;
+            
+        }else
+        {
+            //取消收藏的背景颜色和用户交互的设置
+            self.cancelButton.backgroundColor = [UIColor grayColor];
+            self.cancelButton.userInteractionEnabled = NO;
+            
+        }
+        
+
     }
 }
 
