@@ -22,6 +22,7 @@
 #import "YKSSelectAddressView.h"
 #import "YKSShoppingCartVC.h"
 #import "JSBadgeView.h"
+#import "YKSFMDBManger.h"
 
 @interface YKSDrugDetailViewController () <UITableViewDelegate, ImagePlayerViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -63,6 +64,9 @@
 {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+    
+    //发送通知
+    [[YKSFMDBManger shareManger] notiscation];
 }
 
 -(UIImageView *)animationImage
@@ -185,8 +189,23 @@
     _badgeView.badgePositionAdjustment = CGPointMake(-9,7);
     _badgeView.badgeBackgroundColor=[UIColor redColor];
     _badgeView.badgeOverlayColor=[UIColor redColor];
+    
+    //用通知接收购物车商品的数量
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:) name:@"tongzhi" object:nil];
+    
     [_badgeView setNeedsLayout];
     [self.shoppingCartButton addSubview:_badgeView];
+}
+
+//通知方法
+-(void)tongzhi:(NSNotification *)notification
+{
+    if ([notification.userInfo[@"count"] isEqualToString:@"0"]) {
+        _badgeView.badgeText = nil;
+    }else
+    {
+        _badgeView.badgeText = notification.userInfo[@"count"];
+    }
 }
 //滑动结束时机
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -513,6 +532,12 @@
                                               return ;
                                           }
                                           if (ServerSuccess(responseObject)) {
+                                              //添加购物车成功购改变药品数量
+                                              [YKSFMDBManger shareManger].dataCount++;
+                                              //转为角标格式
+                                              [[YKSFMDBManger shareManger] addShopCount];
+                                              //发送通知，改变角标
+                                              [[YKSFMDBManger shareManger] notiscation];
                                              
                                               self.shoppingCartButton.selected = YES;
                                           } else {

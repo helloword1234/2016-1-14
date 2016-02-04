@@ -17,6 +17,8 @@
 #import <MBProgressHUD.h>
 #import "YKSDrugListViewController.h"
 #import "YKSDrugListCell.h"
+#import "YKSFMDBManger.h"
+#import "YKSUserModel.h"
 @interface YKSShoppingCartVC () <UITableViewDelegate, UITableViewDataSource>
 {
     NSTimer *theTimer;
@@ -30,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *datas;
 
+@property (assign, nonatomic) NSInteger shopCount;
 //当allSelectState 值等于datas总数表示全选
 //是否全选
 @property (assign, nonatomic) NSInteger allSelectState;
@@ -540,6 +543,7 @@
 
  // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    _shopCount = 0;
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         
@@ -558,6 +562,9 @@
         [_datas enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
             if ([obj[@"isBuy"] boolValue]) {
                 totalPrice += [obj[@"gprice"] floatValue] * [obj[@"needBuyCount"] integerValue];
+                //用来标记删除此cell的商品后，剩下的商品个数
+                _shopCount += [obj[@"needBuyCount"] integerValue];
+
             }
         }];
         _totalPrice = totalPrice;
@@ -576,7 +583,51 @@
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }
+    
+    //删除商品后，改变dataCount
+    [YKSFMDBManger shareManger].dataCount = _shopCount;
+    [[YKSFMDBManger shareManger] addShopCount];
+    [[YKSFMDBManger shareManger] notiscation];
+    
+    [[YKSFMDBManger shareManger] readShoppingCarCount];
+    
+    if (_totalPrice == 0) {
+        [YKSFMDBManger shareManger].dataCount = 0;
+        [[YKSFMDBManger shareManger] addShopCount];
+        [[YKSFMDBManger shareManger] notiscation];
+    }
+    
+
 }
+
+//购物车页面消失以后，读取数据，重置角标
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if ([YKSUserModel isLogin]) {
+        [[YKSFMDBManger shareManger] notiscation];
+        //网络读取购物车的商品
+        [GZBaseRequest shoppingcartListCallback:^(id responseObject, NSError *error) {
+            NSDictionary *dic = [responseObject objectForKey:@"data"];
+            NSArray *dataArray = [dic objectForKey:@"list"];
+            
+            CGFloat totalCount = 0;
+            //循环遍历购物车药品数组
+            for (NSDictionary *data in dataArray) {
+                //获取药品的数量
+                CGFloat dataCount = [[data objectForKey:@"gcount"] integerValue];
+                //累计相加，则是后台购物车药品的总数
+                totalCount = totalCount + dataCount;
+            }
+            [YKSFMDBManger shareManger].dataCount = totalCount;
+            
+        }];
+
+    }
+    
+}
+
 
 @end
 
