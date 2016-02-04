@@ -428,7 +428,7 @@
     
     if (info[@"sendable"] && ![info[@"sendable"] boolValue])
     {
-        NSString *title = [NSString stringWithFormat:@"%@(暂不支持配送)", tempString];
+        NSString *title = [NSString stringWithFormat:@"配送至：%@(暂不支持配送)", tempString];
         [self.addressButton setTitle:title
                             forState:UIControlStateNormal];
     }
@@ -534,7 +534,7 @@
            NSString *tempString = [NSString stringWithFormat:@"%@", info[@"community"] ? info[@"community"] : @""];
            if (info[@"sendable"] && ![info[@"sendable"] boolValue]) {
                
-               NSString *title = [NSString stringWithFormat:@"%@(暂不支持配送)", tempString];
+               NSString *title = [NSString stringWithFormat:@"配送至：%@(暂不支持配送)", tempString];
                [self.addressButton setTitle:title
                                    forState:UIControlStateNormal];
            } else {
@@ -654,7 +654,7 @@
            
            NSString *tempString = [NSString stringWithFormat:@"%@", info[@"community"] ? info[@"community"] : @""];
            if (info[@"sendable"] && ![info[@"sendable"] boolValue]) {
-               NSString *title = [NSString stringWithFormat:@"%@(暂不支持配送)", tempString];
+               NSString *title = [NSString stringWithFormat:@"配送至：%@(暂不支持配送)", tempString];
                [self.addressButton setTitle:title
                                    forState:UIControlStateNormal];
            } else {

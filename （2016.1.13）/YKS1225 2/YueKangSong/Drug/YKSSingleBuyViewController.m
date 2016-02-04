@@ -705,7 +705,13 @@ UIActionSheetDelegate,UIAlertViewDelegate>
 //                NSIndexPath *indexpath = [NSIndexPath indexPathForRow:0 inSection:2];
 //                [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationFade];
                 
-                 NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",(long)_Count];
+                NSString *couponCount = nil;
+                if (_Count == 0) {
+                    couponCount = [NSString stringWithFormat:@"暂无优惠劵"];
+                }else
+                {
+                    couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",(long)_Count];
+                }
                 
                 couponCell.detailTextLabel.textColor=[UIColor redColor];
                 couponCell.detailTextLabel.text = couponCount;
@@ -728,7 +734,13 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             
             else{
                 
-                NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
+                NSString *couponCount = nil;
+                if (_Count == 0) {
+                    couponCount = [NSString stringWithFormat:@"暂无优惠劵"];
+                }else
+                {
+                    couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
+                }
                 couponCell.detailTextLabel.textColor=[UIColor redColor];
 
                 couponCell.detailTextLabel.text = couponCount;
@@ -820,7 +832,15 @@ UIActionSheetDelegate,UIAlertViewDelegate>
         if (_isPrescription)
         {
             YKSBuyCouponCell *couponCell = [self.tableView dequeueReusableCellWithIdentifier:@"BuyCouponCell" forIndexPath:[NSIndexPath indexPathForRow:0 inSection:3]];
-            NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
+            
+            NSString *couponCount = nil;
+            if (_Count == 0) {
+                couponCount = [NSString stringWithFormat:@"暂无优惠劵"];
+            }else
+            {
+                couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
+            }
+            
             couponCell.detailTextLabel.textColor=[UIColor redColor];
             couponCell.detailTextLabel.text = couponCount;
         }
@@ -830,7 +850,13 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             
             YKSBuyCouponCell *couponCell = [self.tableView dequeueReusableCellWithIdentifier:@"BuyCouponCell" forIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
             
-            NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",(long)_Count];
+            NSString *couponCount = nil;
+            if (_Count == 0) {
+                couponCount = [NSString stringWithFormat:@"暂无优惠劵"];
+            }else
+            {
+                couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",(long)_Count];
+            }
             
             
             couponCell.detailTextLabel.textColor=[UIColor redColor];
@@ -879,7 +905,15 @@ UIActionSheetDelegate,UIAlertViewDelegate>
         if (_isPrescription)
         {
             YKSBuyCouponCell *couponCell = [self.tableView dequeueReusableCellWithIdentifier:@"BuyCouponCell" forIndexPath:[NSIndexPath indexPathForRow:0 inSection:3]];
-            NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
+            
+            NSString *couponCount = nil;
+            if (_Count == 0) {
+                couponCount = [NSString stringWithFormat:@"暂无优惠劵"];
+            }else
+            {
+                couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
+            }
+            
             couponCell.detailTextLabel.textColor=[UIColor redColor];
             couponCell.detailTextLabel.text = couponCount;
         }
@@ -888,7 +922,13 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             
             YKSBuyCouponCell *couponCell = [self.tableView dequeueReusableCellWithIdentifier:@"BuyCouponCell" forIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
             
-            NSString *couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",(long)_Count];
+            NSString *couponCount = nil;
+            if (_Count == 0) {
+                couponCount = [NSString stringWithFormat:@"暂无优惠劵"];
+            }else
+            {
+                couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",(long)_Count];
+            }
             
             
             couponCell.detailTextLabel.textColor=[UIColor redColor];
