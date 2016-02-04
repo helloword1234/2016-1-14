@@ -874,7 +874,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
 //        
 //    }
     [self coupon];
-    if (_originTotalPrice<[self.couponInfo[@"fileLimit"] floatValue]) {
+    if (_originTotalPrice<[self.couponInfo[@"fileLimit"] floatValue] || _originTotalPrice > [self.couponInfo[@"fileLimit"] floatValue]) {
         self.couponInfo = nil;
         if (_isPrescription)
         {
