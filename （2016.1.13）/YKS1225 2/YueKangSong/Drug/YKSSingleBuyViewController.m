@@ -707,10 +707,10 @@ UIActionSheetDelegate,UIAlertViewDelegate>
                 
                 NSString *couponCount = nil;
                 if (_Count == 0) {
-                    couponCount = [NSString stringWithFormat:@"暂无优惠劵"];
+                    couponCount = [NSString stringWithFormat:@"无可用的优惠劵"];
                 }else
                 {
-                    couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",(long)_Count];
+                    couponCount = [NSString stringWithFormat:@"%ld张优惠券可用",(long)_Count];
                 }
                 
                 couponCell.detailTextLabel.textColor=[UIColor redColor];
@@ -736,10 +736,10 @@ UIActionSheetDelegate,UIAlertViewDelegate>
                 
                 NSString *couponCount = nil;
                 if (_Count == 0) {
-                    couponCount = [NSString stringWithFormat:@"暂无优惠劵"];
+                    couponCount = [NSString stringWithFormat:@"无可用的优惠劵"];
                 }else
                 {
-                    couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
+                    couponCount = [NSString stringWithFormat:@"%ld张优惠券可用",_Count];
                 }
                 couponCell.detailTextLabel.textColor=[UIColor redColor];
 
@@ -835,10 +835,10 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             
             NSString *couponCount = nil;
             if (_Count == 0) {
-                couponCount = [NSString stringWithFormat:@"暂无优惠劵"];
+                couponCount = [NSString stringWithFormat:@"无可用的优惠劵"];
             }else
             {
-                couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
+                couponCount = [NSString stringWithFormat:@"%ld张优惠券可用",_Count];
             }
             
             couponCell.detailTextLabel.textColor=[UIColor redColor];
@@ -852,10 +852,10 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             
             NSString *couponCount = nil;
             if (_Count == 0) {
-                couponCount = [NSString stringWithFormat:@"暂无优惠劵"];
+                couponCount = [NSString stringWithFormat:@"无可用的优惠劵"];
             }else
             {
-                couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",(long)_Count];
+                couponCount = [NSString stringWithFormat:@"%ld张优惠券可用",(long)_Count];
             }
             
             
@@ -908,10 +908,10 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             
             NSString *couponCount = nil;
             if (_Count == 0) {
-                couponCount = [NSString stringWithFormat:@"暂无优惠劵"];
+                couponCount = [NSString stringWithFormat:@"无可用的优惠劵"];
             }else
             {
-                couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",_Count];
+                couponCount = [NSString stringWithFormat:@"%ld张优惠券可用",_Count];
             }
             
             couponCell.detailTextLabel.textColor=[UIColor redColor];
@@ -924,10 +924,10 @@ UIActionSheetDelegate,UIAlertViewDelegate>
             
             NSString *couponCount = nil;
             if (_Count == 0) {
-                couponCount = [NSString stringWithFormat:@"暂无优惠劵"];
+                couponCount = [NSString stringWithFormat:@"无可用的优惠劵"];
             }else
             {
-                couponCount = [NSString stringWithFormat:@"您有%ld张优惠券可以使用",(long)_Count];
+                couponCount = [NSString stringWithFormat:@"%ld张优惠券可用",(long)_Count];
             }
             
             

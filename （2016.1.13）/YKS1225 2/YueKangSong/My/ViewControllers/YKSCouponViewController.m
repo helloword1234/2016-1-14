@@ -162,7 +162,7 @@
     self.tableView.tableFooterView = [UIView new];
     self.tableView.tableFooterView.backgroundColor = self.tableView.backgroundColor;
     _textField.delegate = self;
-    [YKSTools insertEmptyImage:@"other_empty" text:@"暂无优惠劵" view:self.view];
+    [YKSTools insertEmptyImage:@"other_empty" text:@"无可用的优惠劵" view:self.view];
     _confirmButton.backgroundColor = kNavigationBar_back_color;
     _confirmButton.layer.masksToBounds = YES;
     _confirmButton.layer.cornerRadius = 5.0f;
