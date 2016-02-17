@@ -14,6 +14,7 @@
 #import "TimeLineViewControl.h"
 #import <UMSocial.h>
 #import "YKSOrderTime.h"
+#import "YKSOrderAddress.h"
 @interface YKSOrderDetailViewController ()
 
 @property (strong, nonatomic) NSMutableArray *datas;
@@ -437,7 +438,7 @@
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -478,11 +479,19 @@
             cell.priceLabel.text = [[NSString alloc] initWithFormat:@"实付：%0.2f", [_orderInfo[@"finallyPrice"] floatValue]];
             return cell;
         }
-    } else {
+    } else if(indexPath.section == 1){
         YKSOrderTime *cell=[tableView dequeueReusableCellWithIdentifier:@"orderTimeCell" forIndexPath:indexPath];
         cell.detailTextLabel.text = [YKSTools formatterTimeStamp:[_orderInfo[@"nextExpireTime"] integerValue]];
         cell.detailLable.text=[YKSTools formatterTimeStamp:[_orderInfo[@"nextExpireTime"] integerValue]];
         cell.timeLable.text=@"预计一小时之内到达";
+        return cell;
+    }else
+    {
+        YKSOrderAddress *cell=[tableView dequeueReusableCellWithIdentifier:@"orderAddressCell" forIndexPath:indexPath];
+        NSString *address = _orderInfo[@"address"];
+        NSString *detail_addr = _orderInfo[@"detail_addr"];
+        NSString *newAddress = [address stringByAppendingString:detail_addr];
+        cell.address.text = newAddress;
         return cell;
     }
     

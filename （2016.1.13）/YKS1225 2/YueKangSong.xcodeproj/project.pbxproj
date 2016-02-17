@@ -59,6 +59,7 @@
 		31EE6B081BF9812A00DFF279 /* pay@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31EE6B041BF9812A00DFF279 /* pay@3x.png */; };
 		31EF99191BB2A9F8008742FC /* YQM.png in Resources */ = {isa = PBXBuildFile; fileRef = 31EF99181BB2A9F8008742FC /* YQM.png */; };
 		31EF99271BB2C25B008742FC /* thingMoney.png in Resources */ = {isa = PBXBuildFile; fileRef = 31EF99261BB2C25B008742FC /* thingMoney.png */; };
+		31F04FCE1C741B880079F7C9 /* YKSOrderAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F04FCD1C741B880079F7C9 /* YKSOrderAddress.m */; };
 		3E18E9E31B5F51E6008ACC2D /* YKSSearchStreetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E18E9E21B5F51E6008ACC2D /* YKSSearchStreetVC.m */; };
 		3E2705A31B02272B00FC6010 /* YKSTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2705A21B02272B00FC6010 /* YKSTabBarViewController.m */; };
 		3E2705AC1B022AC000FC6010 /* qr_scan_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E2705A71B022AC000FC6010 /* qr_scan_line@2x.png */; };
@@ -307,6 +308,8 @@
 		31EE6B041BF9812A00DFF279 /* pay@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay@3x.png"; sourceTree = "<group>"; };
 		31EF99181BB2A9F8008742FC /* YQM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = YQM.png; sourceTree = "<group>"; };
 		31EF99261BB2C25B008742FC /* thingMoney.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thingMoney.png; sourceTree = "<group>"; };
+		31F04FCC1C741B880079F7C9 /* YKSOrderAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKSOrderAddress.h; sourceTree = "<group>"; };
+		31F04FCD1C741B880079F7C9 /* YKSOrderAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKSOrderAddress.m; sourceTree = "<group>"; };
 		3E18E9E11B5F51E6008ACC2D /* YKSSearchStreetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKSSearchStreetVC.h; sourceTree = "<group>"; };
 		3E18E9E21B5F51E6008ACC2D /* YKSSearchStreetVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKSSearchStreetVC.m; sourceTree = "<group>"; };
 		3E2705A11B02272B00FC6010 /* YKSTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKSTabBarViewController.h; sourceTree = "<group>"; };
@@ -1071,6 +1074,8 @@
 				F31001AA1B94438600E1C822 /* 33.jpg */,
 				F31001AC1B94694D00E1C822 /* 3.png */,
 				F3A5A8011B95604100BEA3BC /* 未命名文件夹 2 */,
+				31F04FCC1C741B880079F7C9 /* YKSOrderAddress.h */,
+				31F04FCD1C741B880079F7C9 /* YKSOrderAddress.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1638,6 +1643,7 @@
 				3E2705D61B02DBCE00FC6010 /* GZBaseRequest.m in Sources */,
 				57A4B97E1BD8B91400EE29FC /* YKSMyAddressViewcontroller.m in Sources */,
 				3E958EA81B12B45F00A18783 /* YKSShoppingCartBuyVC.m in Sources */,
+				31F04FCE1C741B880079F7C9 /* YKSOrderAddress.m in Sources */,
 				3E8905411B033C3100ACF5AD /* YKSSpecialView.m in Sources */,
 				3E2A10F21B01F3BA00DE1E4C /* main.m in Sources */,
 				3EFFB6AC1B25693800692CAA /* HealthKitUtils.m in Sources */,
