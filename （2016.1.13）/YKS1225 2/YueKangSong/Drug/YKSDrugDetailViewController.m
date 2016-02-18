@@ -55,6 +55,8 @@
 
 @property(nonatomic,strong)JSBadgeView *badgeView;
 
+@property(nonatomic,strong)NSDictionary *drugNewInror;
+
 @end
 
 @implementation YKSDrugDetailViewController
@@ -63,6 +65,80 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [GZBaseRequest searchByKey:_drugInfo[@"gtitle"] page:1 callback:^(id responseObject, NSError *error) {
+        NSDictionary *dic = [responseObject objectForKey:@"data"];
+        NSArray *dataArr = [dic valueForKey:@"glist"];
+        for (NSDictionary *daya in dataArr) {
+            if ([daya[@"gtitle"] isEqualToString:_drugInfo[@"gtitle"]]) {
+                _drugNewInror = daya;
+            }
+        }
+        [self.tableView reloadData];
+    }];
+    
+    [self nullDrugDisplay];
+    _number=0;
+    _timer = -1;
+    //NSLog(@"repertory ===== %@",self.repertoryArry);
+    
+    _headerView.bounds = CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height*0.5);
+    _imageURLStrings = [_drugInfo[@"banners"] componentsSeparatedByString:@","]; // 把后台传回来的图片分割为N个部分。
+    
+    _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _headerView.bounds.size.height)];
+    _scrollView.pagingEnabled = YES;
+    _scrollView.bounces = NO;
+    _scrollView.delegate = self;
+    _scrollView.showsHorizontalScrollIndicator = NO;
+    _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*_imageURLStrings.count, 0);
+    for (int i = 0; i<_imageURLStrings.count; i++) {
+        UIImageView *iv = [[UIImageView alloc]initWithFrame:CGRectMake(i*SCREEN_WIDTH, 0, SCREEN_WIDTH, _headerView.bounds.size.height)];
+        iv.contentMode = UIViewContentModeScaleAspectFit;
+        [iv sd_setImageWithURL:[NSURL URLWithString:_imageURLStrings[i]] placeholderImage:[UIImage imageNamed:@"defatul320"]];
+        [_scrollView addSubview:iv];
+    }
+    
+    //    UIView *headerView = [[UIView alloc]initWithFrame:];
+    
+    
+    [self.tableView.tableHeaderView addSubview:_scrollView];
+    [self.tableView.tableHeaderView addSubview:_NullImage];
+    _pageControl = [[UIPageControl alloc]init];
+    //    _pageControl.hidesForSinglePage = YES;
+    _pageControl.contentMode = UIViewContentModeCenter;
+    _pageControl.numberOfPages = _imageURLStrings.count;
+    CGSize qsize = [_pageControl sizeForNumberOfPages:_imageURLStrings.count];
+    CGRect rect = _pageControl.bounds;
+    rect.size = qsize;
+    _pageControl.frame = CGRectMake((_scrollView.bounds.size.width-qsize.width)*0.5, _scrollView.bounds.size.height - 20, qsize.width, qsize.height);
+    
+    //    _pageControl.center = CGPointMake(SCREEN_WIDTH/2, _scrollView.bounds.size.height-5);
+    [self.tableView.tableHeaderView addSubview:_pageControl];
+    _pageControl.currentPage = 0;
+    _pageControl.currentPageIndicatorTintColor = [UIColor redColor];
+    _pageControl.pageIndicatorTintColor = [UIColor colorWithRed:50.0/255 green:143.0/255 blue:250.0/255 alpha:1];
+    //    _pageControl.pageIndicatorTintColor = [UIColor blueColor];
+    
+    // Do any additional setup after loading the view.
+    //    __headerView.imagePlayerViewDelegate = self;
+    //    __headerView.scrollInterval = 99999;
+    //    __headerView.pageControlPosition = ICPageControlPosition_BottomRight;
+    //    [self._headerView reloadData];
+    
+    
+    // 购物车图标的数字显示
+    
+    _badgeView =[[JSBadgeView alloc]initWithParentView:self.shoppingCartButton alignment:JSBadgeViewAlignmentTopRight];
+    _badgeView.badgePositionAdjustment = CGPointMake(-9,7);
+    _badgeView.badgeBackgroundColor=[UIColor redColor];
+    _badgeView.badgeOverlayColor=[UIColor redColor];
+    
+    //用通知接收购物车商品的数量
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:) name:@"tongzhi" object:nil];
+    
+    [_badgeView setNeedsLayout];
+    [self.shoppingCartButton addSubview:_badgeView];
+    
     self.tabBarController.tabBar.hidden = YES;
     
     //发送通知
@@ -134,67 +210,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self nullDrugDisplay];
-    _number=0;
-    _timer = -1;
-    //NSLog(@"repertory ===== %@",self.repertoryArry);
     
-    _headerView.bounds = CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height*0.5);
-    _imageURLStrings = [_drugInfo[@"banners"] componentsSeparatedByString:@","]; // 把后台传回来的图片分割为N个部分。
-
-    _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _headerView.bounds.size.height)];
-    _scrollView.pagingEnabled = YES;
-    _scrollView.bounces = NO;
-    _scrollView.delegate = self;
-    _scrollView.showsHorizontalScrollIndicator = NO;
-    _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*_imageURLStrings.count, 0);
-    for (int i = 0; i<_imageURLStrings.count; i++) {
-        UIImageView *iv = [[UIImageView alloc]initWithFrame:CGRectMake(i*SCREEN_WIDTH, 0, SCREEN_WIDTH, _headerView.bounds.size.height)];
-        iv.contentMode = UIViewContentModeScaleAspectFit;
-        [iv sd_setImageWithURL:[NSURL URLWithString:_imageURLStrings[i]] placeholderImage:[UIImage imageNamed:@"defatul320"]];
-        [_scrollView addSubview:iv];
-    }
-    
-//    UIView *headerView = [[UIView alloc]initWithFrame:];
-    
-    
-    [self.tableView.tableHeaderView addSubview:_scrollView];
-    [self.tableView.tableHeaderView addSubview:_NullImage];
-    _pageControl = [[UIPageControl alloc]init];
-//    _pageControl.hidesForSinglePage = YES;
-    _pageControl.contentMode = UIViewContentModeCenter;
-    _pageControl.numberOfPages = _imageURLStrings.count;
-    CGSize qsize = [_pageControl sizeForNumberOfPages:_imageURLStrings.count];
-    CGRect rect = _pageControl.bounds;
-    rect.size = qsize;
-    _pageControl.frame = CGRectMake((_scrollView.bounds.size.width-qsize.width)*0.5, _scrollView.bounds.size.height - 20, qsize.width, qsize.height);
-    
-//    _pageControl.center = CGPointMake(SCREEN_WIDTH/2, _scrollView.bounds.size.height-5);
-    [self.tableView.tableHeaderView addSubview:_pageControl];
-    _pageControl.currentPage = 0;
-    _pageControl.currentPageIndicatorTintColor = [UIColor redColor];
-    _pageControl.pageIndicatorTintColor = [UIColor colorWithRed:50.0/255 green:143.0/255 blue:250.0/255 alpha:1];
-//    _pageControl.pageIndicatorTintColor = [UIColor blueColor];
-    
-    // Do any additional setup after loading the view.
-//    __headerView.imagePlayerViewDelegate = self;
-//    __headerView.scrollInterval = 99999;
-//    __headerView.pageControlPosition = ICPageControlPosition_BottomRight;
-//    [self._headerView reloadData];
-    
-    
-    // 购物车图标的数字显示
-    
-    _badgeView =[[JSBadgeView alloc]initWithParentView:self.shoppingCartButton alignment:JSBadgeViewAlignmentTopRight];
-    _badgeView.badgePositionAdjustment = CGPointMake(-9,7);
-    _badgeView.badgeBackgroundColor=[UIColor redColor];
-    _badgeView.badgeOverlayColor=[UIColor redColor];
-    
-    //用通知接收购物车商品的数量
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:) name:@"tongzhi" object:nil];
-    
-    [_badgeView setNeedsLayout];
-    [self.shoppingCartButton addSubview:_badgeView];
 }
 
 //通知方法
@@ -245,7 +261,7 @@
         [self showToastMessage:@"已取消收藏"];
 
 
-        [GZBaseRequest deleteCollectByGid:_drugInfo[@"gid"]
+        [GZBaseRequest deleteCollectByGid:_drugNewInror[@"gid"]
                                  callback:^(id responseObject, NSError *error) {
                                      if (error) {
                                          [self showToastMessage:@"网络加载失败"];
@@ -263,7 +279,7 @@
     } else {
         [self showToastMessage:@"收藏成功"];
 
-        [GZBaseRequest addCollectByGid:_drugInfo[@"gid"]
+        [GZBaseRequest addCollectByGid:_drugNewInror[@"gid"]
                               callback:^(id responseObject, NSError *error) {
                                   if (error) {
                                       [self showToastMessage:@"网络加载失败"];
@@ -449,7 +465,7 @@
 - (void)jumpAddCard
 {
 
-    NSString *repertory = _drugInfo[@"repertory"];
+    NSString *repertory = _drugNewInror[@"repertory"];
     
     int b = [repertory intValue];
     
@@ -503,20 +519,20 @@
         
         [self showProgress];
         
-        NSDictionary *dic = @{@"gid": _drugInfo[@"gid"],
+        NSDictionary *dic = @{@"gid": _drugNewInror[@"gid"],
                               @"gcount": @(1),
-                              @"gtag": _drugInfo[@"gtag"],
-                              @"banners": _drugInfo[@"banners"],
-                              @"gtitle": _drugInfo[@"gtitle"],
-                              @"gprice": _drugInfo[@"gprice"],
-                              @"gpricemart": _drugInfo[@"gpricemart"],
-                              @"glogo": _drugInfo[@"glogo"],
-                              @"gdec": _drugInfo[@"gdec"],
-                              @"purchase": _drugInfo[@"purchase"],
-                              @"gstandard": _drugInfo[@"gstandard"],
-                              @"vendor": _drugInfo[@"vendor"],
-                              @"iscollect": _drugInfo[@"iscollect"],
-                              @"gmanual": _drugInfo[@"gmanual"]
+                              @"gtag": _drugNewInror[@"gtag"],
+                              @"banners": _drugNewInror[@"banners"],
+                              @"gtitle": _drugNewInror[@"gtitle"],
+                              @"gprice": _drugNewInror[@"gprice"],
+                              @"gpricemart": _drugNewInror[@"gpricemart"],
+                              @"glogo": _drugNewInror[@"glogo"],
+                              @"gdec": _drugNewInror[@"gdec"],
+                              @"purchase": _drugNewInror[@"purchase"],
+                              @"gstandard": _drugNewInror[@"gstandard"],
+                              @"vendor": _drugNewInror[@"vendor"],
+                              @"iscollect": _drugNewInror[@"iscollect"],
+                              @"gmanual": _drugNewInror[@"gmanual"]
                               };
         
     
@@ -524,7 +540,7 @@
         
         
         [GZBaseRequest addToShoppingcartParams:@[dic]
-                                          gids:_drugInfo[@"gid"]
+                                          gids:_drugNewInror[@"gid"]
                                       callback:^(id responseObject, NSError *error) {
                                           [self hideProgress];
                                           if (error) {
@@ -604,12 +620,12 @@
     } else if (indexPath.row == 1) {
         return [tableView fd_heightForCellWithIdentifier:@"drugActionCell" configuration:^(YKSDrugActionCell *actionCell) {
             
-            actionCell.actionLabel.text = _drugInfo[@"gdec"];
+            actionCell.actionLabel.text = _drugNewInror[@"gdec"];
         }];
     } else if (indexPath.row == 2) {
         return [tableView fd_heightForCellWithIdentifier:@"drugDescribeCell" configuration:^(YKSDrugDescribeCell *describeCell) {
             
-            describeCell.directionLabel.text =DefuseNUllString(_drugInfo[@"drugstore"][@"address"]);//DefuseNUllString(_drugInfo[@"gmanual"]);
+            describeCell.directionLabel.text =DefuseNUllString(_drugNewInror[@"drugstore"][@"address"]);//DefuseNUllString(_drugInfo[@"gmanual"]);
         }];
     }
     return 40.0f;
@@ -627,7 +643,7 @@
     YKSDrugInfoCell *cell;
     if (indexPath.row == 0) {
         YKSDrugNameCell *nameCell = [tableView dequeueReusableCellWithIdentifier:@"drugNameCell" forIndexPath:indexPath];
-        nameCell.nameLabel.text = [NSString stringWithFormat:@"%@  %@",DefuseNUllString(_drugInfo[@"gtitle"]),DefuseNUllString(_drugInfo[@"gstandard"])];
+        nameCell.nameLabel.text = [NSString stringWithFormat:@"%@  %@",DefuseNUllString(_drugNewInror[@"gtitle"]),DefuseNUllString(_drugNewInror[@"gstandard"])];
 //        NSString *priceString = [NSString stringWithFormat:@"￥%0.2f /盒", [_drugInfo[@"gprice"] floatValue]];
        
 //        UILabel *label =[[UILabel alloc]initWithFrame:CGRectMake(50,10, 200, 50)];
@@ -639,10 +655,10 @@
         
 //
         //处方药标示的显隐性，
-        nameCell.backImage.hidden = ![_drugInfo[@"gtag"] boolValue];
+        nameCell.backImage.hidden = ![_drugNewInror[@"gtag"] boolValue];
         nameCell.backImage.userInteractionEnabled = NO;
         
-        NSString *priceString = [NSString stringWithFormat:@"￥%0.2f  ", [_drugInfo[@"gprice"] floatValue]];
+        NSString *priceString = [NSString stringWithFormat:@"￥%0.2f  ", [_drugNewInror[@"gprice"] floatValue]];
         
         NSMutableAttributedString *attribuedString = [[NSMutableAttributedString alloc] initWithString:priceString];
         [attribuedString addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15.0],
@@ -657,22 +673,22 @@
         nameCell.priceLabel.attributedText = attribuedString;
         [nameCell.priceLabel sizeToFit];
         
-        NSString *originPrice = [NSString stringWithFormat:@"原价：￥%0.2f", [_drugInfo[@"gpricemart"] floatValue]];
+        NSString *originPrice = [NSString stringWithFormat:@"原价：￥%0.2f", [_drugNewInror[@"gpricemart"] floatValue]];
         attribuedString = [[NSMutableAttributedString alloc] initWithString:originPrice attributes:@{NSStrikethroughStyleAttributeName: @(NSUnderlineStyleNone)}];
         [attribuedString addAttributes:@{NSStrikethroughStyleAttributeName: @(NSUnderlineStyleSingle)}
                                  range:NSMakeRange(4, originPrice.length - 4)];
         nameCell.originPriceLabel.attributedText = attribuedString;
         
-        if (!IS_EMPTY_STRING(_drugInfo[@"med_unit"])){
-            self.companyLabel.text = [NSString stringWithFormat:@"/%@",_drugInfo[@"med_unit"]];
+        if (!IS_EMPTY_STRING(_drugNewInror[@"med_unit"])){
+            self.companyLabel.text = [NSString stringWithFormat:@"/%@",_drugNewInror[@"med_unit"]];
             self.companyLabel.frame = CGRectMake(nameCell.priceLabel.frame.origin.x + nameCell.priceLabel.frame.size.width - 5, nameCell.priceLabel.frame.origin.y, 50, nameCell.priceLabel.frame.size.height);
             [nameCell.contentView addSubview:self.companyLabel];
         }else{
-        priceString =[NSString stringWithFormat:@"￥%0.2f/盒  ", [_drugInfo[@"gprice"] floatValue]];
+        priceString =[NSString stringWithFormat:@"￥%0.2f/盒  ", [_drugNewInror[@"gprice"] floatValue]];
             nameCell.priceLabel.text=priceString;
         }
         
-        if ([_drugInfo[@"iscollect"] boolValue]) {
+        if ([_drugNewInror[@"iscollect"] boolValue]) {
             [nameCell.collectButton setImage:[UIImage imageNamed:@"collect_selected"] forState:UIControlStateNormal];
         }
         [nameCell.collectButton addTarget:self action:@selector(collectAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -680,14 +696,14 @@
         
     } else if (indexPath.row == 1) {
         YKSDrugActionCell *actionCell = [tableView dequeueReusableCellWithIdentifier:@"drugActionCell" forIndexPath:indexPath];
-        actionCell.actionLabel.text = DefuseNUllString(_drugInfo[@"gdec"]);
+        actionCell.actionLabel.text = DefuseNUllString(_drugNewInror[@"gdec"]);
         cell = actionCell;
         
     } else if (indexPath.row  == 2) {
         YKSDrugDescribeCell *describeCell = [tableView dequeueReusableCellWithIdentifier:@"drugDescribeCell" forIndexPath:indexPath];
-        describeCell.factoryLabel.text = DefuseNUllString(_drugInfo[@"vendor"]);
+        describeCell.factoryLabel.text = DefuseNUllString(_drugNewInror[@"vendor"]);
         describeCell.directionLabel.text =@"" ; //DefuseNUllString(_drugInfo[@"gmanual"]);  DefuseNUllString(_drugInfo[@"drugstore"][@"address"])
-        describeCell.drugStoreNameLable.text=DefuseNUllString(_drugInfo[@"drugstore"][@"name"]);
+        describeCell.drugStoreNameLable.text=DefuseNUllString(_drugNewInror[@"drugstore"][@"name"]);
         
         cell = describeCell;
     }
@@ -701,7 +717,7 @@
   
     YKSDrugShuoMingViewController *shuoMing=[[YKSDrugShuoMingViewController alloc]init];
     
-    shuoMing.shuoMingDic = _drugInfo;
+    shuoMing.shuoMingDic = _drugNewInror;
 
     
     [self.navigationController pushViewController:shuoMing animated:YES];
@@ -716,7 +732,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"gotoYKSSingleBuyViewController"]) {
         YKSSingleBuyViewController *singleVC = segue.destinationViewController;
-        singleVC.drugInfo = _drugInfo;
+        singleVC.drugInfo = _drugNewInror;
         
     }
     if ([segue.identifier isEqualToString:@"gotoShoppingCart"]) {

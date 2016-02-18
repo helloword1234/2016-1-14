@@ -589,7 +589,7 @@
     [[YKSFMDBManger shareManger] addShopCount];
     [[YKSFMDBManger shareManger] notiscation];
     
-    [[YKSFMDBManger shareManger] readShoppingCarCount];
+//    [[YKSFMDBManger shareManger] readShoppingCarCount];
     
     if (_totalPrice == 0) {
         [YKSFMDBManger shareManger].dataCount = 0;
