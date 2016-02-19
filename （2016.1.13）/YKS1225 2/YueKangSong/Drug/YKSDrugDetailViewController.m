@@ -70,7 +70,7 @@
         NSDictionary *dic = [responseObject objectForKey:@"data"];
         NSArray *dataArr = [dic valueForKey:@"glist"];
         for (NSDictionary *daya in dataArr) {
-            if ([daya[@"gtitle"] isEqualToString:_drugInfo[@"gtitle"]] && [daya[@"gstandard"] isEqualToString:_drugInfo[@"gstandard"]] && [daya[@"gprice"] isEqualToString:_drugInfo[@"gprice"]]&& [daya[@"vendor"] isEqualToString:_drugInfo[@"vendor"]]) {
+            if ([daya[@"gtitle"] isEqualToString:_drugInfo[@"gtitle"]]) {
                 _drugNewInror = daya;
             }
         }
