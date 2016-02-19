@@ -22,6 +22,8 @@
 @property (nonatomic,strong) UIImageView *nullImage;
 //单位label
 @property (nonatomic,strong) UILabel *companyLabel;
+//处方药
+@property(nonatomic,strong)UIImageView *recipace;
 @end
 
 @implementation YKSPlanDisPlayCell
@@ -31,6 +33,14 @@
         _image = [[UIImageView alloc] init];
     }
     return _image;
+}
+
+- (UIImageView *)recipace
+{
+    if (!_recipace) {
+        _recipace = [[UIImageView alloc] init];
+    }
+    return _recipace;
 }
 - (UILabel *)nameLabel
 {
@@ -86,6 +96,12 @@
     [self.image sd_setImageWithURL:[NSURL URLWithString:drugInfo[@"glogo"]] placeholderImage:[UIImage imageNamed:@"default160"]];
     self.image.frame = CGRectMake(20, 20, 50, 60);
     [self addSubview:self.image];
+    
+    self.recipace.frame = CGRectMake(40, 50, 10, 10);
+    self.recipace.image = [UIImage imageNamed:@"recipe"];
+    self.recipace.hidden = ![_drugInfo[@"gtag"] boolValue];
+    [self.image addSubview:self.recipace];
+    
     self.nameLabel.text = DefuseNUllString(drugInfo[@"gtitle"]);
     self.nameLabel.frame = CGRectMake(self.image.frame.origin.x + self.image.frame.size.width + 10, self.image.frame.origin.y, self.bounds.size.width - 40, 20);
     [self addSubview:self.nameLabel];
