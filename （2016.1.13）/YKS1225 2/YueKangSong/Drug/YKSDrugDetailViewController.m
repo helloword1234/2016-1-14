@@ -75,74 +75,74 @@
             }
         }
         [self.tableView reloadData];
+        
+        [self nullDrugDisplay];
+        
+        //NSLog(@"repertory ===== %@",self.repertoryArry);
+        
+        _headerView.bounds = CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height*0.4);
+        _imageURLStrings = [_drugNewInror[@"banners"] componentsSeparatedByString:@","]; // 把后台传回来的图片分割为N个部分。
+        
+        _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _headerView.bounds.size.height)];
+        _scrollView.pagingEnabled = YES;
+        _scrollView.bounces = NO;
+        _scrollView.delegate = self;
+        _scrollView.showsHorizontalScrollIndicator = NO;
+        _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*_imageURLStrings.count, 0);
+        for (int i = 0; i<_imageURLStrings.count; i++) {
+            UIImageView *iv = [[UIImageView alloc]initWithFrame:CGRectMake(i*SCREEN_WIDTH, 0, SCREEN_WIDTH, _headerView.bounds.size.height)];
+            iv.contentMode = UIViewContentModeScaleAspectFit;
+            [iv sd_setImageWithURL:[NSURL URLWithString:_imageURLStrings[i]] placeholderImage:[UIImage imageNamed:@"defatul320"]];
+            [_scrollView addSubview:iv];
+        }
+        
+        //    UIView *headerView = [[UIView alloc]initWithFrame:];
+        
+        
+        [self.tableView.tableHeaderView addSubview:_scrollView];
+        [self.tableView.tableHeaderView addSubview:_NullImage];
+        _pageControl = [[UIPageControl alloc]init];
+        //    _pageControl.hidesForSinglePage = YES;
+        _pageControl.contentMode = UIViewContentModeCenter;
+        _pageControl.numberOfPages = _imageURLStrings.count;
+        CGSize qsize = [_pageControl sizeForNumberOfPages:_imageURLStrings.count];
+        CGRect rect = _pageControl.bounds;
+        rect.size = qsize;
+        _pageControl.frame = CGRectMake((_scrollView.bounds.size.width-qsize.width)*0.5, _scrollView.bounds.size.height - 20, qsize.width, qsize.height);
+        
+        //    _pageControl.center = CGPointMake(SCREEN_WIDTH/2, _scrollView.bounds.size.height-5);
+        [self.tableView.tableHeaderView addSubview:_pageControl];
+        _pageControl.currentPage = 0;
+        _pageControl.currentPageIndicatorTintColor = [UIColor redColor];
+        _pageControl.pageIndicatorTintColor = [UIColor colorWithRed:50.0/255 green:143.0/255 blue:250.0/255 alpha:1];
+        //    _pageControl.pageIndicatorTintColor = [UIColor blueColor];
+        
+        // Do any additional setup after loading the view.
+        //    __headerView.imagePlayerViewDelegate = self;
+        //    __headerView.scrollInterval = 99999;
+        //    __headerView.pageControlPosition = ICPageControlPosition_BottomRight;
+        //    [self._headerView reloadData];
+        
+        
+        // 购物车图标的数字显示
+        
+        _badgeView =[[JSBadgeView alloc]initWithParentView:self.shoppingCartButton alignment:JSBadgeViewAlignmentTopRight];
+        _badgeView.badgePositionAdjustment = CGPointMake(-9,7);
+        _badgeView.badgeBackgroundColor=[UIColor redColor];
+        _badgeView.badgeOverlayColor=[UIColor redColor];
+        
+        //用通知接收购物车商品的数量
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:) name:@"tongzhi" object:nil];
+        
+        [_badgeView setNeedsLayout];
+        [self.shoppingCartButton addSubview:_badgeView];
+        
+        self.tabBarController.tabBar.hidden = YES;
+        
+        //发送通知
+        [[YKSFMDBManger shareManger] notiscation];
+        
     }];
-    
-    [self nullDrugDisplay];
-    _number=0;
-    _timer = -1;
-    //NSLog(@"repertory ===== %@",self.repertoryArry);
-    
-    _headerView.bounds = CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height*0.5);
-    _imageURLStrings = [_drugInfo[@"banners"] componentsSeparatedByString:@","]; // 把后台传回来的图片分割为N个部分。
-    
-    _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _headerView.bounds.size.height)];
-    _scrollView.pagingEnabled = YES;
-    _scrollView.bounces = NO;
-    _scrollView.delegate = self;
-    _scrollView.showsHorizontalScrollIndicator = NO;
-    _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*_imageURLStrings.count, 0);
-    for (int i = 0; i<_imageURLStrings.count; i++) {
-        UIImageView *iv = [[UIImageView alloc]initWithFrame:CGRectMake(i*SCREEN_WIDTH, 0, SCREEN_WIDTH, _headerView.bounds.size.height)];
-        iv.contentMode = UIViewContentModeScaleAspectFit;
-        [iv sd_setImageWithURL:[NSURL URLWithString:_imageURLStrings[i]] placeholderImage:[UIImage imageNamed:@"defatul320"]];
-        [_scrollView addSubview:iv];
-    }
-    
-    //    UIView *headerView = [[UIView alloc]initWithFrame:];
-    
-    
-    [self.tableView.tableHeaderView addSubview:_scrollView];
-    [self.tableView.tableHeaderView addSubview:_NullImage];
-    _pageControl = [[UIPageControl alloc]init];
-    //    _pageControl.hidesForSinglePage = YES;
-    _pageControl.contentMode = UIViewContentModeCenter;
-    _pageControl.numberOfPages = _imageURLStrings.count;
-    CGSize qsize = [_pageControl sizeForNumberOfPages:_imageURLStrings.count];
-    CGRect rect = _pageControl.bounds;
-    rect.size = qsize;
-    _pageControl.frame = CGRectMake((_scrollView.bounds.size.width-qsize.width)*0.5, _scrollView.bounds.size.height - 20, qsize.width, qsize.height);
-    
-    //    _pageControl.center = CGPointMake(SCREEN_WIDTH/2, _scrollView.bounds.size.height-5);
-    [self.tableView.tableHeaderView addSubview:_pageControl];
-    _pageControl.currentPage = 0;
-    _pageControl.currentPageIndicatorTintColor = [UIColor redColor];
-    _pageControl.pageIndicatorTintColor = [UIColor colorWithRed:50.0/255 green:143.0/255 blue:250.0/255 alpha:1];
-    //    _pageControl.pageIndicatorTintColor = [UIColor blueColor];
-    
-    // Do any additional setup after loading the view.
-    //    __headerView.imagePlayerViewDelegate = self;
-    //    __headerView.scrollInterval = 99999;
-    //    __headerView.pageControlPosition = ICPageControlPosition_BottomRight;
-    //    [self._headerView reloadData];
-    
-    
-    // 购物车图标的数字显示
-    
-    _badgeView =[[JSBadgeView alloc]initWithParentView:self.shoppingCartButton alignment:JSBadgeViewAlignmentTopRight];
-    _badgeView.badgePositionAdjustment = CGPointMake(-9,7);
-    _badgeView.badgeBackgroundColor=[UIColor redColor];
-    _badgeView.badgeOverlayColor=[UIColor redColor];
-    
-    //用通知接收购物车商品的数量
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:) name:@"tongzhi" object:nil];
-    
-    [_badgeView setNeedsLayout];
-    [self.shoppingCartButton addSubview:_badgeView];
-    
-    self.tabBarController.tabBar.hidden = YES;
-    
-    //发送通知
-    [[YKSFMDBManger shareManger] notiscation];
 }
 
 -(UIImageView *)animationImage
@@ -197,7 +197,7 @@
     
     NSLog(@"_drugInfo详情 ================== %@",_drugInfo);
     
-    if ([_drugInfo[@"repertory"] isEqualToString:@"0"] || [_drugInfo[@"repertory"] isEqualToString:@"null"] || [_drugInfo[@"repertory"] isEqualToString:@"(null)"] || [_drugInfo[@"repertory"] intValue] == 0){
+    if ([_drugNewInror[@"repertory"] isEqualToString:@"0"] || [_drugNewInror[@"repertory"] isEqualToString:@"null"] || [_drugNewInror[@"repertory"] isEqualToString:@"(null)"] || [_drugNewInror[@"repertory"] intValue] == 0){
         self.addButton.enabled = NO;
         self.shoppingButton.enabled = NO;
         self.addButton.backgroundColor = [UIColor clearColor];
@@ -210,7 +210,8 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _number=0;
+    _timer = -1;
 }
 
 //通知方法
@@ -594,7 +595,7 @@
 
 -(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
-//    _number++;
+    _number++;
 //    NSString *number = [NSString stringWithFormat:@"%d",_number];
 //    _badgeView.badgeText=number;
      [self showToastMessage:@"加入购物车成功"];
@@ -942,13 +943,19 @@
             }
         }];
         //产品详情选择地址之后回到首页
-        self.tabBarController.selectedIndex=0;
-        [self.navigationController popToRootViewControllerAnimated:YES];
+//        self.tabBarController.selectedIndex=0;
+//        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
         
     }
     
-    
-    
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.scrollView removeFromSuperview];
+    [self.pageControl removeFromSuperview];
     
 }
 

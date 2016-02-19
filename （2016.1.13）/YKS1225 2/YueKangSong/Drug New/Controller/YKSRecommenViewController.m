@@ -676,8 +676,9 @@
             }
         }];
         
-        self.tabBarController.selectedIndex=0;
-        [self.navigationController popToRootViewControllerAnimated:YES];
+//        self.tabBarController.selectedIndex=0;
+//        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
         
     }
     
