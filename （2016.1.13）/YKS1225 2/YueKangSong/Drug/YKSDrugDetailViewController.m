@@ -57,22 +57,52 @@
 
 @property(nonatomic,strong)NSDictionary *drugNewInror;
 
+@property(nonatomic,strong)NSString *address;
+@property(nonatomic,strong)NSMutableArray *dataArray;
+
 @end
 
 @implementation YKSDrugDetailViewController
 
+-(NSMutableArray *)dataArray
+{
+    if (!_dataArray) {
+        _dataArray = [NSMutableArray array];
+    }
+    return _dataArray;
+}
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi2:) name:@"tongzhi2" object:nil];
+    
     [GZBaseRequest searchByKey:_drugInfo[@"gtitle"] page:1 callback:^(id responseObject, NSError *error) {
         NSDictionary *dic = [responseObject objectForKey:@"data"];
         NSArray *dataArr = [dic valueForKey:@"glist"];
         for (NSDictionary *daya in dataArr) {
-            if ([daya[@"gtitle"] isEqualToString:_drugInfo[@"gtitle"]]) {
-                _drugNewInror = daya;
+            if ([self.address isEqualToString:@"address"]) {
+                if ([daya[@"gtitle"] isEqualToString:_drugInfo[@"gtitle"]]) {
+                    _drugNewInror = daya;
+                    self.address = nil;
+                }else
+                {
+                    [self.dataArray addObject:daya];
+                }
+            }else
+            {
+                if ([daya[@"gtitle"] isEqualToString:_drugInfo[@"gtitle"]] && [daya[@"gstandard"] isEqualToString:_drugInfo[@"gstandard"]] && [daya[@"gprice"] isEqualToString:_drugInfo[@"gprice"]]&& [daya[@"vendor"] isEqualToString:_drugInfo[@"vendor"]]) {
+                    _drugNewInror = daya;
+                }
+
             }
+        }
+        if (self.dataArray.count == dataArr.count) {
+            [self.tableView removeFromSuperview];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"此药店无已选药品" message:@"请您选择" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            
+            [alertView show];
         }
         [self.tableView reloadData];
         
@@ -143,6 +173,12 @@
         [[YKSFMDBManger shareManger] notiscation];
         
     }];
+}
+
+-(void)tongzhi2:(NSNotification *)noti
+{
+    NSLog(@"%@",noti.userInfo);
+    self.address = noti.userInfo[@"xiangqing"];
 }
 
 -(UIImageView *)animationImage
@@ -942,6 +978,10 @@
                 }
             }
         }];
+        
+        NSDictionary *tongzhi = [[NSDictionary alloc] initWithObjectsAndKeys:@"address",@"xiangqing", nil];
+        NSNotification *notification = [NSNotification notificationWithName:@"tongzhi2" object:nil userInfo:tongzhi];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
         //产品详情选择地址之后回到首页
 //        self.tabBarController.selectedIndex=0;
 //        [self.navigationController popToRootViewControllerAnimated:YES];
