@@ -56,129 +56,96 @@
 @property(nonatomic,strong)JSBadgeView *badgeView;
 
 @property(nonatomic,strong)NSDictionary *drugNewInror;
-
-@property(nonatomic,strong)NSString *address;
-@property(nonatomic,strong)NSMutableArray *dataArray;
+@property(nonatomic,strong)NSString *storeID;
 
 @end
 
 @implementation YKSDrugDetailViewController
 
--(NSMutableArray *)dataArray
-{
-    if (!_dataArray) {
-        _dataArray = [NSMutableArray array];
-    }
-    return _dataArray;
-}
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi2:) name:@"tongzhi2" object:nil];
-    
     [GZBaseRequest searchByKey:_drugInfo[@"gtitle"] page:1 callback:^(id responseObject, NSError *error) {
+        NSLog(@"%@",responseObject);
         NSDictionary *dic = [responseObject objectForKey:@"data"];
         NSArray *dataArr = [dic valueForKey:@"glist"];
         for (NSDictionary *daya in dataArr) {
-            if ([self.address isEqualToString:@"address"]) {
-                if ([daya[@"gtitle"] isEqualToString:_drugInfo[@"gtitle"]]) {
-                    _drugNewInror = daya;
-                    self.address = nil;
-                }else
-                {
-                    [self.dataArray addObject:daya];
-                }
-            }else
-            {
-                if ([daya[@"gtitle"] isEqualToString:_drugInfo[@"gtitle"]] && [daya[@"gstandard"] isEqualToString:_drugInfo[@"gstandard"]] && [daya[@"gprice"] isEqualToString:_drugInfo[@"gprice"]]&& [daya[@"vendor"] isEqualToString:_drugInfo[@"vendor"]]) {
-                    _drugNewInror = daya;
-                }
-
+            if ([daya[@"gtitle"] isEqualToString:_drugInfo[@"gtitle"]] && [daya[@"gstandard"] isEqualToString:_drugInfo[@"gstandard"]] && [daya[@"gprice"] isEqualToString:_drugInfo[@"gprice"]]&& [daya[@"vendor"] isEqualToString:_drugInfo[@"vendor"]]) {
+                self.storeID = [daya objectForKey:@"did"];
+                _drugNewInror = daya;
             }
         }
-        if (self.dataArray.count == dataArr.count) {
-            [self.tableView removeFromSuperview];
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"此药店无已选药品" message:@"请您选择" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-            
-            [alertView show];
-        }
         [self.tableView reloadData];
-        
-        [self nullDrugDisplay];
-        
-        //NSLog(@"repertory ===== %@",self.repertoryArry);
-        
-        _headerView.bounds = CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height*0.4);
-        _imageURLStrings = [_drugNewInror[@"banners"] componentsSeparatedByString:@","]; // 把后台传回来的图片分割为N个部分。
-        
-        _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _headerView.bounds.size.height)];
-        _scrollView.pagingEnabled = YES;
-        _scrollView.bounces = NO;
-        _scrollView.delegate = self;
-        _scrollView.showsHorizontalScrollIndicator = NO;
-        _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*_imageURLStrings.count, 0);
-        for (int i = 0; i<_imageURLStrings.count; i++) {
-            UIImageView *iv = [[UIImageView alloc]initWithFrame:CGRectMake(i*SCREEN_WIDTH, 0, SCREEN_WIDTH, _headerView.bounds.size.height)];
-            iv.contentMode = UIViewContentModeScaleAspectFit;
-            [iv sd_setImageWithURL:[NSURL URLWithString:_imageURLStrings[i]] placeholderImage:[UIImage imageNamed:@"defatul320"]];
-            [_scrollView addSubview:iv];
-        }
-        
-        //    UIView *headerView = [[UIView alloc]initWithFrame:];
-        
-        
-        [self.tableView.tableHeaderView addSubview:_scrollView];
-        [self.tableView.tableHeaderView addSubview:_NullImage];
-        _pageControl = [[UIPageControl alloc]init];
-        //    _pageControl.hidesForSinglePage = YES;
-        _pageControl.contentMode = UIViewContentModeCenter;
-        _pageControl.numberOfPages = _imageURLStrings.count;
-        CGSize qsize = [_pageControl sizeForNumberOfPages:_imageURLStrings.count];
-        CGRect rect = _pageControl.bounds;
-        rect.size = qsize;
-        _pageControl.frame = CGRectMake((_scrollView.bounds.size.width-qsize.width)*0.5, _scrollView.bounds.size.height - 20, qsize.width, qsize.height);
-        
-        //    _pageControl.center = CGPointMake(SCREEN_WIDTH/2, _scrollView.bounds.size.height-5);
-        [self.tableView.tableHeaderView addSubview:_pageControl];
-        _pageControl.currentPage = 0;
-        _pageControl.currentPageIndicatorTintColor = [UIColor redColor];
-        _pageControl.pageIndicatorTintColor = [UIColor colorWithRed:50.0/255 green:143.0/255 blue:250.0/255 alpha:1];
-        //    _pageControl.pageIndicatorTintColor = [UIColor blueColor];
-        
-        // Do any additional setup after loading the view.
-        //    __headerView.imagePlayerViewDelegate = self;
-        //    __headerView.scrollInterval = 99999;
-        //    __headerView.pageControlPosition = ICPageControlPosition_BottomRight;
-        //    [self._headerView reloadData];
-        
-        
-        // 购物车图标的数字显示
-        
-        _badgeView =[[JSBadgeView alloc]initWithParentView:self.shoppingCartButton alignment:JSBadgeViewAlignmentTopRight];
-        _badgeView.badgePositionAdjustment = CGPointMake(-9,7);
-        _badgeView.badgeBackgroundColor=[UIColor redColor];
-        _badgeView.badgeOverlayColor=[UIColor redColor];
-        
-        //用通知接收购物车商品的数量
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:) name:@"tongzhi" object:nil];
-        
-        [_badgeView setNeedsLayout];
-        [self.shoppingCartButton addSubview:_badgeView];
-        
-        self.tabBarController.tabBar.hidden = YES;
-        
-        //发送通知
-        [[YKSFMDBManger shareManger] notiscation];
-        
     }];
-}
+    
+    [self nullDrugDisplay];
+    
+    //NSLog(@"repertory ===== %@",self.repertoryArry);
+    
+    _headerView.bounds = CGRectMake(0, 0, SCREEN_WIDTH, self.view.bounds.size.height*0.5);
+    _imageURLStrings = [_drugInfo[@"banners"] componentsSeparatedByString:@","]; // 把后台传回来的图片分割为N个部分。
+    
+    _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _headerView.bounds.size.height)];
+    _scrollView.pagingEnabled = YES;
+    _scrollView.bounces = NO;
+    _scrollView.delegate = self;
+    _scrollView.showsHorizontalScrollIndicator = NO;
+    _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*_imageURLStrings.count, 0);
+    for (int i = 0; i<_imageURLStrings.count; i++) {
+        UIImageView *iv = [[UIImageView alloc]initWithFrame:CGRectMake(i*SCREEN_WIDTH, 0, SCREEN_WIDTH, _headerView.bounds.size.height)];
+        iv.contentMode = UIViewContentModeScaleAspectFit;
+        [iv sd_setImageWithURL:[NSURL URLWithString:_imageURLStrings[i]] placeholderImage:[UIImage imageNamed:@"defatul320"]];
+        [_scrollView addSubview:iv];
+    }
+    
+    //    UIView *headerView = [[UIView alloc]initWithFrame:];
+    
+    
+    [self.tableView.tableHeaderView addSubview:_scrollView];
+    [self.tableView.tableHeaderView addSubview:_NullImage];
+    _pageControl = [[UIPageControl alloc]init];
+    //    _pageControl.hidesForSinglePage = YES;
+    _pageControl.contentMode = UIViewContentModeCenter;
+    _pageControl.numberOfPages = _imageURLStrings.count;
+    CGSize qsize = [_pageControl sizeForNumberOfPages:_imageURLStrings.count];
+    CGRect rect = _pageControl.bounds;
+    rect.size = qsize;
+    _pageControl.frame = CGRectMake((_scrollView.bounds.size.width-qsize.width)*0.5, _scrollView.bounds.size.height - 20, qsize.width, qsize.height);
+    
+    //    _pageControl.center = CGPointMake(SCREEN_WIDTH/2, _scrollView.bounds.size.height-5);
+    [self.tableView.tableHeaderView addSubview:_pageControl];
+    _pageControl.currentPage = 0;
+    _pageControl.currentPageIndicatorTintColor = [UIColor redColor];
+    _pageControl.pageIndicatorTintColor = [UIColor colorWithRed:50.0/255 green:143.0/255 blue:250.0/255 alpha:1];
+    //    _pageControl.pageIndicatorTintColor = [UIColor blueColor];
+    
+    // Do any additional setup after loading the view.
+    //    __headerView.imagePlayerViewDelegate = self;
+    //    __headerView.scrollInterval = 99999;
+    //    __headerView.pageControlPosition = ICPageControlPosition_BottomRight;
+    //    [self._headerView reloadData];
+    
+    
+    // 购物车图标的数字显示
+    
+    _badgeView =[[JSBadgeView alloc]initWithParentView:self.shoppingCartButton alignment:JSBadgeViewAlignmentTopRight];
+    _badgeView.badgePositionAdjustment = CGPointMake(-9,7);
+    _badgeView.badgeBackgroundColor=[UIColor redColor];
+    _badgeView.badgeOverlayColor=[UIColor redColor];
+    
+    //用通知接收购物车商品的数量
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:) name:@"tongzhi" object:nil];
+    
+    [_badgeView setNeedsLayout];
+    [self.shoppingCartButton addSubview:_badgeView];
+    
+    self.tabBarController.tabBar.hidden = YES;
+    
+    //发送通知
+    [[YKSFMDBManger shareManger] notiscation];
 
--(void)tongzhi2:(NSNotification *)noti
-{
-    NSLog(@"%@",noti.userInfo);
-    self.address = noti.userInfo[@"xiangqing"];
 }
 
 -(UIImageView *)animationImage
@@ -233,7 +200,7 @@
     
     NSLog(@"_drugInfo详情 ================== %@",_drugInfo);
     
-    if ([_drugNewInror[@"repertory"] isEqualToString:@"0"] || [_drugNewInror[@"repertory"] isEqualToString:@"null"] || [_drugNewInror[@"repertory"] isEqualToString:@"(null)"] || [_drugNewInror[@"repertory"] intValue] == 0){
+    if ([_drugInfo[@"repertory"] isEqualToString:@"0"] || [_drugInfo[@"repertory"] isEqualToString:@"null"] || [_drugInfo[@"repertory"] isEqualToString:@"(null)"] || [_drugInfo[@"repertory"] intValue] == 0){
         self.addButton.enabled = NO;
         self.shoppingButton.enabled = NO;
         self.addButton.backgroundColor = [UIColor clearColor];
@@ -979,13 +946,20 @@
             }
         }];
         
-        NSDictionary *tongzhi = [[NSDictionary alloc] initWithObjectsAndKeys:@"address",@"xiangqing", nil];
-        NSNotification *notification = [NSNotification notificationWithName:@"tongzhi2" object:nil userInfo:tongzhi];
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
-        //产品详情选择地址之后回到首页
-//        self.tabBarController.selectedIndex=0;
-//        [self.navigationController popToRootViewControllerAnimated:YES];
-        [self.navigationController popViewControllerAnimated:YES];
+        [GZBaseRequest DrugStoreUploadLat:[YKSUserModel shareInstance].lat lng:[YKSUserModel shareInstance].lng callback:^(id responseObject, NSError *error) {
+            NSDictionary *data = [responseObject objectForKey:@"data"];
+            NSArray *dataArr = [data valueForKey:@"shoplist"];
+            NSDictionary *dataDic = [dataArr firstObject];
+            NSString *stroreID = [dataDic objectForKey:@"id"];
+            if ([self.storeID isEqualToString:stroreID]) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }else
+            {
+                self.tabBarController.selectedIndex=0;
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
+        }];
+
         
     }
     
