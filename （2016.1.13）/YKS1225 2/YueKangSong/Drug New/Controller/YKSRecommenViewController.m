@@ -71,6 +71,7 @@
     YKSFormViewCell *headerView = [[YKSFormViewCell alloc] initWithFormHeadFram:CGRectMake(0, 0, 320, 200) andSymptomName:self.formInformation.symptomName andSymptom:self.formInformation.symptom andSymptomInformationName:self.formInformation.symptomInformationName andSymptomInformation:self.formInformation.symptomInformation andDoctorKeepPushingName:self.formInformation.doctorKeepPushingName];
     //给表头赋值视图
     self.tableView.tableHeaderView = headerView;
+    self.tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
     self.tableView.tableFooterView = [[UIView alloc]init];
     [self requestSubSpecialList];
     //设置记录变量初值
@@ -391,10 +392,6 @@
 {
     YKSReleaseButtonCell *releaseButtonView = [[YKSReleaseButtonCell alloc] initWithPrice:self.totalPrice andSection:@"方案一" andFrame:(CGRectMake(0, 0, self.view.bounds.size.width, 28.0f))];
     //给创建出来的每一个视图View中的按钮tag值赋值当行的分区
-    //方案一下方横线要求去掉
-    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
-    releaseButtonView.clickButton.tag = section;
-    self.butCell.tag = section;
     //相等表示点击了
     NSString *str = [NSString stringWithFormat:@"%ld",section];
     //if (self.index == section)

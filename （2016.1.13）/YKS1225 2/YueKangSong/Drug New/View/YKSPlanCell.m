@@ -11,12 +11,17 @@
 #import "UIViewController+Common.h"
 
 @interface YKSPlanCell ()
-
+@property(nonatomic,strong)UIView *line;
 @end
 
 @implementation YKSPlanCell
 
-
+-(UIView *)line{
+    if (!_line) {
+        _line=[[UIView alloc]init];
+    }
+    return _line;
+}
 -(void)setDatas:(NSArray *)datas{
     //通过set方法加载控制器传递过来的数组（数组中的数据是从服务器请求的）
     _datas = datas;
@@ -38,8 +43,15 @@
         image.frame = CGRectMake(imageViewX, imageViewY, imageViewW, imageViewH);
         //[self.imageArray addObject:image];
         [self addSubview:image];
-    }
+        
+        
 
+        
+        
+    }
+    self.line.frame = CGRectMake(15, 115, self.frame.size.width-15, 1);
+    self.line.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    [self addSubview:self.line];
 
 }
 

@@ -24,9 +24,19 @@
 @property (nonatomic,strong) UILabel *companyLabel;
 //处方药
 @property(nonatomic,strong)UIImageView *recipace;
+
+@property(nonatomic,strong)UIView *linen;
 @end
 
 @implementation YKSPlanDisPlayCell
+
+-(UIView *)linen{
+    if (!_linen) {
+        _linen=[[UIView alloc]init];
+    }
+    return _linen;
+}
+
 - (UIImageView *)image
 {
     if (!_image) {
@@ -126,6 +136,11 @@
     self.priceLabel.frame = CGRectMake(self.image.frame.origin.x + self.image.frame.size.width + 10,self.medicineLabel.frame.origin.y + self.medicineLabel.frame.size.height, 120, 20);
     [self addSubview:self.priceLabel];
     [self addSubview:self.nullImage];
+    
+    self.linen.frame = CGRectMake(15, 115, self.frame.size.width-15, 1);
+    self.linen.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    [self addSubview:self.linen];
+
 }
 
 @end
