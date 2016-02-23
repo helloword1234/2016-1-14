@@ -67,7 +67,6 @@
 //页面即将加载
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [_imageView removeFromSuperview];
     //发送通知
     [[YKSFMDBManger shareManger] notiscation];
     CGFloat count = [[YKSFMDBManger shareManger].shoppingCarCount floatValue];
@@ -79,7 +78,7 @@
     if ([str isEqualToString:butonTitle]) {
         [UIViewController deleteFile];
     }
-
+    
     [self viewWillAppearReload];
 }
 
@@ -106,7 +105,7 @@
                 [[NSUserDefaults standardUserDefaults] setObject:_datas forKey:@"kHomeDatas"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
             } else {
-                [self showToastMessage:responseObject[@"msg"]];
+                [self noData];
             }
         }];
     }
@@ -126,10 +125,11 @@
                                           }
                                           
                                           else {
-                                              [self showToastMessage:responseObject[@"msg"]];
+                                              [self noData];
                                           }
                                       }];
     }
+    [self.tableView reloadData];
 }
 
 -(void)running:(UIButton *)button
@@ -154,47 +154,8 @@
 
 -(void)viewDidLoadReload
 {
-    //判断网络
-    AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
-    [mgr startMonitoring];
-    
-    //设置网络状态改变后的处理
-    [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        switch (status) {
-            case AFNetworkReachabilityStatusUnknown:
-            {
-                break;
-            }
-            case AFNetworkReachabilityStatusNotReachable:
-            {
-                
-                _imageView = [[UIImageView alloc] initWithFrame:self.tableView.bounds];
-                _imageView.image = [UIImage imageNamed:@"没有网络-2.jpg"];
-                //                self.tableView.userInteractionEnabled = NO;
-                _imageView.userInteractionEnabled = YES;
-                self.tableView.scrollEnabled = NO;
-                
-                
-                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(running:)];
-                [_imageView addGestureRecognizer:tap];
-                
-                [self.tableView addSubview:_imageView];
-                break;
-            }
-            case AFNetworkReachabilityStatusReachableViaWWAN:
-            {
-                
-                break;
-            }
-            case AFNetworkReachabilityStatusReachableViaWiFi:
-            {
-                break;
-            }
-        }
-    }];
-    
     self.tableView.scrollEnabled = YES;
-
+    
     self.navigationController.navigationBarHidden = NO;
     NSArray *familyNames = [UIFont familyNames];
     for( NSString *familyName in familyNames ){
@@ -210,7 +171,6 @@
     //    [self startSingleLocationRequest];
     [self requestDrugCategoryList];
     
-    
     [self requestData];
     
     NSDictionary *dic=[YKSUserModel shareInstance].currentSelectAddress;
@@ -224,10 +184,28 @@
                                      NSDictionary *dic =[array objectAtIndex:0];
                                      _DrugID=dic[@"id"];
                                      [[NSUserDefaults standardUserDefaults]setObject:_DrugID forKey:@"drugid1"];
+                                 }else
+                                 {
+                                     //                                     [self noData];
                                  }
                              }];
     
     
+}
+
+-(void)noData
+{
+    _imageView = [[UIImageView alloc] initWithFrame:self.tableView.bounds];
+    _imageView.image = [UIImage imageNamed:@"没有网络-2.jpg"];
+    //                self.tableView.userInteractionEnabled = NO;
+    _imageView.userInteractionEnabled = YES;
+    self.tableView.scrollEnabled = NO;
+    
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(running:)];
+    [_imageView addGestureRecognizer:tap];
+    
+    [self.tableView addSubview:_imageView];
 }
 
 //地址逻辑判断
@@ -287,7 +265,7 @@
           
             
             _drugDatas = responseObject[@"data"][@"categorylist"];
-            
+            NSLog(@"%@",_drugDatas);
         } else {
             [self showToastMessage:responseObject[@"msg"]];
         }
