@@ -32,6 +32,8 @@
 //这该取消
 @property (nonatomic,strong) UIView *shareView;
 
+@property(nonatomic,strong)NSString *isTap;
+
 @end
 
 @implementation YKSOrderViewController
@@ -46,7 +48,13 @@
     _receivedDatas = nil;
     _cancelDatas = nil;
     
-    _control.selectedSegmentIndex = 0;
+    if ([self.isTap isEqualToString:@"tap"]) {
+        self.isTap = nil;
+    }else
+    {
+        _control.selectedSegmentIndex = 0;
+    }
+
 //    self.index=1;
 //     _status = YKSOrderStatusPending;
         if (![YKSUserModel isLogin]) {
@@ -416,14 +424,13 @@
     
 }
 
-
-
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"gotoYKSOrderDetailViewController"]) {
         YKSOrderDetailViewController *vc = segue.destinationViewController;
+        self.isTap = @"tap";
         vc.orderInfo = (NSDictionary *)sender;
         vc.status = _status;
     }

@@ -26,11 +26,11 @@
 
 @implementation YKSOrderDetailViewController
 
-//-(void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
-//    self.tabBarController.tabBar.hidden = YES;
-//}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -507,6 +507,12 @@
 -(void)placeAction:(UIButton *)button
 {
     [YKSTools call:_telePhoneNumber inView:self.view];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 /*
