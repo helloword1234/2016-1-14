@@ -10,6 +10,7 @@
 #import "YKSTools.h"
 #import "YKSAppDelegate.h"
 #import "YKSFMDBManger.h"
+#import "GZBaseRequest.h"
 
 @implementation YKSShoppingCartListCell
 int i = 0;
@@ -88,26 +89,42 @@ int i = 0;
         return;
     }else
     {
-        NSLog(@"%f",[YKSFMDBManger shareManger].dataCount);
-        //点击减号，单利中购物车药品的数量加上1
-        [YKSFMDBManger shareManger].dataCount ++;
+        NSDictionary *dic=@{@"gid":_drugInfo[@"gid"]};
+        [GZBaseRequest addToShoppingcartParams:@[dic]
+                                          gids:_drugInfo[@"gid"]
+                                      callback:^(id responseObject, NSError *error) {
+                                          if (error) {
+                                              [YKSTools showToastMessage:@"" inView:self];
+                                          }
+                                          if (ServerSuccess(responseObject)) {
+                                              NSLog(@"%f",[YKSFMDBManger shareManger].dataCount);
+                                              //点击减号，单利中购物车药品的数量加上1
+                                              [YKSFMDBManger shareManger].dataCount ++;
+                                              self.countLabel.text = [[NSString alloc] initWithFormat:@"x %@", @(bugCount)];
+                                              self.centerCountLabel.text = [[NSString alloc] initWithFormat:@"%@", @(bugCount)];
+                                              if (_countCallback) {
+                                                  _countCallback(bugCount, self);
+                                              }
+                                              
+                                              if (_priceBlock) {
+                                                  _priceBlock(bugCount,self);
+                                              }
+                                              //转为角标形式
+                                              [[YKSFMDBManger shareManger] addShopCount];
+                                              //发送通知
+                                              [[YKSFMDBManger shareManger] notiscation];
+                                              //每次点击加号赋值完后，改变count值，因页面消失的时候购物车的商品数量和后台接口一致
+                                              [[YKSFMDBManger shareManger] readShoppingCarCount];
+
+
+                                          }
+                                      }];
+        
+        
+        
     }
-    //转为角标形式
-    [[YKSFMDBManger shareManger] addShopCount];
-    //发送通知
-    [[YKSFMDBManger shareManger] notiscation];
     
-    //每次点击加号赋值完后，改变count值，因页面消失的时候购物车的商品数量和后台接口一致
-    [[YKSFMDBManger shareManger] readShoppingCarCount];
-    self.countLabel.text = [[NSString alloc] initWithFormat:@"x %@", @(bugCount)];
-    self.centerCountLabel.text = [[NSString alloc] initWithFormat:@"%@", @(bugCount)];
-    if (_countCallback) {
-        _countCallback(bugCount, self);
-    }
     
-    if (_priceBlock) {
-        _priceBlock(bugCount,self);
-    }
-}
+        }
 
 @end
