@@ -28,8 +28,9 @@
 
 @implementation YKSMyCollectVC
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     //取消收藏的背景颜色和用户交互设置
     self.cancelButton.backgroundColor = [UIColor grayColor];
     self.cancelButton.userInteractionEnabled = NO;
@@ -50,6 +51,10 @@
         [bself requestDataByPage:bself.page++];
     }];
     self.tableView.footer.hidden = YES;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
 }
 
 //上边显示的标语
