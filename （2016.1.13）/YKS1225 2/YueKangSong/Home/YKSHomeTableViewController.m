@@ -67,7 +67,7 @@
 //页面即将加载
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+    [_imageView removeFromSuperview];
     //发送通知
     [[YKSFMDBManger shareManger] notiscation];
     CGFloat count = [[YKSFMDBManger shareManger].shoppingCarCount floatValue];

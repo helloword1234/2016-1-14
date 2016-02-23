@@ -58,6 +58,8 @@
 @property(nonatomic,strong)NSDictionary *drugNewInror;
 @property(nonatomic,strong)NSString *storeID;
 
+@property(nonatomic,strong)UIImageView *imageView;
+
 @end
 
 @implementation YKSDrugDetailViewController
@@ -67,17 +69,35 @@
 {
     [super viewWillAppear:animated];
     
+    [self.scrollView removeFromSuperview];
+    [self.pageControl removeFromSuperview];
+    [_imageView removeFromSuperview];
+    
     [GZBaseRequest searchByKey:_drugInfo[@"gtitle"] page:1 callback:^(id responseObject, NSError *error) {
-        NSLog(@"%@",responseObject);
-        NSDictionary *dic = [responseObject objectForKey:@"data"];
-        NSArray *dataArr = [dic valueForKey:@"glist"];
-        for (NSDictionary *daya in dataArr) {
-            if ([daya[@"gtitle"] isEqualToString:_drugInfo[@"gtitle"]] && [daya[@"gstandard"] isEqualToString:_drugInfo[@"gstandard"]] && [daya[@"gprice"] isEqualToString:_drugInfo[@"gprice"]]&& [daya[@"vendor"] isEqualToString:_drugInfo[@"vendor"]]) {
-                self.storeID = [daya objectForKey:@"did"];
-                _drugNewInror = daya;
+        if (responseObject) {
+            
+            NSDictionary *dic = [responseObject objectForKey:@"data"];
+            NSArray *dataArr = [dic valueForKey:@"glist"];
+            for (NSDictionary *daya in dataArr) {
+                if ([daya[@"gtitle"] isEqualToString:_drugInfo[@"gtitle"]] && [daya[@"gstandard"] isEqualToString:_drugInfo[@"gstandard"]] && [daya[@"gprice"] isEqualToString:_drugInfo[@"gprice"]]&& [daya[@"vendor"] isEqualToString:_drugInfo[@"vendor"]]) {
+                    self.storeID = [daya objectForKey:@"did"];
+                    _drugNewInror = daya;
+                }
             }
+            [self.tableView reloadData];
+        }else if (error)
+        {
+            _imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
+            _imageView.image = [UIImage imageNamed:@"没有网络-2.jpg"];
+            
+            _imageView.userInteractionEnabled = YES;
+            
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+            [_imageView addGestureRecognizer:tap];
+            
+            [self.view addSubview:_imageView];
         }
-        [self.tableView reloadData];
+        
     }];
     
     [self nullDrugDisplay];
@@ -146,6 +166,12 @@
     //发送通知
     [[YKSFMDBManger shareManger] notiscation];
 
+}
+
+-(void)tapAction:(UITapGestureRecognizer *)tap
+{
+    [self viewDidLoad];
+    [self viewWillAppear:YES];
 }
 
 -(UIImageView *)animationImage
