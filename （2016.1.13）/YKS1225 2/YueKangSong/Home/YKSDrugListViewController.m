@@ -54,6 +54,8 @@
 
 @property (strong, nonatomic) NSDictionary *info;
 
+@property(nonatomic,strong)UIImageView *imageV;
+
 @end
 
 @implementation YKSDrugListViewController
@@ -118,8 +120,8 @@
     }
     if (ServerSuccess(responseObject)) {
         NSLog(@"responseObject = %@", responseObject);
-        NSDictionary *dic = responseObject[@"data"];
-        if ([dic isKindOfClass:[NSDictionary class]] && dic[@"glist"]) {
+
+        if ([responseObject[@"msg"] isEqualToString:@"ok"]) {
             _datas = responseObject[@"data"][@"glist"];
 //            //一键加入购物车不能用
 //            if (self.datas.count==0) {
@@ -133,13 +135,44 @@
             if (totalPrices) {
                 _totalPrice = [[totalPrices valueForKeyPath:@"@sum.floatValue"] floatValue];
             }
+        }else if([responseObject[@"msg"] isEqualToString:@"没有相关药品数据"])
+        {
+            self.imageV = [[UIImageView alloc] initWithFrame:self.view.bounds];
+            _imageV.image = [UIImage imageNamed:@"K]X0YR1D5JJKV)T}CG@S[XP111.jpg"];
+            
+            UIView *viewLeft = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width/2, self.view.bounds.size.height)];
+//            viewLeft.backgroundColor = [UIColor redColor];
+            [_imageV addSubview:viewLeft];
+            
+            UITapGestureRecognizer *tapLeft = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapLeft:)];
+            _imageV.userInteractionEnabled = YES;
+            [viewLeft addGestureRecognizer:tapLeft];
+            
+            UIView *viewRight = [[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2, 0, self.view.bounds.size.width/2, self.view.bounds.size.height)];
+//            viewRight.backgroundColor = [UIColor blackColor];
+            [_imageV addSubview:viewRight];
+            
+            UITapGestureRecognizer *tapRight = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRight:)];
+            [viewRight addGestureRecognizer:tapRight];
+            
+            [self.view addSubview:_imageV];
         }
         [self updateUI];
     } else {
+    
         [self showToastMessage:responseObject[@"msg"]];
     }
 }
 
+-(void)tapLeft:(UITapGestureRecognizer *)tap
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)tapRight:(UITapGestureRecognizer *)tao
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 - (void)updateUI {
     [self.tableView reloadData];
     _totalPriceLabel.attributedText = [YKSTools priceString:_totalPrice];

@@ -54,6 +54,8 @@
 		31E2F3ED1C20166D008B56BC /* animation1.png in Resources */ = {isa = PBXBuildFile; fileRef = 31E2F3EC1C20166D008B56BC /* animation1.png */; };
 		31E5C8F81C2D16A20080DE37 /* YKSPaytypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E5C8F71C2D16A20080DE37 /* YKSPaytypeCell.m */; };
 		31E61FF61C7DB1FC00940F8B /* WeChat_1456306640.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 31E61FF51C7DB1FC00940F8B /* WeChat_1456306640.jpeg */; };
+		31E61FF81C7DB39200940F8B /* K]X0YR1D5JJKV)T}CG@S[XP.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 31E61FF71C7DB39100940F8B /* K]X0YR1D5JJKV)T}CG@S[XP.jpg */; };
+		31E61FFA1C7DBB2E00940F8B /* K]X0YR1D5JJKV)T}CG@S[XP111.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 31E61FF91C7DBB2E00940F8B /* K]X0YR1D5JJKV)T}CG@S[XP111.jpg */; };
 		31EE6B051BF9812A00DFF279 /* pay_ok@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31EE6B011BF9812A00DFF279 /* pay_ok@2x.png */; };
 		31EE6B061BF9812A00DFF279 /* pay_ok@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31EE6B021BF9812A00DFF279 /* pay_ok@3x.png */; };
 		31EE6B071BF9812A00DFF279 /* pay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31EE6B031BF9812A00DFF279 /* pay@2x.png */; };
@@ -304,6 +306,8 @@
 		31E5C8F61C2D16A20080DE37 /* YKSPaytypeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKSPaytypeCell.h; sourceTree = "<group>"; };
 		31E5C8F71C2D16A20080DE37 /* YKSPaytypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKSPaytypeCell.m; sourceTree = "<group>"; };
 		31E61FF51C7DB1FC00940F8B /* WeChat_1456306640.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = WeChat_1456306640.jpeg; sourceTree = "<group>"; };
+		31E61FF71C7DB39100940F8B /* K]X0YR1D5JJKV)T}CG@S[XP.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "K]X0YR1D5JJKV)T}CG@S[XP.jpg"; sourceTree = "<group>"; };
+		31E61FF91C7DBB2E00940F8B /* K]X0YR1D5JJKV)T}CG@S[XP111.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "K]X0YR1D5JJKV)T}CG@S[XP111.jpg"; sourceTree = "<group>"; };
 		31EE6B011BF9812A00DFF279 /* pay_ok@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay_ok@2x.png"; sourceTree = "<group>"; };
 		31EE6B021BF9812A00DFF279 /* pay_ok@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay_ok@3x.png"; sourceTree = "<group>"; };
 		31EE6B031BF9812A00DFF279 /* pay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay@2x.png"; sourceTree = "<group>"; };
@@ -768,6 +772,8 @@
 				3E2705B51B02308F00FC6010 /* PrefixHeader.pch */,
 				3E2A10FC1B01F3BA00DE1E4C /* Images.xcassets */,
 				31E61FF51C7DB1FC00940F8B /* WeChat_1456306640.jpeg */,
+				31E61FF71C7DB39100940F8B /* K]X0YR1D5JJKV)T}CG@S[XP.jpg */,
+				31E61FF91C7DBB2E00940F8B /* K]X0YR1D5JJKV)T}CG@S[XP111.jpg */,
 				F36E90A81B97832E00688588 /* question11.png */,
 				933EC1661C50C59C00A1AC1A /* 没有网络-1.jpg */,
 				933EC1671C50C59C00A1AC1A /* 没有网络-2.jpg */,
@@ -1454,6 +1460,7 @@
 				F3D5DC071B95E693007006EE /* 确定.png in Resources */,
 				933EC16D1C50D99700A1AC1A /* 邀请页面2.png in Resources */,
 				57A4B97A1BD8B27B00EE29FC /* xiajiantou@2x.png in Resources */,
+				31E61FF81C7DB39200940F8B /* K]X0YR1D5JJKV)T}CG@S[XP.jpg in Resources */,
 				3E2A10FB1B01F3BA00DE1E4C /* Main.storyboard in Resources */,
 				F38A785D1B96E13E006DCACD /* jjj.otf in Resources */,
 				F37088151B9DA5F100CF0099 /* my_present_icon@2x.png in Resources */,
@@ -1543,6 +1550,7 @@
 				F34ABEF21B8EB32B00E75F8E /* sellOver.png in Resources */,
 				576CFB1E1BD9E46C008D7247 /* back.png in Resources */,
 				57B3EF5A1BBB832F004F76F7 /* 15yuanhui@2x.png in Resources */,
+				31E61FFA1C7DBB2E00940F8B /* K]X0YR1D5JJKV)T}CG@S[XP111.jpg in Resources */,
 				F3D5DC051B95E693007006EE /* 文字.png in Resources */,
 				57B3EF531BBB832F004F76F7 /* 1yuan@2x.png in Resources */,
 				27CE46F51C05431100E65B3E /* cancel_code.png in Resources */,
