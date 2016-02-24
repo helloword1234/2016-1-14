@@ -43,6 +43,7 @@
 
 //用于平铺到cell上
 @property (nonatomic,strong) UIButton *butCell;
+@property(nonatomic,strong)UIImageView *imageV;
 
 @end
 
@@ -287,7 +288,10 @@
         NSLog(@"responseObject = %@", responseObject);
         NSDictionary *dic = responseObject[@"data"];
         if (dic.count ==0) {
-            [self showToastMessage:@"暂无方案"];
+            self.tableView.userInteractionEnabled = NO;
+            self.imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 140, self.view.bounds.size.width, 200)];
+            _imageV.image = [UIImage imageNamed:@"WeChat_1456302464.jpeg"];
+            [self.tableView addSubview:_imageV];
         }
         if ([dic isKindOfClass:[NSDictionary class]] && dic[@"glist"]) {
             _datas = responseObject[@"data"][@"glist"];
@@ -372,22 +376,24 @@
 //        cell.userInteractionEnabled = NO;
         return cell;
     }else{
+        
         //未点击按钮状态下返回的自定义cell
         YKSPlanCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlanCell"];
         if (!cell) {
             cell = [[YKSPlanCell alloc] init];
         }
         
-        //用于整个cell的点击
-        self.butCell = [UIButton buttonWithType:UIButtonTypeSystem];
-        self.butCell.frame = CGRectMake(0, 0, SCREEN_WIDTH, 115);
-        [self.butCell addTarget:self action:@selector(clickCellButton:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.contentView addSubview:self.butCell];
+            //用于整个cell的点击
+            self.butCell = [UIButton buttonWithType:UIButtonTypeSystem];
+            self.butCell.frame = CGRectMake(0, 0, SCREEN_WIDTH, 115);
+            [self.butCell addTarget:self action:@selector(clickCellButton:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.contentView addSubview:self.butCell];
+            
+            NSLog(@"数据%@",_datas);
+            cell.datas = [_datas copy];
+            //单元格不可点击
+            //        cell.userInteractionEnabled = NO;
         
-        NSLog(@"数据%@",_datas);
-        cell.datas = [_datas copy];
-        //单元格不可点击
-//        cell.userInteractionEnabled = NO;
         return cell;
     }
     
