@@ -73,12 +73,17 @@
     self.tableView.tableHeaderView = headerView;
     self.tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
     self.tableView.tableFooterView = [[UIView alloc]init];
-    [self requestSubSpecialList];
+//    [self requestSubSpecialList];
     //设置记录变量初值
     self.indexArray = [NSMutableArray array];
+    
 }
 //药品收藏不显示 每次界面都刷新 暂时修改
--(void)viewDidAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated{
+    _datas = nil;
+    _totalPrice = 0.00;
+    _datasArray = nil;
+    
     [self requestSubSpecialList];
 }
 
