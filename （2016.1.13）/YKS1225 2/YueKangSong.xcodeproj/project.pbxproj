@@ -1869,7 +1869,7 @@
 					"$(PROJECT_DIR)/ping++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a0c62aaa-9c3d-4d38-a7ab-393dbfcf7fbb";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
