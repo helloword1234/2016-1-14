@@ -290,7 +290,7 @@
         if (dic.count ==0) {
             self.tableView.userInteractionEnabled = NO;
             self.imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 145, self.view.bounds.size.width, 500)];
-            _imageV.image = [UIImage imageNamed:@"WeChat_1456306640.jpeg"];
+            _imageV.image = [UIImage imageNamed:@"WeChat_1456366016.jpeg"];
             [self.tableView addSubview:_imageV];
         }
         if ([dic isKindOfClass:[NSDictionary class]] && dic[@"glist"]) {
