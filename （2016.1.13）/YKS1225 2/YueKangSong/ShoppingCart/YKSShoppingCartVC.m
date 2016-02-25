@@ -131,6 +131,20 @@
     }
 
 }
+//购物车页面合计费用（不计算运费）
+-(void)showFreightPrice{
+    
+    NSString *priceString = [NSString stringWithFormat:@"￥%0.2f",_totalPrice ];
+    NSMutableAttributedString *attribuedString = [[NSMutableAttributedString alloc] initWithString:priceString];
+    [attribuedString addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:11.0f],
+                                     NSForegroundColorAttributeName: (id)UIColorFromRGB(0xE9460B)}
+                             range:NSMakeRange(0, 1)];
+    [attribuedString addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:19.0f],
+                                     NSForegroundColorAttributeName: (id)UIColorFromRGB(0xE9460B)}
+                             range:NSMakeRange(1, priceString.length - 1)];
+    _totalPriceLabel.attributedText = attribuedString;
+    
+}
 
 /**
  *  请求数据
@@ -186,10 +200,11 @@
             self.tableView.hidden = _bottomView.hidden = NO;
 //            _editBarItem.enabled = YES;
             _totalPrice = totalPrice;
-            [YKSTools showFreightPriceTextByTotalPrice:_totalPrice callback:^(NSAttributedString *totalPriceString, NSString *freightPriceString) {
-                _totalPriceLabel.attributedText = totalPriceString;
-                _freightLabel.text = freightPriceString;
-            }];
+            [self showFreightPrice];
+//            [YKSTools showFreightPriceTextByTotalPrice:_totalPrice callback:^(NSAttributedString *totalPriceString, NSString *freightPriceString) {
+//                _totalPriceLabel.attributedText = totalPriceString;
+//                _freightLabel.text = freightPriceString;
+//            }];
             _allSelectState = _datas.count;
             _allSelectedButton.selected = YES;
             [self.tableView reloadData];
@@ -224,10 +239,12 @@
         }
     }];
     _totalPrice = totalPrice;
-    [YKSTools showFreightPriceTextByTotalPrice:_totalPrice callback:^(NSAttributedString *totalPriceString, NSString *freightPriceString) {
-        _totalPriceLabel.attributedText = totalPriceString;
-        _freightLabel.text = freightPriceString;
-    }];
+    [self showFreightPrice];
+    //购物车页面合计计算运费算法
+//    [YKSTools showFreightPriceTextByTotalPrice:_totalPrice callback:^(NSAttributedString *totalPriceString, NSString *freightPriceString) {
+//        _totalPriceLabel.attributedText = totalPriceString;
+//        _freightLabel.text = freightPriceString;
+//    }];
 }
 
 #pragma mark - IBOutlets
@@ -312,10 +329,11 @@
         }
     }];
     _totalPrice = totalPrice;
-    [YKSTools showFreightPriceTextByTotalPrice:_totalPrice callback:^(NSAttributedString *totalPriceString, NSString *freightPriceString) {
-        _totalPriceLabel.attributedText = totalPriceString;
-        _freightLabel.text = freightPriceString;
-    }];
+    [self showFreightPrice];
+//    [YKSTools showFreightPriceTextByTotalPrice:_totalPrice callback:^(NSAttributedString *totalPriceString, NSString *freightPriceString) {
+//        _totalPriceLabel.attributedText = totalPriceString;
+//        _freightLabel.text = freightPriceString;
+//    }];
 }
 
 //这里是一次计算所有,但是要考虑到选择按钮的作用啊,所以在循环的时候,要多一个标志
@@ -435,10 +453,11 @@
             }
         }];
         _totalPrice = totalPrice;
-        [YKSTools showFreightPriceTextByTotalPrice:_totalPrice callback:^(NSAttributedString *totalPriceString, NSString *freightPriceString) {
-            _totalPriceLabel.attributedText = totalPriceString;
-            _freightLabel.text = freightPriceString;
-        }];
+        [self showFreightPrice];
+//        [YKSTools showFreightPriceTextByTotalPrice:_totalPrice callback:^(NSAttributedString *totalPriceString, NSString *freightPriceString) {
+//            _totalPriceLabel.attributedText = totalPriceString;
+//            _freightLabel.text = freightPriceString;
+//        }];
 
         
     };
@@ -497,10 +516,11 @@
 //    }
     
     NSLog(@"---- self.allSelectState ------%ld",self.allSelectState);
-    [YKSTools showFreightPriceTextByTotalPrice:_totalPrice callback:^(NSAttributedString *totalPriceString, NSString *freightPriceString) {
-        _totalPriceLabel.attributedText = totalPriceString;
-        _freightLabel.text = freightPriceString;
-    }];
+    [self showFreightPrice];
+//    [YKSTools showFreightPriceTextByTotalPrice:_totalPrice callback:^(NSAttributedString *totalPriceString, NSString *freightPriceString) {
+//        _totalPriceLabel.attributedText = totalPriceString;
+//        _freightLabel.text = freightPriceString;
+//    }];
 }
 
 - (IBAction)Minus {
@@ -524,10 +544,11 @@
 //        _totalPrice = 0.00;
 //    }
     [_tableView reloadData];
-    [YKSTools showFreightPriceTextByTotalPrice:_totalPrice callback:^(NSAttributedString *totalPriceString, NSString *freightPriceString) {
-        _totalPriceLabel.attributedText = totalPriceString;
-        _freightLabel.text = freightPriceString;
-    }];
+    [self showFreightPrice];
+//    [YKSTools showFreightPriceTextByTotalPrice:_totalPrice callback:^(NSAttributedString *totalPriceString, NSString *freightPriceString) {
+//        _totalPriceLabel.attributedText = totalPriceString;
+//        _freightLabel.text = freightPriceString;
+//    }];
 }
 
 
@@ -568,10 +589,11 @@
             }
         }];
         _totalPrice = totalPrice;
-        [YKSTools showFreightPriceTextByTotalPrice:_totalPrice callback:^(NSAttributedString *totalPriceString, NSString *freightPriceString) {
-            _totalPriceLabel.attributedText = totalPriceString;
-            _freightLabel.text = freightPriceString;
-        }];
+        [self showFreightPrice];
+//        [YKSTools showFreightPriceTextByTotalPrice:_totalPrice callback:^(NSAttributedString *totalPriceString, NSString *freightPriceString) {
+//            _totalPriceLabel.attributedText = totalPriceString;
+//            _freightLabel.text = freightPriceString;
+//        }];
         
         
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
