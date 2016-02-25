@@ -68,18 +68,20 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [GZBaseRequest shoppingcartListCallback:^(id responseObject, NSError *error) {
-        if (responseObject) {
-            NSArray *dataArrar = responseObject[@"data"][@"list"];
-            for (NSDictionary *dic in dataArrar) {
-                if ([dic[@"gid"] isEqualToString:_drugInfo[@"gid"]]) {
-                    NSString *data = dic[@"gcount"];
-                    _number = [data intValue];
+    if ([YKSUserModel isLogin]) {
+        [GZBaseRequest shoppingcartListCallback:^(id responseObject, NSError *error) {
+            if (responseObject) {
+                NSArray *dataArrar = responseObject[@"data"][@"list"];
+                for (NSDictionary *dic in dataArrar) {
+                    if ([dic[@"gid"] isEqualToString:_drugInfo[@"gid"]]) {
+                        NSString *data = dic[@"gcount"];
+                        _number = [data intValue];
+                    }
                 }
             }
-        }
-    }];
+        }];
 
+    }
     _timer = -1;
     [self.scrollView removeFromSuperview];
     [self.pageControl removeFromSuperview];
