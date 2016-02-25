@@ -68,7 +68,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    _number=0;
+    _timer = -1;
     [self.scrollView removeFromSuperview];
     [self.pageControl removeFromSuperview];
     [_imageView removeFromSuperview];
@@ -239,8 +240,6 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _number=0;
-    _timer = -1;
 }
 
 //通知方法
