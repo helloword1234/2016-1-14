@@ -184,30 +184,41 @@
         }
         _datas = [NSMutableArray array];
         NSArray *array = responseObject[@"data"][@"list"];
-        __block CGFloat totalPrice = 0;
-        [array enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
-            NSMutableDictionary *dic = [obj mutableCopy];
-            if (!dic[@"isBuy"]) {
-                dic[@"isBuy"] = @YES;
+        if (array.count == 0) {
+            //清空购物车改变药品数量置为0
+            [YKSFMDBManger shareManger].dataCount = 0;
+            //转为角标形式
+            [[YKSFMDBManger shareManger] addShopCount];
+            //发送通知,改变角标
+            [[YKSFMDBManger shareManger] notiscation];
+        }else
+        {
+            __block CGFloat totalPrice = 0;
+            [array enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+                NSMutableDictionary *dic = [obj mutableCopy];
+                if (!dic[@"isBuy"]) {
+                    dic[@"isBuy"] = @YES;
+                }
+                dic[@"needBuyCount"] = obj[@"gcount"];
+                totalPrice += [obj[@"gprice"] floatValue] * [obj[@"gcount"] integerValue];
+                NSLog(@"_totalPrice = %@", @([obj[@"gprice"] floatValue]));
+                [_datas addObject:dic];
+            }];
+            
+            if (_datas.count > 0) {
+                self.tableView.hidden = _bottomView.hidden = NO;
+                //            _editBarItem.enabled = YES;
+                _totalPrice = totalPrice;
+                [self showFreightPrice];
+                //            [YKSTools showFreightPriceTextByTotalPrice:_totalPrice callback:^(NSAttributedString *totalPriceString, NSString *freightPriceString) {
+                //                _totalPriceLabel.attributedText = totalPriceString;
+                //                _freightLabel.text = freightPriceString;
+                //            }];
+                _allSelectState = _datas.count;
+                _allSelectedButton.selected = YES;
+                [self.tableView reloadData];
             }
-            dic[@"needBuyCount"] = obj[@"gcount"];
-            totalPrice += [obj[@"gprice"] floatValue] * [obj[@"gcount"] integerValue];
-            NSLog(@"_totalPrice = %@", @([obj[@"gprice"] floatValue]));
-            [_datas addObject:dic];
-        }];
-        
-        if (_datas.count > 0) {
-            self.tableView.hidden = _bottomView.hidden = NO;
-//            _editBarItem.enabled = YES;
-            _totalPrice = totalPrice;
-            [self showFreightPrice];
-//            [YKSTools showFreightPriceTextByTotalPrice:_totalPrice callback:^(NSAttributedString *totalPriceString, NSString *freightPriceString) {
-//                _totalPriceLabel.attributedText = totalPriceString;
-//                _freightLabel.text = freightPriceString;
-//            }];
-            _allSelectState = _datas.count;
-            _allSelectedButton.selected = YES;
-            [self.tableView reloadData];
+            
         }
     }
 }

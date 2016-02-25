@@ -72,11 +72,14 @@
         [GZBaseRequest shoppingcartListCallback:^(id responseObject, NSError *error) {
             if (responseObject) {
                 NSArray *dataArrar = responseObject[@"data"][@"list"];
-                for (NSDictionary *dic in dataArrar) {
-                    if ([dic[@"gid"] isEqualToString:_drugInfo[@"gid"]]) {
-                        NSString *data = dic[@"gcount"];
-                        _number = [data intValue];
+                if (dataArrar.count != 0) {
+                    for (NSDictionary *dic in dataArrar) {
+                        if ([dic[@"gid"] isEqualToString:_drugInfo[@"gid"]]) {
+                            NSString *data = dic[@"gcount"];
+                            _number = [data intValue];
+                        }
                     }
+
                 }
             }
         }];

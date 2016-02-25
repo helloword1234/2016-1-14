@@ -100,16 +100,18 @@ static YKSFMDBManger *manager=nil;
         NSDictionary *dic = [responseObject objectForKey:@"data"];
         NSArray *dataArray = [dic objectForKey:@"list"];
         
-        CGFloat totalCount = 0;
-        //循环遍历购物车药品数组
-        for (NSDictionary *data in dataArray) {
-            //获取药品的数量
-            CGFloat dataCount = [[data objectForKey:@"gcount"] integerValue];
-            //累计相加，则是后台购物车药品的总数
-            totalCount = totalCount + dataCount;
+        if (dataArray.count != 0) {
+            CGFloat totalCount = 0;
+            //循环遍历购物车药品数组
+            for (NSDictionary *data in dataArray) {
+                //获取药品的数量
+                CGFloat dataCount = [[data objectForKey:@"gcount"] integerValue];
+                //累计相加，则是后台购物车药品的总数
+                totalCount = totalCount + dataCount;
+            }
+            NSString *total = [NSString stringWithFormat:@"%.0f",totalCount];
+            self.shoppingCarCount = total;
         }
-        NSString *total = [NSString stringWithFormat:@"%.0f",totalCount];
-        self.shoppingCarCount = total;
         
     }];
     
