@@ -11,8 +11,8 @@
 #define LABEL_INFORMATION_FONT [UIFont systemFontOfSize:15.0f]
 #define NAME_LABEL_X 15.0f
 #define NAME_LABEL_W 65.0f
-#define NAME_LABEL_H 20.0f
-#define LABEL_INTERVAL 10.0f
+#define NAME_LABEL_H 25.0f
+#define LABEL_INTERVAL 5.0f
 #define LABEL_INFORMATION_X NAME_LABEL_X + NAME_LABEL_W + 10.0f
 #define LABEL_INFORMATION_W  window.bounds.size.width - NAME_LABEL_X - NAME_LABEL_W - 15.0f
 #define LABEL_INFORMATION_H NAME_LABEL_H
@@ -103,20 +103,23 @@
         //症状信息名
         self.symptomInformationName.text = symptomInformationName;
         self.symptomInformationName.frame = CGRectMake(NAME_LABEL_X, 2 * LABEL_INTERVAL + self.symptom.frame.origin.y + self.symptom.frame.size.height, NAME_LABEL_W, NAME_LABEL_H);
+//        self.symptomInformationName.backgroundColor = [UIColor blackColor];
         [self.symptomInformationName setFont:LABEL_NAME_FONT];
         self.symptomInformationName.backgroundColor = [UIColor whiteColor];
         
         //症状信息
-        self.symptomInformation.text = [NSString stringWithFormat:@"%@   %@",symptomInformationName,symptomInformation];
-        //self.symptomInformation.frame = CGRectMake(NAME_LABEL_X, 2 * LABEL_INTERVAL + self.symptom.frame.origin.y + self.symptom.frame.size.height, window.bounds.size.width - 30.0f, LABEL_INFORMATION_H);
+        self.symptomInformation.text =
+        [NSString stringWithFormat:@"                  %@",symptomInformation];
+//        self.symptomInformation.backgroundColor = [UIColor redColor];
+        self.symptomInformation.frame = CGRectMake(NAME_LABEL_X, CGRectGetMinY(self.symptomInformationName.frame), window.bounds.size.width - 30.0f, NAME_LABEL_W);
         self.symptomInformation.textColor = [UIColor lightGrayColor];
-        self.symptomInformation.lineBreakMode = NSLineBreakByWordWrapping;
+//        self.symptomInformation.lineBreakMode = NSLineBreakByWordWrapping;
         [self.symptomInformation setNumberOfLines:0];
         [self.symptomInformation setFont:LABEL_INFORMATION_FONT];
-        CGSize constraint = CGSizeMake(window.bounds.size.width - (15.0f * 2), 20000.0f);
-        NSDictionary *attribute = @{NSFontAttributeName:LABEL_INFORMATION_FONT};
-        CGSize size = [symptomInformation boundingRectWithSize:constraint options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
-        [self.symptomInformation setFrame:CGRectMake(NAME_LABEL_X, self.symptomInformationName.frame.origin.y, window.bounds.size.width - 30.0f, MAX(size.height,LABEL_INFORMATION_H))];
+//        CGSize constraint = CGSizeMake(window.bounds.size.width - (15.0f * 2), 20000.0f);
+//        NSDictionary *attribute = @{NSFontAttributeName:LABEL_INFORMATION_FONT};
+//        CGSize size = [symptomInformation boundingRectWithSize:constraint options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
+//        [self.symptomInformation setFrame:CGRectMake(NAME_LABEL_X, self.symptomInformationName.frame.origin.y, window.bounds.size.width - 30.0f, MAX(size.height,LABEL_INFORMATION_H))];
         [self addSubview:self.symptomInformation];
         [self addSubview:self.symptomInformationName];
 

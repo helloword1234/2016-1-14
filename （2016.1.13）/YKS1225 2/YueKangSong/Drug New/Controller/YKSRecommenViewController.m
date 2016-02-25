@@ -289,7 +289,7 @@
         NSDictionary *dic = responseObject[@"data"];
         if (dic.count ==0) {
             self.tableView.userInteractionEnabled = NO;
-            self.imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 145, self.view.bounds.size.width, 500)];
+            self.imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 157, self.view.bounds.size.width, 500)];
             _imageV.image = [UIImage imageNamed:@"WeChat_1456366016.jpeg"];
             [self.tableView addSubview:_imageV];
         }
