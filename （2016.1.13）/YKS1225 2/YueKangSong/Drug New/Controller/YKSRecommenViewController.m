@@ -45,6 +45,8 @@
 @property (nonatomic,strong) UIButton *butCell;
 @property(nonatomic,strong)UIImageView *imageV;
 
+@property(nonatomic,strong)UIView *aView;
+
 @end
 
 @implementation YKSRecommenViewController
@@ -87,6 +89,9 @@
     
     [self requestSubSpecialList];
 }
+
+
+
 
 //一键加入购物车 代理方法
 - (void)addShopping:(UIButton *)addButton
@@ -256,6 +261,23 @@
     }
 }
 
+- (void)addLogo {
+    _aView = [UIView new];
+    _aView.frame = CGRectMake(0, self.tableView.tableHeaderView.frame.size.height, self.tableView.frame.size.width, self.view.frame.size.height - self.tableView.tableHeaderView.frame.size.height);
+    _aView.backgroundColor=[UIColor whiteColor];
+    [self.tableView addSubview:_aView];
+    NSLog(@"%f",self.tableView.tableHeaderView.frame.size.height);
+    UIImageView *aImageView = [UIImageView new];
+    aImageView.frame = CGRectMake(0, self.tableView.tableHeaderView.frame.size.height, self.tableView.frame.size.width, self.view.frame.size.height - self.tableView.tableHeaderView.frame.size.height);
+    aImageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    aImageView.image = [UIImage imageNamed:@"没有方案.jpg"];
+    
+    //    [_aView addSubview:aImageView];
+    
+    [self.tableView addSubview:aImageView];
+    
+}
 
 //发送请求药品ID
 - (void)requestSubSpecialList {
@@ -288,10 +310,7 @@
         NSLog(@"responseObject = %@", responseObject);
         NSDictionary *dic = responseObject[@"data"];
         if (dic.count ==0) {
-            self.tableView.userInteractionEnabled = NO;
-            self.imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 157, self.view.bounds.size.width, 500)];
-            _imageV.image = [UIImage imageNamed:@"WeChat_1456366016.jpeg"];
-            [self.tableView addSubview:_imageV];
+            [self addLogo];
         }
         if ([dic isKindOfClass:[NSDictionary class]] && dic[@"glist"]) {
             _datas = responseObject[@"data"][@"glist"];

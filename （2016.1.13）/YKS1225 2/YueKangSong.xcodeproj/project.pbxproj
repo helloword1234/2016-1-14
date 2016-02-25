@@ -168,6 +168,7 @@
 		57C284A61BBB84490038AED9 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C284A11BBB84490038AED9 /* FMResultSet.m */; };
 		57C284A91BBB84640038AED9 /* YKSFMDBManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C284A81BBB84640038AED9 /* YKSFMDBManger.m */; };
 		81371BDE1B4A478500BFA4FD /* UIViewController+YKSArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 81371BDD1B4A478500BFA4FD /* UIViewController+YKSArchive.m */; };
+		933C5F241C7EE8810084D2A5 /* 没有方案.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 933C5F231C7EE8810084D2A5 /* 没有方案.jpg */; };
 		933EC1681C50C59C00A1AC1A /* 没有网络-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 933EC1661C50C59C00A1AC1A /* 没有网络-1.jpg */; };
 		933EC1691C50C59C00A1AC1A /* 没有网络-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 933EC1671C50C59C00A1AC1A /* 没有网络-2.jpg */; };
 		933EC16C1C50D99700A1AC1A /* 邀请页面1.png in Resources */ = {isa = PBXBuildFile; fileRef = 933EC16A1C50D99700A1AC1A /* 邀请页面1.png */; };
@@ -504,6 +505,7 @@
 		57C284A81BBB84640038AED9 /* YKSFMDBManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKSFMDBManger.m; sourceTree = "<group>"; };
 		81371BDC1B4A478500BFA4FD /* UIViewController+YKSArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+YKSArchive.h"; sourceTree = "<group>"; };
 		81371BDD1B4A478500BFA4FD /* UIViewController+YKSArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+YKSArchive.m"; sourceTree = "<group>"; };
+		933C5F231C7EE8810084D2A5 /* 没有方案.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "没有方案.jpg"; sourceTree = "<group>"; };
 		933EC1661C50C59C00A1AC1A /* 没有网络-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "没有网络-1.jpg"; sourceTree = "<group>"; };
 		933EC1671C50C59C00A1AC1A /* 没有网络-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "没有网络-2.jpg"; sourceTree = "<group>"; };
 		933EC16A1C50D99700A1AC1A /* 邀请页面1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "邀请页面1.png"; sourceTree = "<group>"; };
@@ -1176,6 +1178,7 @@
 		9AFE1E881C02C8CF0052AA9D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				933C5F231C7EE8810084D2A5 /* 没有方案.jpg */,
 				9AFE1E951C02C90B0052AA9D /* YKSFormViewCell.h */,
 				9AFE1E961C02C90B0052AA9D /* YKSFormViewCell.m */,
 				9AFE1E971C02C90B0052AA9D /* YKSOneBuyCell.h */,
@@ -1546,6 +1549,7 @@
 				F34ABEF21B8EB32B00E75F8E /* sellOver.png in Resources */,
 				576CFB1E1BD9E46C008D7247 /* back.png in Resources */,
 				57B3EF5A1BBB832F004F76F7 /* 15yuanhui@2x.png in Resources */,
+				933C5F241C7EE8810084D2A5 /* 没有方案.jpg in Resources */,
 				31E61FFA1C7DBB2E00940F8B /* K]X0YR1D5JJKV)T}CG@S[XP111.jpg in Resources */,
 				F3D5DC051B95E693007006EE /* 文字.png in Resources */,
 				57B3EF531BBB832F004F76F7 /* 1yuan@2x.png in Resources */,
