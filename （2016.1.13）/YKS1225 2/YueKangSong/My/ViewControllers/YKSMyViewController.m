@@ -39,22 +39,22 @@
 //}
 
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    if (![YKSUserModel isLogin])
-    {
-         self.YQMLabel.text=@"邀请得大礼";
-        
-       [self.yqmLabel removeFromSuperview];
-        
-       // [self.tableView reloadData];
-    }
- 
+//- (void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//    if (![YKSUserModel isLogin])
+//    {
+//         self.YQMLabel.text=@"邀请得大礼";
+//        
+//       [self.yqmLabel removeFromSuperview];
+//        
+//       // [self.tableView reloadData];
+//    }
+// 
 
         
     
     
-}
+//}
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -183,14 +183,15 @@
             default:
                 break;
         }
-    }else if (indexPath.section == 2){
-        
-        [self performSegueWithIdentifier:@"yaoqingma" sender:nil];
-
-
-        
     }
-    else if (indexPath.section == 3) {
+//    else if (indexPath.section == 2){
+//
+//        [self performSegueWithIdentifier:@"yaoqingma" sender:nil];
+//
+//
+//        
+//    }
+    else if (indexPath.section == 2) {
         switch (indexPath.row) {
             case 0: {
                 if (![YKSUserModel isLogin]) {
