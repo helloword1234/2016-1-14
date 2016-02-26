@@ -93,6 +93,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
 }
 
 - (void)viewDidLoad {
+    self.channel=@"cash";
     self.flag =0;
     [self requestAddressData];
     
@@ -257,7 +258,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
         if (ServerSuccess(responseObject))
             
         {
-            [HUD hide:YES afterDelay:0.5];
+            [HUD hide:YES afterDelay:3];
             _paytypeArray =[NSMutableArray arrayWithArray:responseObject[@"data"]];
             [self.tableView reloadData];
             

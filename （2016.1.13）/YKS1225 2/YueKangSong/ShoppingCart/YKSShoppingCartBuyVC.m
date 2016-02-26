@@ -119,6 +119,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
     
 }
 - (void)viewDidLoad {
+    self.channel=@"cash";
     self.flag = 0;
     [super viewDidLoad];
     _originTotalPrice = _totalPrice;
@@ -316,7 +317,7 @@ UIActionSheetDelegate,UIAlertViewDelegate>
         
         NSLog(@"---- aaaa ------%@",dic);
     }];
-
+//在线支付
     if (![self.channel isEqualToString:@"cash"]) {
         
         NSDictionary *dict =@{@"channel" : self.channel};
