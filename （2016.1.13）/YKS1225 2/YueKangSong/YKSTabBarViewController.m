@@ -27,19 +27,11 @@
            imageName:@"tabbar_home_normal"
      selectImageName:@"tabbar_home_select"];
     
-    _item2 = self.tabBar.items[1];
-    [self tabbarItem:_item2
+    UITabBarItem *item2 = self.tabBar.items[1];
+    [self tabbarItem:item2
            imageName:@"tabbar_cart_normal"
      selectImageName:@"tabbar_cart_select"];
     
-    if ([YKSUserModel isLogin])
-    {
-        //读取购物车的商品数量
-        [[YKSFMDBManger shareManger] readShoppingCarCount];
-    }
-    
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:) name:@"tongzhi" object:nil];
     
     UITabBarItem *item3 = self.tabBar.items[2];
     [self tabbarItem:item3
@@ -50,19 +42,6 @@
     [self tabbarItem:item4
            imageName:@"tabbar_my_normal"
      selectImageName:@"tabbar_my_select"];
-}
-
-//接受通知的方法，
--(void)tongzhi:(NSNotification *)test
-{
-    //给item购物车设置角标
-    if (![test.userInfo[@"count"] isEqualToString:@"0"]) {
-        [_item2 setBadgeValue:test.userInfo[@"count"]];
-    }else
-    {
-        [_item2 setBadgeValue:nil];
-    }
-    
 }
 
 - (void)tabbarItem:(UITabBarItem *)item

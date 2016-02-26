@@ -46,21 +46,10 @@ int i = 0;
     if(bugCount == 0 || bugCount  < 1)
     {
         bugCount = 1;
-        //单利中购物车药品的数量不改变
-        [YKSFMDBManger shareManger].dataCount = [YKSFMDBManger shareManger].dataCount;
         return ;
     }else
     {
-        //点击减号，单利中购物车药品的数量减去1
-        [YKSFMDBManger shareManger].dataCount --;
     }
-    //转为角标形式
-    [[YKSFMDBManger shareManger] addShopCount];
-    //发送通知，改变角标
-    [[YKSFMDBManger shareManger] notiscation];
-    
-    //每次点击减号赋值完后，改变count值，因页面消失的时候购物车的商品数量和后台接口一致
-    [[YKSFMDBManger shareManger] readShoppingCarCount];
     //    [self bringSubviewToFront:self.countLabel];
 //    self.countLabel.hidden = NO;
 //    self.countLabel.backgroundColor = [UIColor redColor];
@@ -84,22 +73,10 @@ int i = 0;
         [_drugInfo setValue:_drugInfo[@"repertory"] forKey:@"repertory"];
         
         bugCount--;
-        //超出最大库存，购物车药品数量不改变
-        [YKSFMDBManger shareManger].dataCount = [YKSFMDBManger shareManger].dataCount;
         return;
     }else
     {
-        NSLog(@"%f",[YKSFMDBManger shareManger].dataCount);
-        //点击减号，单利中购物车药品的数量加上1
-        [YKSFMDBManger shareManger].dataCount ++;
     }
-    //转为角标形式
-    [[YKSFMDBManger shareManger] addShopCount];
-    //发送通知
-    [[YKSFMDBManger shareManger] notiscation];
-    
-    //每次点击加号赋值完后，改变count值，因页面消失的时候购物车的商品数量和后台接口一致
-    [[YKSFMDBManger shareManger] readShoppingCarCount];
     self.countLabel.text = [[NSString alloc] initWithFormat:@"x %@", @(bugCount)];
     self.centerCountLabel.text = [[NSString alloc] initWithFormat:@"%@", @(bugCount)];
     if (_countCallback) {
