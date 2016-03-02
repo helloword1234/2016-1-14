@@ -352,7 +352,49 @@
                                         if (ServerSuccess(responseObject)) {
                                             
                                             if ([responseObject[@"data"][@"sendable"] boolValue]) {
-                                                [self.navigationController showToastMessage:@"添加成功"];
+                                                
+                                                [YKSUserModel shareInstance].addressID = responseObject[@"data"][@"addressid"];
+                                                NSArray *array = [latLng componentsSeparatedByString:@","];
+                                                [YKSUserModel shareInstance].lat = [[array firstObject] floatValue];
+                                                [YKSUserModel shareInstance].lng = [[array lastObject] floatValue];
+                                                //网络获取地址列表
+                                                [GZBaseRequest addressListCallback:^(id responseObject, NSError *error) {
+                                                    
+                                                    if (responseObject) {
+                                                        NSArray *dataArr = responseObject[@"data"][@"addresslist"];
+                                                        
+                                                        for (NSDictionary *dataDic in dataArr) {
+                                                            
+                                                            
+                                                            
+                                                            //判断，地址id
+                                                            if ([dataDic[@"id"] isEqualToString:[YKSUserModel shareInstance].addressID]) {
+                                                                
+                                                                if (![dataDic[@"didinfo"][@"id"] isEqualToString:[YKSUserModel shareInstance].currentSelectAddress[@"didinfo"][@"id"]]) {
+                                                                    //清空购物车
+                                                                    [GZBaseRequest restartShoppingCartBygids:nil callback:^(id responseObject, NSError *error) {
+                                                                        
+                                                                        if (ServerSuccess(responseObject))
+                                                                        {
+                                                                            
+                                                                        }
+                                                                    }];
+                                                                    
+                                                                }
+                                                                [YKSUserModel shareInstance].currentSelectAddress = dataDic;
+                                                                //这里就是了,拿到地址,删除旧地址
+                                                                
+                                                                [UIViewController deleteFile];
+                                                                [UIViewController selectedAddressArchiver:dataDic];
+                                                                
+                                                            }
+                                                        }
+                                                        [self.navigationController popToRootViewControllerAnimated:YES];
+                                                        
+                                                    }
+                                                }];
+                                                
+                                                
                                                 
                                             }
                                             else{
@@ -370,15 +412,15 @@
                                             
                                             
                                             //                                            [self.navigationController pushViewController:list animated:YES];
-                                            if ([self.flag isEqualToString:@"2"]) {
-                                                
-                                                [self.navigationController popViewControllerAnimated:YES];
-                                                return;
-                                                
-                                            }
-                                            
-                                            
-                                            [self showAddressView];
+//                                            if ([self.flag isEqualToString:@"2"]) {
+//                                                
+//                                                [self.navigationController popViewControllerAnimated:YES];
+//                                                return;
+//                                                
+//                                            }
+//                                            
+//                                            
+//                                            [self showAddressView];
                                             
                                             //                                            [self.navigationController popViewControllerAnimated:YES];
                                             NSLog(@"添加成功收货地址 = %@", responseObject);

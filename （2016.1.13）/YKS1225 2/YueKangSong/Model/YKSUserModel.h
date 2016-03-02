@@ -82,4 +82,6 @@
 
 @property (nonatomic, strong) NSString *deviceToken;
 
+@property (nonatomic,strong) NSString *addressID;//新建地址的id
+
 @end

@@ -201,9 +201,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
-    
-    
+    NSDictionary *currentAddress = [YKSUserModel shareInstance].currentSelectAddress;
+
 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:@"selectAddressVCRelodData" object:nil];
     
     YKSSelectAddressListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"YKSSelectAddressListCell"];
@@ -230,7 +229,10 @@
             
             return cell1;
         } else {
-            cell.logoImageView.image = nil;
+            cell.logoImageView.hidden = YES;
+            if ([currentAddress[@"id"] isEqualToString:dic[@"id"]]) {
+                cell.logoImageView.hidden = NO;
+            }
             cell.nameLabel.text = dic[@"express_username"];
             cell.phoneLabel.text = dic[@"express_mobilephone"];
             if (dic[@"community"]) {
