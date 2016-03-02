@@ -43,7 +43,7 @@
     }
     return _baseInfo;
 }
-
+//
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (self.isforceupdate) {
         

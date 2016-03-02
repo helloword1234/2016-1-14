@@ -181,7 +181,7 @@
                                                         <action selector="dispatchingAction:" destination="6w2-9P-VTT" eventType="touchUpInside" id="rZY-cP-hvV"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HoJ-uN-vxP">
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HoJ-uN-vxP">
                                                     <rect key="frame" x="123" y="7" width="91" height="31"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="31" id="EUp-i7-Su1"/>

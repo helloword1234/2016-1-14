@@ -1937,7 +1937,7 @@
 					"$(PROJECT_DIR)/ping++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "11da268d-cf28-459d-8fbc-a13483122e5e";
+				PROVISIONING_PROFILE = "0ed4985f-97d3-47ba-8845-d15957756981";
 			};
 			name = Release;
 		};
