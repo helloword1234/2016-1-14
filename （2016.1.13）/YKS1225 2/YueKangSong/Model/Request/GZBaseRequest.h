@@ -62,6 +62,12 @@
                                  page:(NSInteger)page
                              callback:(void (^)(id responseObject, NSError *error))callback;
 
+/************************* 药品详情 *************************/
++ (NSURLSessionDataTask *)getMediaInfor:(NSString *)mediaID
+                               callback:(void (^)(id responseObject, NSError *error))
+callback;
+
+
 /************************* 药品 *************************/
 //药品分类列表
 + (NSURLSessionDataTask *)drugCategoryListCallback:(void (^)(id responseObject, NSError *error))callback;

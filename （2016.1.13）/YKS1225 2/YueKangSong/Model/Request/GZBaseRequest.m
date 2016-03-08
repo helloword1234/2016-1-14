@@ -35,6 +35,9 @@ NSString *const kRestartShoppingCart = @"/shoppingcart/index?op_type=restart";//
 NSString *const kDrugCategoryList = @"/category/index?op_type=categorylist";//药品分类
 NSString *const kDrugResult = @"/searchg/?op_type=category";//分类下面的药品
 
+//药品详情
+NSString *const kMediaInfo = @"/searchg/index?op_type=medinfo";//根据药品id获取药品详情
+
 //收藏
 NSString *const kCollectList = @"/collect/index?op_type=searchlist";
 NSString *const kAddCollect = @"/collect/index?op_type=add";
@@ -291,6 +294,21 @@ NSString *const kDrugStoreid = @"/corder/index?op_type=countNext5shop";
                                     }];
     
 }
+
+/************************* 药品详情 *************************/
++ (NSURLSessionDataTask *)getMediaInfor:(NSString *)mediaID
+                               callback:(void (^)(id responseObject, NSError *error))callback {
+    return [[GZHTTPClient shareClient]  GET:[self jointPhone:kMediaInfo]
+                                 parameters:[self addLatAndLng:@{@"mid":mediaID}]
+                                    success:^(NSURLSessionDataTask *task, id responseObject) {
+                                        callback(responseObject, nil);
+                                    }
+                                    failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                        callback(nil, error);
+                                    }];
+    
+}
+
 
 /************************* 药品 *************************/
 //药品分类列表 http://123.56.89.98:8081/category/index?op_type=categorylist

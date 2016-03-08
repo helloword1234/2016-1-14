@@ -90,31 +90,26 @@
     [self.pageControl removeFromSuperview];
     [_imageView removeFromSuperview];
     
-    [GZBaseRequest searchByKey:_drugInfo[@"gtitle"] page:1 callback:^(id responseObject, NSError *error) {
+    [GZBaseRequest getMediaInfor:_drugInfo[@"gid"] callback:^(id responseObject, NSError *error) {
         if (responseObject) {
-            
             NSDictionary *dic = [responseObject objectForKey:@"data"];
-            NSArray *dataArr = [dic valueForKey:@"glist"];
-            for (NSDictionary *daya in dataArr) {
-                if ([daya[@"gid"] isEqualToString:_drugInfo[@"gid"]]) {
-                    self.storeID = [daya objectForKey:@"did"];
-                    _drugNewInror = daya;
-                }
+                NSArray *dataArr = [dic valueForKey:@"glist"];
+                NSDictionary *dataDic = [dataArr firstObject];
+                self.storeID = [dataDic objectForKey:@"did"];
+                _drugNewInror = dataDic;
+//                [self nullDrugDisplay];
+                [self.tableView reloadData];
+            }else if(error)
+            {
+                _imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
+                _imageView.image = [UIImage imageNamed:@"没有网络-2.jpg"];
+                
+                _imageView.userInteractionEnabled = YES;
+                
+                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+                            [_imageView addGestureRecognizer:tap];
+                            [self.view addSubview:_imageView];
             }
-            [self.tableView reloadData];
-        }else if (error)
-        {
-            _imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
-            _imageView.image = [UIImage imageNamed:@"没有网络-2.jpg"];
-            
-            _imageView.userInteractionEnabled = YES;
-            
-            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
-            [_imageView addGestureRecognizer:tap];
-            
-            [self.view addSubview:_imageView];
-        }
-        
     }];
     
     [self nullDrugDisplay];
