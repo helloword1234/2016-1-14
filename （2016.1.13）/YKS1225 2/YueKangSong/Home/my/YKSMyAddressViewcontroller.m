@@ -38,18 +38,15 @@
     [self.delegate reloadData];
     
     self.navigationController.navigationBar.hidden=YES;
+    self.tabBarController.tabBar.hidden = YES;
     
     NSNotification *noti=[NSNotification notificationWithName:@"odData" object:nil];
     
     [[NSNotificationCenter defaultCenter] postNotification:noti];
     
     
-    
-  
-}
-
--(void)viewDidAppear:(BOOL)animated{
     [self createBottomBtn];
+  
 }
 
 -(void)createBottomBtn{
@@ -201,9 +198,10 @@
 
 -(void)backAction{
     
-    self.tabBarController.selectedIndex=0;
-    
-    [self.navigationController popToRootViewControllerAnimated:YES];
+//    self.tabBarController.selectedIndex=0;
+//    
+//    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)gotoSearchAddress {

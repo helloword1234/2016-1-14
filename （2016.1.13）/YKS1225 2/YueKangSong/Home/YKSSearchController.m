@@ -204,5 +204,12 @@
     }
 }
 
+//当页面消失的时候，回收键盘
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [_searchBar endEditing:YES];
+}
+
+
 
 @end

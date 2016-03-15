@@ -110,15 +110,16 @@
         self.symptomInformation.text = [NSString stringWithFormat:@"%@   %@",symptomInformationName,symptomInformation];
         //self.symptomInformation.frame = CGRectMake(NAME_LABEL_X, 2 * LABEL_INTERVAL + self.symptom.frame.origin.y + self.symptom.frame.size.height, window.bounds.size.width - 30.0f, LABEL_INFORMATION_H);
         self.symptomInformation.textColor = [UIColor lightGrayColor];
-        self.symptomInformation.lineBreakMode = NSLineBreakByWordWrapping;
+        self.symptomInformation.lineBreakMode = NSLineBreakByClipping;
         [self.symptomInformation setNumberOfLines:0];
         [self.symptomInformation setFont:LABEL_INFORMATION_FONT];
         CGSize constraint = CGSizeMake(window.bounds.size.width - (15.0f * 2), 20000.0f);
         NSDictionary *attribute = @{NSFontAttributeName:LABEL_INFORMATION_FONT};
-        CGSize size = [symptomInformation boundingRectWithSize:constraint options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
-        [self.symptomInformation setFrame:CGRectMake(NAME_LABEL_X, self.symptomInformationName.frame.origin.y, window.bounds.size.width - 30.0f, MAX(size.height,LABEL_INFORMATION_H))];
+        CGRect rect = [_symptomInformation.text boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil];
+        [self.symptomInformation setFrame:CGRectMake(NAME_LABEL_X, self.symptomInformationName.frame.origin.y, rect.size.width,rect.size.height)];
         [self addSubview:self.symptomInformation];
         [self addSubview:self.symptomInformationName];
+
         
         //药师推荐label
         self.doctorKeepPushingName.frame = CGRectMake(NAME_LABEL_X , self.symptomInformationName.frame.origin.y + self.symptomInformation.frame.size.height + 2 * LABEL_INTERVAL, NAME_LABEL_W + 30, NAME_LABEL_H);

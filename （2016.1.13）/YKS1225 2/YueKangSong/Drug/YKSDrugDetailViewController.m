@@ -573,6 +573,34 @@
                                           if (ServerSuccess(responseObject)) {
                                              
                                               self.shoppingCartButton.selected = YES;
+                                              //加入购物车成功的情况下，显示动画，并提示加入购物车成功，库存变量++（设置的动画代理）；
+                                              self.animationImage.center = CGPointMake(SCREEN_WIDTH/4, SCRENN_HEIGHT - 30);
+                                              // 路径曲线
+                                              UIBezierPath *path = [UIBezierPath bezierPath];
+                                              
+                                              //  开始点
+                                              CGPoint fromPoint = self.animationImage.center;
+                                              [path moveToPoint:fromPoint];
+                                              
+                                              // 控制点 这个点控制曲线的曲度 形状
+                                              CGPoint controlpoint = CGPointMake( SCREEN_WIDTH/3                                                                                                                                                                                      , SCRENN_HEIGHT/4);
+                                              
+                                              // 结束点
+                                              
+                                              CGPoint toPoint = CGPointMake(SCREEN_WIDTH-20, -30);
+                                              [path  addQuadCurveToPoint:toPoint controlPoint:controlpoint];
+                                              
+                                              // 关键帧
+                                              CAKeyframeAnimation *moveAnim = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+                                              moveAnim.path = path.CGPath;
+                                              moveAnim.removedOnCompletion = YES;
+                                              
+                                              // 动画过程实现
+                                              CAAnimationGroup *animGroup = [CAAnimationGroup animation];
+                                              animGroup.animations = [NSArray arrayWithObject:moveAnim];
+                                              animGroup.duration = 0.8f;
+                                              animGroup.delegate=self;//一定不要忘了设置代理
+                                              [self.animationImage.layer  addAnimation:animGroup forKey:nil];
                                           } else {
                                               [self showToastMessage:responseObject[@"msg"]];
                                           }
@@ -580,33 +608,7 @@
         
     }
 
-    self.animationImage.center = CGPointMake(SCREEN_WIDTH/4, SCRENN_HEIGHT - 30);
-    // 路径曲线
-    UIBezierPath *path = [UIBezierPath bezierPath];
     
-    //  开始点
-    CGPoint fromPoint = self.animationImage.center;
-    [path moveToPoint:fromPoint];
-    
-    // 控制点 这个点控制曲线的曲度 形状
-    CGPoint controlpoint = CGPointMake( SCREEN_WIDTH/3                                                                                                                                                                                      , SCRENN_HEIGHT/4);
-    
-    // 结束点
-    
-    CGPoint toPoint = CGPointMake(SCREEN_WIDTH-20, -30);
-    [path  addQuadCurveToPoint:toPoint controlPoint:controlpoint];
-    
-    // 关键帧
-    CAKeyframeAnimation *moveAnim = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-    moveAnim.path = path.CGPath;
-    moveAnim.removedOnCompletion = YES;
-    
-    // 动画过程实现
-    CAAnimationGroup *animGroup = [CAAnimationGroup animation];
-    animGroup.animations = [NSArray arrayWithObject:moveAnim];
-    animGroup.duration = 0.8f;
-    animGroup.delegate=self;//一定不要忘了设置代理
-    [self.animationImage.layer  addAnimation:animGroup forKey:nil];
 }
 
 -(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
