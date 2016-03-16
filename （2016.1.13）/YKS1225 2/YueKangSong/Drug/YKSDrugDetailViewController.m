@@ -23,6 +23,7 @@
 #import "YKSShoppingCartVC.h"
 #import "JSBadgeView.h"
 #import "YKSFMDBManger.h"
+#import "YKSUserModel.h"
 
 @interface YKSDrugDetailViewController () <UITableViewDelegate, ImagePlayerViewDelegate,UIScrollViewDelegate,UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -90,14 +91,18 @@
     [self.pageControl removeFromSuperview];
     [_imageView removeFromSuperview];
     
-    [GZBaseRequest getMediaInfor:_drugInfo[@"gid"] callback:^(id responseObject, NSError *error) {
-        if (responseObject) {
-            NSDictionary *dic = [responseObject objectForKey:@"data"];
+    if ([YKSUserModel shareInstance].lat == 0) {
+        _drugNewInror = _drugInfo;
+    }else
+    {
+        [GZBaseRequest getMediaInfor:_drugInfo[@"gid"] callback:^(id responseObject, NSError *error) {
+            if (responseObject) {
+                NSDictionary *dic = [responseObject objectForKey:@"data"];
                 NSArray *dataArr = [dic valueForKey:@"glist"];
                 NSDictionary *dataDic = [dataArr firstObject];
                 self.storeID = [dataDic objectForKey:@"did"];
                 _drugNewInror = dataDic;
-//                [self nullDrugDisplay];
+                //                [self nullDrugDisplay];
                 [self.tableView reloadData];
             }else if(error)
             {
@@ -107,10 +112,12 @@
                 _imageView.userInteractionEnabled = YES;
                 
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
-                            [_imageView addGestureRecognizer:tap];
-                            [self.view addSubview:_imageView];
+                [_imageView addGestureRecognizer:tap];
+                [self.view addSubview:_imageView];
             }
-    }];
+        }];
+
+    }
     
     [self nullDrugDisplay];
     

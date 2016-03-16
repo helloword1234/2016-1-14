@@ -289,8 +289,11 @@
     
     NSDictionary *dic=[UIViewController selectedMyLocation];
     NSString *str=dic[@"pois"][0][@"name"];
-    if (str) {
+    if (![str isEqualToString:@""] && [YKSUserModel shareInstance].lat !=0) {
         [self.addressBtn setTitle:[NSString stringWithFormat:@"配送至:%@",str] forState:UIControlStateNormal];
+    }else
+    {
+        [self.addressBtn setTitle:@"获取位置失败" forState:UIControlStateNormal];
     }
 
     [self setAddressBtnFrame];
