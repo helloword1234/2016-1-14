@@ -127,6 +127,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tabBarController.tabBar.hidden = YES;
     //判断如果nameController的值等于couponVC，说明是我的页面push过来的
     if ([self.nameController isEqualToString:@"couponVC"]) {
         //取消tableView的点击事件
